@@ -31,7 +31,11 @@ module.exports = {
     modifyById: async(req, res, next) => {
         try{
             
-            const document = await movementsModel.update(req.body,{
+            const document = await movementsModel.update({
+                name:req.body.name,
+                amount:req.body.amount,
+                date:req.body.date
+            },{
                 where:{
                     _id:req.params.id
                 }
