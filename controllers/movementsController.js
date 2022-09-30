@@ -4,7 +4,7 @@ module.exports = {
     getAll:async (req, res, next) => {
         try{
             let filter = {}
-            
+
             const document= await movementsModel.findAll(filter)
 
             res.status(200).json(document)
@@ -59,4 +59,19 @@ module.exports = {
             next(error)
         }
     },
+    deleteById:  async(req, res, next) => {
+       try{
+            
+            const document = movementsModel.destroy({
+                where:{
+                    _id:req.params.id
+                }
+            })
+
+            res.status(200).json(document)
+        }catch (error){
+            console.log("Error: ", error)
+            next(error)
+        }
+    }
 }

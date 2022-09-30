@@ -18,4 +18,7 @@ router.put('/movement/:id', movementsController.modifyById);
 /* GET one movement */
 router.get('/movement/:id', movementsController.getById);
 
+/* DELETE one movement */
+router.delete('/movement/:id', movementsController.deleteById);
+
 module.exports = router;
