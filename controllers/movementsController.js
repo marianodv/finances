@@ -3,7 +3,19 @@ const movementsModel = require('../models/movementsModel')
 module.exports = {
     getAll:async (req, res, next) => {
         try{
-            const document= await movementsModel.findAll()
+            let filter = {}
+            
+            const document= await movementsModel.findAll(filter)
+
+            res.status(200).json(document)
+        }catch (error){
+            console.log("Error: ", error)
+            next(error)
+        }
+    },
+    getById:async (req, res, next) => {
+        try{
+            const document= await movementsModel.findByPk(req.params.id)
 
             res.status(200).json(document)
         }catch (error){
@@ -32,7 +44,7 @@ module.exports = {
         try{
             
             const document = await movementsModel.update({
-                name:req.body.name,
+                concept:req.body.concept,
                 amount:req.body.amount,
                 date:req.body.date
             },{
