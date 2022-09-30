@@ -21,4 +21,7 @@ router.get('/movement/:id', movementsController.getById);
 /* DELETE one movement */
 router.delete('/movement/:id', movementsController.deleteById);
 
+/* DELETE one movement */
+router.get('/balance/', movementsController.getBalance);
+
 module.exports = router;
