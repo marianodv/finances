@@ -13,6 +13,9 @@ router.post('/', movementsController.create);
 /* PUT one movement */
 /* require: in params: id */
 /* require: in body json whit concept(string), amount(decimal), date(date) and isEgress(boolean)*/
-router.put('/movement/:id', movementsController.create);
+router.put('/movement/:id', movementsController.modifyById);
+
+/* GET one movement */
+router.get('/movement/:id', movementsController.getById);
 
 module.exports = router;
