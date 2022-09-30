@@ -40,8 +40,11 @@ const movementsSchema = sequelize.define('movements',{
     date:{
         type:DataTypes.DATEONLY,
         allowNull:false,
-        set(value){
-            this.setDataValue('date',new Date())
+        validate:{
+            notNull:{
+                args:[true],
+                msg:'La fecha no puede ser nula.'
+            }
         }
     },
     isEgress:{
