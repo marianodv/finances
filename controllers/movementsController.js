@@ -32,9 +32,9 @@ module.exports = {
         try{
             const income= await movementsModel.sum('amount',{where:{isEgress:false}})
 
-            const expenses = 4
+            const expenses = await movementsModel.sum('amount',{where:{isEgress:true}})
 
-            res.status(200).json(income)
+            res.status(200).json(income - expenses)
         }catch (error){
             console.log("Error: ", error)
             next(error)
