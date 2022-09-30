@@ -16,6 +16,7 @@ module.exports = {
             const newMovement = new movementsModel({
                 concept:req.body.concept,
                 amount:req.body.amount,
+                date:req.body.date,
                 isEgress:req.body.isEgress
             })
 
