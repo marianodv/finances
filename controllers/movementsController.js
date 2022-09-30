@@ -28,6 +28,18 @@ module.exports = {
             next(error)
         }
     },
+    getBalance:async (req, res, next) => {
+        try{
+            const income= await movementsModel.sum('amount',{where:{isEgress:false}})
+
+            const expenses = 4
+
+            res.status(200).json(income)
+        }catch (error){
+            console.log("Error: ", error)
+            next(error)
+        }
+    },
     create:async (req, res, next) => {
         try{
             const newMovement = new movementsModel({
@@ -45,7 +57,7 @@ module.exports = {
             next(error)
         }
     },
-    
+
     modifyById: async(req, res, next) => {
         try{
             
