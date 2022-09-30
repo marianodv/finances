@@ -3,9 +3,14 @@ const movementsModel = require('../models/movementsModel')
 module.exports = {
     getAll:async (req, res, next) => {
         try{
-            let filter = {}
+            let filters={}
+            let document
 
-            const document= await movementsModel.findAll(filter)
+            if (req.query.limit){
+                document= await movementsModel.findAll({where:filters,limit:req.query.limit})
+            }else{
+                document= await movementsModel.findAll({where:filters})
+            }
 
             res.status(200).json(document)
         }catch (error){
@@ -40,6 +45,7 @@ module.exports = {
             next(error)
         }
     },
+    
     modifyById: async(req, res, next) => {
         try{
             
