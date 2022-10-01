@@ -21,7 +21,13 @@ router.get('/movement/:id', movementsController.getById);
 /* DELETE one movement */
 router.delete('/movement/:id', movementsController.deleteById);
 
-/* DELETE one movement */
+/* GET balance */
 router.get('/balance/', movementsController.getBalance);
+
+/* GET incomes */
+router.get('/incomes/', movementsController.getIncomes);
+
+/* GET expenses */
+router.get('/expenses/', movementsController.getExpenses);
 
 module.exports = router;
