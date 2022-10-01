@@ -7,9 +7,14 @@ module.exports = {
             let document
 
             if (req.query.limit){
-                document= await movementsModel.findAll({where:filters,limit:req.query.limit})
+                document= await movementsModel.findAll({
+                    where:filters,
+                    limit:req.query.limit
+                })
             }else{
-                document= await movementsModel.findAll({where:filters})
+                document= await movementsModel.findAll({
+                    where:filters
+                })
             }
 
             res.status(200).json(document)
@@ -30,11 +35,47 @@ module.exports = {
     },
     getBalance:async (req, res, next) => {
         try{
-            const income= await movementsModel.sum('amount',{where:{isEgress:false}})
+            const income= await movementsModel.sum('amount',{
+                where:{
+                    isEgress:false
+                }
+            })
 
-            const expenses = await movementsModel.sum('amount',{where:{isEgress:true}})
+            const expenses = await movementsModel.sum('amount',{
+                where:{
+                    isEgress:true
+                }
+            })
 
             res.status(200).json(income - expenses)
+        }catch (error){
+            console.log("Error: ", error)
+            next(error)
+        }
+    },
+    getExpenses:async (req, res, next) => {
+        try{
+            const expenses = await movementsModel.findAll({
+                where:{
+                    isEgress:true
+                }
+            })
+
+            res.status(200).json(expenses)
+        }catch (error){
+            console.log("Error: ", error)
+            next(error)
+        }
+    },
+    getIncomes:async (req, res, next) => {
+        try{
+            const incomes = await movementsModel.findAll({
+                where:{
+                    isEgress:true
+                }
+            })
+
+            res.status(200).json(incomes)
         }catch (error){
             console.log("Error: ", error)
             next(error)
@@ -57,7 +98,6 @@ module.exports = {
             next(error)
         }
     },
-
     modifyById: async(req, res, next) => {
         try{
             
