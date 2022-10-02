@@ -1,4 +1,5 @@
 const movementsModel = require('../models/movementsModel')
+const categoriesModel = require('../models/categoriesModel')
 const { Op } = require("sequelize");
 
 const ordenateBy = [
@@ -24,7 +25,8 @@ module.exports = {
             let document = await movementsModel.findAndCountAll({
                 limit:size,
                 offset: page*size,
-                order:ordenateBy
+                order:ordenateBy,
+                include:categoriesModel
             })
             
             document.page = page + 1
@@ -53,7 +55,12 @@ module.exports = {
     },
     getById:async (req, res, next) => {
         try{
-            const document= await movementsModel.findByPk(req.params.id)
+            const document= await movementsModel.findByPk(
+                req.params.id,
+                {
+                    include:categoriesModel
+                }
+            )
 
             res.status(200).json(document)
         }catch (error){
@@ -75,7 +82,8 @@ module.exports = {
 
             const document = await movementsModel.findAll({
                 where:filters,
-                order:ordenateBy
+                order:ordenateBy,
+                include:categoriesModel
             })
 
             console.log(document)
@@ -91,7 +99,8 @@ module.exports = {
         try{
             const document= await movementsModel.findAll({
                 limit:10,
-                order:ordenateBy
+                order:ordenateBy,
+                include:categoriesModel
             })
 
             res.status(200).json(document)
@@ -140,7 +149,8 @@ module.exports = {
                 },
                 limit:size,
                 offset: page*size,
-                order:ordenateBy
+                order:ordenateBy,
+                include:categoriesModel
             })
 
             document.page = page + 1
@@ -153,7 +163,14 @@ module.exports = {
 
             document.rowsPerPage = size
 
-            res.status(200).json(document)
+            res.status(200).json({
+                rowsCount:document.count,
+                pageMin:1,
+                pageMax:document.pages,
+                page:document.page,
+                rowsPerPage:document.rowsPerPage,
+                rows:document.rows
+            })
 
         }catch (error){
             console.log("Error: ", error)
@@ -180,7 +197,8 @@ module.exports = {
                 },
                 limit:size,
                 offset: page*size,
-                order:ordenateBy
+                order:ordenateBy,
+                include:categoriesModel
             })
 
             document.page = page + 1
@@ -193,7 +211,14 @@ module.exports = {
 
             document.rowsPerPage = size
 
-            res.status(200).json(document)
+            res.status(200).json({
+                rowsCount:document.count,
+                pageMin:1,
+                pageMax:document.pages,
+                page:document.page,
+                rowsPerPage:document.rowsPerPage,
+                rows:document.rows
+            })
 
         }catch (error){
             console.log("Error: ", error)
@@ -206,7 +231,8 @@ module.exports = {
                 concept:req.body.concept,
                 amount:req.body.amount,
                 date:req.body.date,
-                isEgress:req.body.isEgress
+                isEgress:req.body.isEgress,
+                categoryId:req.body.categoryId
             })
 
             const document = await newMovement.save()
@@ -223,7 +249,8 @@ module.exports = {
             const document = await movementsModel.update({
                 concept:req.body.concept,
                 amount:req.body.amount,
-                date:req.body.date
+                date:req.body.date,
+                categoryId:req.body.categoryId
             },{
                 where:{
                     _id:req.params.id
