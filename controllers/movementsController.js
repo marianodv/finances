@@ -242,7 +242,7 @@ module.exports = {
     deleteById:  async(req, res, next) => {
        try{
             
-            const document = movementsModel.destroy({
+            const document = await movementsModel.destroy({
                 where:{
                     _id:req.params.id
                 }

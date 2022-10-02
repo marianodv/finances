@@ -63,7 +63,7 @@ module.exports = {
     deleteById:  async(req, res, next) => {
        try{
             
-            const document = categoriesModel.destroy({
+            const document = await categoriesModel.destroy({
                 where:{
                     _id:req.params.id
                 }
