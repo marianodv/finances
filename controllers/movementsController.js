@@ -2,7 +2,7 @@ const movementsModel = require('../models/movementsModel')
 const { Op } = require("sequelize");
 
 module.exports = {
-    getAllPaginate:async (req, res, next) => { //EJM: localhost:3000/movements/?dateFrom=2022-09-30&dateTo=2022-09-30&name=me pagaron&amountFrom=1200&amountTo=3500
+    getAllPaginate:async (req, res, next) => { //EJM: localhost:3000/movements/?page=3&size=4
         try{
 
             //const {page,size} = req.query
@@ -30,6 +30,8 @@ module.exports = {
             }else{
                 document.pages = parseInt(document.count/size) 
             }
+
+            document.rowsPerPage = size
 
             res.status(200).json(document)
 
@@ -96,6 +98,21 @@ module.exports = {
     getById:async (req, res, next) => {
         try{
             const document= await movementsModel.findByPk(req.params.id)
+
+            res.status(200).json(document)
+        }catch (error){
+            console.log("Error: ", error)
+            next(error)
+        }
+    },
+    getTop:async (req, res, next) => {
+        try{
+            const document= await movementsModel.findAll({
+                limit:10,
+                order:[
+                    ['updatedAt', 'DESC']
+                ]
+            })
 
             res.status(200).json(document)
         }catch (error){

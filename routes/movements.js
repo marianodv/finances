@@ -30,4 +30,7 @@ router.get('/incomes/', movementsController.getIncomes);
 /* GET expenses */
 router.get('/expenses/', movementsController.getExpenses);
 
+/* GET Top movements */
+router.get('/top', movementsController.getTop);
+
 module.exports = router;
