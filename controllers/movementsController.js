@@ -140,29 +140,79 @@ module.exports = {
             next(error)
         }
     },
-    getExpenses:async (req, res, next) => {
+    getExpensesPaginate:async (req, res, next) => { //EJM: localhost:3000/movements/expenses/?page=3&size=4
         try{
-            const expenses = await movementsModel.findAll({
+
+            let page = parseInt(req.query.page)-1
+            let size = parseInt(req.query.size)
+
+            if (isNaN(page) || page == null || page < 0) {
+                page = 0
+            }
+
+            if (isNaN(size) || size == null || size < 0) {
+                size = 25
+            }
+
+            let document = await movementsModel.findAndCountAll({
                 where:{
                     isEgress:true
-                }
+                },
+                limit:size,
+                offset: page*size
             })
 
-            res.status(200).json(expenses)
+            document.page = page + 1
+           
+            if (parseInt(document.count/size) < (document.count/size)){
+                document.pages = parseInt(document.count/size)+1
+            }else{
+                document.pages = parseInt(document.count/size) 
+            }
+
+            document.rowsPerPage = size
+
+            res.status(200).json(document)
+
         }catch (error){
             console.log("Error: ", error)
             next(error)
         }
     },
-    getIncomes:async (req, res, next) => {
+    getIncomesPaginate:async (req, res, next) => { //EJM: localhost:3000/movements/incomes/?page=3&size=4
         try{
-            const incomes = await movementsModel.findAll({
+
+            let page = parseInt(req.query.page)-1
+            let size = parseInt(req.query.size)
+
+            if (isNaN(page) || page == null || page < 0) {
+                page = 0
+            }
+
+            if (isNaN(size) || size == null || size < 0) {
+                size = 25
+            }
+
+            let document = await movementsModel.findAll({
                 where:{
                     isEgress:false
-                }
+                },
+                limit:size,
+                offset: page*size
             })
 
-            res.status(200).json(incomes)
+            document.page = page + 1
+           
+            if (parseInt(document.count/size) < (document.count/size)){
+                document.pages = parseInt(document.count/size)+1
+            }else{
+                document.pages = parseInt(document.count/size) 
+            }
+
+            document.rowsPerPage = size
+
+            res.status(200).json(document)
+
         }catch (error){
             console.log("Error: ", error)
             next(error)

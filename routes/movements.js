@@ -25,10 +25,10 @@ router.delete('/movement/:id', movementsController.deleteById);
 router.get('/balance/', movementsController.getBalance);
 
 /* GET incomes */
-router.get('/incomes/', movementsController.getIncomes);
+router.get('/incomes/', movementsController.getIncomesPaginate);
 
 /* GET expenses */
-router.get('/expenses/', movementsController.getExpenses);
+router.get('/expenses/', movementsController.getExpensesPaginate);
 
 /* GET Top movements */
 router.get('/top', movementsController.getTop);
