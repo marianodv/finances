@@ -37,7 +37,8 @@ const movementsSchema = sequelize.define('movements',{
         }
     },
     date:{
-        type:DataTypes.DATEONLY,
+        type:DataTypes.DATE,
+        defaultValue:DataTypes.NOW,
         allowNull:false,
         validate:{
             notNull:{
