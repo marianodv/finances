@@ -40,7 +40,7 @@ function TopMovements(){
                 
             },2000)
         },
-        [] //=== componentDidMount, podria poner el state a monitorear
+        [] //=== componentDidMount, podria poner el state a monitorear simil al DidUpdate
     )
 
     const handleClickActualizar = ()=>{
