@@ -15,8 +15,8 @@ const movementsSchema = sequelize.define('movements',{
         allowNull:false,
         validate:{
             len:{
-                args:[5,50],
-                msg:'Debe escribir entre 5 y 50 caracteres en concepto.'
+                args:[5,70],
+                msg:'Debe escribir entre 5 y 70 caracteres en concepto.'
             },
             notNull:{
                 args:[true],
