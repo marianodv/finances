@@ -16,7 +16,7 @@ router.post('/', categoriesController.create);
 router.put('/category/:id', categoriesController.modifyById);
 
 /* GET one category */
-//router.get('/category/:id', categoriesController.getById);
+router.get('/category/:id', categoriesController.getById);
 
 /* DELETE one category */
 router.delete('/category/:id', categoriesController.deleteById);
