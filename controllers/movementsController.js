@@ -95,6 +95,57 @@ module.exports = {
             next(error)
         }
     },
+    getByCategoriesPaginate:async (req, res, next) => {
+        try{
+            
+            let page = parseInt(req.query.page)-1
+            let size = parseInt(req.query.size)
+            let idCat = parseInt(req.params.id)
+
+            if (isNaN(idCat) || idCat == null || idCat < 0) {
+                idCat = 0
+            }
+
+            if (isNaN(page) || page == null || page < 0) {
+                page = 0
+            }
+
+            if (isNaN(size) || size == null || size < 0) {
+                size = 25
+            }
+            
+            let document = await movementsModel.findAndCountAll({
+                limit:size,
+                offset: page*size,
+                order:ordenateBy,
+                include:categoriesModel,
+                where:{categoryId:idCat}
+            })
+            
+            document.page = page + 1
+           
+            if (parseInt(document.count/size) < (document.count/size)){
+                document.pages = parseInt(document.count/size)+1
+            }else{
+                document.pages = parseInt(document.count/size) 
+            }
+
+            document.rowsPerPage = size
+
+            res.status(200).json({
+                rowsCount:document.count,
+                pageMin:1,
+                pageMax:document.pages,
+                page:document.page,
+                rowsPerPage:document.rowsPerPage,
+                rows:document.rows
+            })
+
+        }catch (error){
+            console.log("Error: ", error)
+            next(error)
+        }
+    },
     getTop:async (req, res, next) => {
         try{
             const document= await movementsModel.findAll({
