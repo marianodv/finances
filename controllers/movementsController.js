@@ -20,7 +20,10 @@ module.exports = {
 
             let document = await movementsModel.findAndCountAll({
                 limit:size,
-                offset: page*size
+                offset: page*size,
+                order:[
+                    ['updatedAt', 'DESC']
+                ]
             })
             
             document.page = page + 1
@@ -159,7 +162,10 @@ module.exports = {
                     isEgress:true
                 },
                 limit:size,
-                offset: page*size
+                offset: page*size,
+                order:[
+                    ['updatedAt', 'DESC']
+                ]
             })
 
             document.page = page + 1
@@ -198,7 +204,10 @@ module.exports = {
                     isEgress:false
                 },
                 limit:size,
-                offset: page*size
+                offset: page*size,
+                order:[
+                    ['updatedAt', 'DESC']
+                ]
             })
 
             document.page = page + 1
