@@ -30,4 +30,4 @@ const categoriesSchema = sequelize.define('categories',{
 })
 
 
-module.exports = movementsSchema
+module.exports = categoriesSchema
