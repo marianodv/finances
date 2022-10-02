@@ -1,10 +1,77 @@
 const movementsModel = require('../models/movementsModel')
+const { Op } = require("sequelize");
 
 module.exports = {
-    getAll:async (req, res, next) => {
+    getAllPaginate:async (req, res, next) => { //EJM: localhost:3000/movements/?dateFrom=2022-09-30&dateTo=2022-09-30&name=me pagaron&amountFrom=1200&amountTo=3500
         try{
+
+            //const {page,size} = req.query
+
+            let page = parseInt(req.query.page)-1
+            let size = parseInt(req.query.size)
+
+            if (isNaN(page) || page == null || page < 0) {
+                page = 0
+            }
+
+            if (isNaN(size) || size == null || size < 0) {
+                size = 25
+            }
+
+            let document = await movementsModel.findAndCountAll({
+                limit:size,
+                offset: page*size
+            })
+            
+            document.page = page + 1
+           
+            if (parseInt(document.count/size) < (document.count/size)){
+                document.pages = parseInt(document.count/size)+1
+            }else{
+                document.pages = parseInt(document.count/size) 
+            }
+
+            res.status(200).json(document)
+
+
+
+            /*
             let filters={}
             let document
+            let aux={}
+
+            //queryFind={$or:[{name:{$regex:".*"+cadena+".*",$options:"i"}},{id:idSearch}]} 
+            if(req.query.dateFrom && req.query.dateTo){
+                aux.date={
+                    [Op.and]:[
+                        {[Op.gte]:req.query.dateFrom},
+                        {[Op.lte]:req.query.dateTo}
+                    ]
+                }    
+            }else if(req.query.dateFrom){
+                aux.date={[Op.gte]:req.query.dateFrom}
+            }else if(req.query.dateTo){
+                aux.date={[Op.lte]:req.query.dateTo}
+            }
+
+            if(req.query.amountFrom && req.query.amountTo){
+                aux.amount={
+                    [Op.and]:[
+                        {[Op.gte]:req.query.amountFrom},
+                        {[Op.lte]:req.query.amountTo}
+                    ]
+                }    
+            }else if(req.query.amountFrom){
+                aux.amount={[Op.gte]:req.query.amountFrom}
+            }else if(req.query.amountTo){
+                aux.amount={[Op.lte]:req.query.amountTo}
+            }
+
+            if(req.query.name){
+                aux.name={[Op.like]:'%'+ (new String(req.query.name).replace(" ","%")) +'%'}
+            }
+
+
 
             if (req.query.limit){
                 document= await movementsModel.findAll({
@@ -17,7 +84,10 @@ module.exports = {
                 })
             }
 
-            res.status(200).json(document)
+            
+            console.log("AUC: ", aux)
+            
+            res.status(200).json(document)*/
         }catch (error){
             console.log("Error: ", error)
             next(error)
@@ -71,7 +141,7 @@ module.exports = {
         try{
             const incomes = await movementsModel.findAll({
                 where:{
-                    isEgress:true
+                    isEgress:false
                 }
             })
 

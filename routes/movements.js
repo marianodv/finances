@@ -4,7 +4,7 @@ var router = express.Router();
 const movementsController = require('../controllers/movementsController')
 
 /* GET all movements */
-router.get('/', movementsController.getAll);
+router.get('/', movementsController.getAllPaginate);
 
 /* POST one movement */
 /* require: in body json whit concept(string), amount(decimal), date(date) and isEgress(boolean)*/
