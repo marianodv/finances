@@ -22,7 +22,8 @@ module.exports = {
                 limit:size,
                 offset: page*size,
                 order:[
-                    ['updatedAt', 'DESC']
+                    ['date', 'DESC'],
+                    ['updatedAt','DESC']
                 ]
             })
             
@@ -113,7 +114,8 @@ module.exports = {
             const document= await movementsModel.findAll({
                 limit:10,
                 order:[
-                    ['updatedAt', 'DESC']
+                    ['date', 'DESC'],
+                    ['updatedAt','DESC']
                 ]
             })
 
@@ -164,7 +166,8 @@ module.exports = {
                 limit:size,
                 offset: page*size,
                 order:[
-                    ['updatedAt', 'DESC']
+                    ['date', 'DESC'],
+                    ['updatedAt','DESC']
                 ]
             })
 
@@ -199,14 +202,15 @@ module.exports = {
                 size = 25
             }
 
-            let document = await movementsModel.findAll({
+            let document = await movementsModel.findAndCountAll({
                 where:{
                     isEgress:false
                 },
                 limit:size,
                 offset: page*size,
                 order:[
-                    ['updatedAt', 'DESC']
+                    ['date', 'DESC'],
+                    ['updatedAt','DESC']
                 ]
             })
 
