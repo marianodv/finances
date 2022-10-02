@@ -5,8 +5,6 @@ module.exports = {
     getAllPaginate:async (req, res, next) => { //EJM: localhost:3000/movements/?page=3&size=4
         try{
 
-            //const {page,size} = req.query
-
             let page = parseInt(req.query.page)-1
             let size = parseInt(req.query.size)
 
@@ -39,61 +37,6 @@ module.exports = {
 
             res.status(200).json(document)
 
-
-
-            /*
-            let filters={}
-            let document
-            let aux={}
-
-            //queryFind={$or:[{name:{$regex:".*"+cadena+".*",$options:"i"}},{id:idSearch}]} 
-            if(req.query.dateFrom && req.query.dateTo){
-                aux.date={
-                    [Op.and]:[
-                        {[Op.gte]:req.query.dateFrom},
-                        {[Op.lte]:req.query.dateTo}
-                    ]
-                }    
-            }else if(req.query.dateFrom){
-                aux.date={[Op.gte]:req.query.dateFrom}
-            }else if(req.query.dateTo){
-                aux.date={[Op.lte]:req.query.dateTo}
-            }
-
-            if(req.query.amountFrom && req.query.amountTo){
-                aux.amount={
-                    [Op.and]:[
-                        {[Op.gte]:req.query.amountFrom},
-                        {[Op.lte]:req.query.amountTo}
-                    ]
-                }    
-            }else if(req.query.amountFrom){
-                aux.amount={[Op.gte]:req.query.amountFrom}
-            }else if(req.query.amountTo){
-                aux.amount={[Op.lte]:req.query.amountTo}
-            }
-
-            if(req.query.name){
-                aux.name={[Op.like]:'%'+ (new String(req.query.name).replace(" ","%")) +'%'}
-            }
-
-
-
-            if (req.query.limit){
-                document= await movementsModel.findAll({
-                    where:filters,
-                    limit:req.query.limit
-                })
-            }else{
-                document= await movementsModel.findAll({
-                    where:filters
-                })
-            }
-
-            
-            console.log("AUC: ", aux)
-            
-            res.status(200).json(document)*/
         }catch (error){
             console.log("Error: ", error)
             next(error)
@@ -104,6 +47,35 @@ module.exports = {
             const document= await movementsModel.findByPk(req.params.id)
 
             res.status(200).json(document)
+        }catch (error){
+            console.log("Error: ", error)
+            next(error)
+        }
+    },
+    getSearch:async (req, res, next) => {
+        try{
+            
+            let filters={}
+
+            if (req.query.concept){
+                filters = {concept:{
+                        [Op.like]: "%" + new String(req.query.concept).replace(" ","%") + "%"
+                    }
+                }
+            }
+
+            const document = await movementsModel.findAll({
+                where:filters,
+                order:[
+                    ['date', 'DESC'],
+                    ['updatedAt','DESC']
+                ]
+            })
+
+            console.log(document)
+            
+            res.status(200).json(document)
+
         }catch (error){
             console.log("Error: ", error)
             next(error)

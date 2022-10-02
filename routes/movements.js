@@ -33,4 +33,7 @@ router.get('/expenses/', movementsController.getExpensesPaginate);
 /* GET Top movements */
 router.get('/top', movementsController.getTop);
 
+/* GET Search movements */
+router.get('/search/', movementsController.getSearch);
+
 module.exports = router;
