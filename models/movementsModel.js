@@ -1,5 +1,4 @@
 const { DataTypes } = require('sequelize')
-
 const sequelize = require('../config/sequelizedb')
 
 const movementsSchema = sequelize.define('movements',{
@@ -51,18 +50,11 @@ const movementsSchema = sequelize.define('movements',{
         type:DataTypes.BOOLEAN,
         allowNull:false,
         defaultValue:true
+    },
+    categoryId:{
+        type:DataTypes.INTEGER,
+        allowNull:true
     }
 })
-
-const sincronize = async ()=>{
-    await sequelize.sync()
-/**
- *  sync(): Este método creará un modelo si el modelo no existe, sin embargo, si ya existe, no lo sobrescribirá.
- *  sync({force: true}) Método: Este método creará un modelo si el modelo no existe, sin embargo, si ya existe, lo sobrescribirá.
- */
-    console.log("movements sincronized!")
-}
-
-sincronize();
 
 module.exports = movementsSchema

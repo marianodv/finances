@@ -8,6 +8,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const movementsRouter = require('./routes/movements')
 const categoriesRouter = require('./routes/categories')
+const assCategoriesModel = require('./associations/associationCategoriesModel')
+const syncUp = require('./config/sync')
 
 var app = express();
 
