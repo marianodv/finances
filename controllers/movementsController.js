@@ -55,7 +55,7 @@ module.exports = {
     getSearch:async (req, res, next) => {
         try{
             
-            let filters={}
+            let filters={_id:{[Op.lt]:0}} //para no obtener resultados en caso de no mandar req.query.concept (busco id < 0)
 
             if (req.query.concept){
                 filters = {concept:{
