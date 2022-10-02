@@ -1,6 +1,11 @@
 const movementsModel = require('../models/movementsModel')
 const { Op } = require("sequelize");
 
+const ordenateBy = [
+    ['date', 'DESC'],
+    ['updatedAt','DESC']
+]
+
 module.exports = {
     getAllPaginate:async (req, res, next) => { //EJM: localhost:3000/movements/?page=3&size=4
         try{
@@ -19,10 +24,7 @@ module.exports = {
             let document = await movementsModel.findAndCountAll({
                 limit:size,
                 offset: page*size,
-                order:[
-                    ['date', 'DESC'],
-                    ['updatedAt','DESC']
-                ]
+                order:ordenateBy
             })
             
             document.page = page + 1
@@ -35,7 +37,14 @@ module.exports = {
 
             document.rowsPerPage = size
 
-            res.status(200).json(document)
+            res.status(200).json({
+                rowsCount:document.count,
+                pageMin:1,
+                pageMax:document.pages,
+                page:document.page,
+                rowsPerPage:document.rowsPerPage,
+                rows:document.rows
+            })
 
         }catch (error){
             console.log("Error: ", error)
@@ -66,10 +75,7 @@ module.exports = {
 
             const document = await movementsModel.findAll({
                 where:filters,
-                order:[
-                    ['date', 'DESC'],
-                    ['updatedAt','DESC']
-                ]
+                order:ordenateBy
             })
 
             console.log(document)
@@ -85,10 +91,7 @@ module.exports = {
         try{
             const document= await movementsModel.findAll({
                 limit:10,
-                order:[
-                    ['date', 'DESC'],
-                    ['updatedAt','DESC']
-                ]
+                order:ordenateBy
             })
 
             res.status(200).json(document)
@@ -137,10 +140,7 @@ module.exports = {
                 },
                 limit:size,
                 offset: page*size,
-                order:[
-                    ['date', 'DESC'],
-                    ['updatedAt','DESC']
-                ]
+                order:ordenateBy
             })
 
             document.page = page + 1
@@ -180,10 +180,7 @@ module.exports = {
                 },
                 limit:size,
                 offset: page*size,
-                order:[
-                    ['date', 'DESC'],
-                    ['updatedAt','DESC']
-                ]
+                order:ordenateBy
             })
 
             document.page = page + 1
