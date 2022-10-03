@@ -1,5 +1,5 @@
 import React from "react";
-import TopMovements from "./TopMovements";
+import TopMovements from "../Components/TopMovements";
 
 class Home extends React.Component{
     render(){
