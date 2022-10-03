@@ -49,7 +49,7 @@ function TopMovements(){
     }else{
         return(
             <>
-                {listMovements.map((movement,ind) => <Movement key={ind} data={movement}>{ind+1}</Movement>)}  
+                {listMovements.map((movement,ind) => <Movement key={Movement._id} data={movement}>{ind+1}</Movement>)}  
                 <button onClick={handleClickActualizar}>actualizar movimientos</button>
             </>
         )
