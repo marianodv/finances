@@ -12,7 +12,7 @@ function TopMovements(){
                 try{          
                     const response = await getTopMovements()
                     console.log("RSP: ",response)
-                    setListMovements(response.data)
+                    setListMovements(response?.data)
                 }catch (error){
                     console.log("Error: ", error)
                 }
@@ -49,7 +49,7 @@ function TopMovements(){
     }else{
         return(
             <>
-                {listMovements.map(movement => <Movement data={movement} />)}  
+                {listMovements.map((movement,ind) => <Movement key={ind} data={movement}>{ind+1}</Movement>)}  
                 <button onClick={handleClickActualizar}>actualizar movimientos</button>
             </>
         )

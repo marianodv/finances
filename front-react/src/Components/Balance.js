@@ -6,13 +6,15 @@ function Balance(props){
     const [balance,setBalance] = useState(0)
     const [loading,setLoading] = useState(true)
 
-    const {concept,amount,date,categoryId,isEgress} = props.data
-
     useEffect(
         ()=>{
             const request = async () => {
-                const response = await getBalance()
-                console.log(response)
+                try{
+                    const response = await getBalance()
+                    setBalance(response?.data) 
+                }catch (error){
+                    console.log("Error: ", error)
+                }
             }
 
             request()
