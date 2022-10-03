@@ -8,19 +8,21 @@ function TopMovements(){
 
     useEffect(
         ()=>{
-            const request = async()=>{           
-                const data = await getTopMovements()
-                setListMovements(data)
+            const request = async()=>{ 
+                try{          
+                    const response = await getTopMovements()
+                    console.log("RSP: ",response.data)
+                    //setListMovements(data)
+                }catch (error){
+                    console.log("Error: ", error)
+                }
             }
-
-            setTimeout(()=>{
-                request()
-                    
-                setLoading(false)
+            
+            request()
                 
-            },2000)
+            setLoading(false)
         },
-        [] //=== componentDidMount, podria poner el state a monitorear simil al DidUpdate
+        [] //=== componentDidMount, podria poner el nombre del state a monitorear simil al DidUpdate
     )
 
     const handleClickActualizar = ()=>{
