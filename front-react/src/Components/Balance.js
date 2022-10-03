@@ -11,7 +11,7 @@ function Balance(props){
             const request = async () => {
                 try{
                     const response = await getBalance()
-                    setBalance(response?.data) 
+                    setBalance(response?.data || 0) 
                 }catch (error){
                     console.log("Error: ", error)
                 }
