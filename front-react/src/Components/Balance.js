@@ -1,7 +1,7 @@
 import React from "react";
+import axios from "../Config/axios";
 
-
-function Movement(props){
+function Balance(props){
 
     const {concept,amount,date,categoryId,isEgress} = props.data
 
@@ -21,4 +21,4 @@ function Movement(props){
     )
 }
 
-export default Movement
+export default Balance

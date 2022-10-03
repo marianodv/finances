@@ -11,8 +11,8 @@ function TopMovements(){
             const request = async()=>{ 
                 try{          
                     const response = await getTopMovements()
-                    console.log("RSP: ",response.data)
-                    //setListMovements(data)
+                    console.log("RSP: ",response)
+                    setListMovements(response.data)
                 }catch (error){
                     console.log("Error: ", error)
                 }
