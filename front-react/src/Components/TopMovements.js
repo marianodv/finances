@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from "react";
 import Movement from "./Movement";
-
+import {getTopMovements} from '../Services/movementsServices'
 
 function TopMovements(){
     const [loading,setLoading]=useState(true)
@@ -8,33 +8,13 @@ function TopMovements(){
 
     useEffect(
         ()=>{
+            const request = async()=>{           
+                const data = await getTopMovements()
+                setListMovements(data)
+            }
+
             setTimeout(()=>{
-                setListMovements([
-                    {
-                        _id:1,
-                        concept:"gastos1",
-                        amount:1255,
-                        isEgress:true
-                    },
-                    {
-                        _id:2,
-                        concept:"gastos2",
-                        amount:155,
-                        isEgress:false
-                    },
-                    {
-                        _id:3,
-                        concept:"gastos3",
-                        amount:1258,
-                        isEgress:false
-                    },
-                    {
-                        _id:4,
-                        concept:"gastos4",
-                        amount:45,
-                        isEgress:true
-                    }
-                ])
+                request()
                     
                 setLoading(false)
                 

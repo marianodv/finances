@@ -1,0 +1,28 @@
+export async function getTopMovements(){
+    return([
+        {
+            _id:1,
+            concept:"gastos1",
+            amount:1255,
+            isEgress:true
+        },
+        {
+            _id:2,
+            concept:"gastos2",
+            amount:155,
+            isEgress:false
+        },
+        {
+            _id:3,
+            concept:"gastos3",
+            amount:1258,
+            isEgress:false
+        },
+        {
+            _id:4,
+            concept:"gastos4",
+            amount:45,
+            isEgress:true
+        }
+    ])
+}

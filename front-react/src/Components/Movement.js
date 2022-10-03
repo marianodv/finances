@@ -1,5 +1,6 @@
 import React from "react";
 
+
 function Movement(props){
 
     const {concept,amount,date,categoryId,isEgress} = props.data
@@ -11,6 +12,7 @@ function Movement(props){
             <p>{date || ''}</p>
             <p>{categoryId || ''}</p>
             <p>{isEgress || true}</p>
+            <hr></hr>
         </div>
     )
 }

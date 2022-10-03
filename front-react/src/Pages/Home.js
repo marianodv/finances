@@ -5,7 +5,8 @@ class Home extends React.Component{
     render(){
         return(
             <div>
-                <h3>Listado Top</h3>
+                <h1>BIENVENIDOS</h1>
+                <h5>Listado Top</h5>
                 <TopMovements />
             </div>
         )
