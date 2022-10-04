@@ -8,7 +8,7 @@ function Public(){
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/movements" element={<Movements />} />
-            <Route path="/movement/:id" element={<Detail />} />
+            <Route path="/movements/detail/:id" element={<Detail />} />
         </Routes>
     )
 }

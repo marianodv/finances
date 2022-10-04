@@ -1,21 +1,21 @@
 import React from "react";
-
+import {Link} from "react-router-dom"
 
 function Movement(props){
 
-    const {concept,amount,date,categoryId,isEgress} = props.data
+    const {_id,concept,amount,date,categoryId,isEgress} = props.data
     const children = props.children
 
     return(
         <>
             { isEgress &&
                 <div>
-                    <p>{children})_{new Date(date).toLocaleDateString() || ''} | {concept || ''} ({categoryId || ''}) | $-{amount || ''}</p>
+                    <p><Link to={"/movements/detail/" + _id}>{children})_{new Date(date).toLocaleDateString() || ''} | {concept || ''} ({categoryId || ''}) | $-{amount || ''}</Link></p>
                 </div>
             }
             { !isEgress &&
                 <div>
-                    <p>{children})_{new Date(date).toLocaleDateString() || ''} | {concept || ''} ({categoryId || ''}) | ${amount || ''}</p>
+                    <p><Link to={"/movements/detail/" + _id}>{children})_{new Date(date).toLocaleDateString() || ''} | {concept || ''} ({categoryId || ''}) | ${amount || ''}</Link></p>
                 </div>
             }
         </>
