@@ -4,9 +4,11 @@ import Public from './Routes/Public';
 
 function App() {
   return (
-    <Router>
-      <Public />
-    </Router>
+    <div className="App">
+      <Router>
+        <Public />
+      </Router>
+    </div>
   );
 }
 
