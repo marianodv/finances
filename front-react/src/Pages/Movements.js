@@ -1,6 +1,6 @@
 import React, {useEffect,useState} from "react";
 import Movement from "../Components/Movement";
-
+import {getAll} from "../Services/movementsServices"
 
 function Movements(){
 
@@ -10,11 +10,11 @@ function Movements(){
         ()=>{
             const request = async()=>{ 
                 try{          
-                    const response = await getTopMovements()
+                    const response = await getAll()
                     console.log("RSP: ",response)
-                    setListMovements(response?.data)
+                    //setListMovements(response?.data)
 
-                    setLoading(false)
+                    //setLoading(false)
                 }catch (error){
                     console.log("Error: ", error)
                 }
