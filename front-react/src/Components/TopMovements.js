@@ -13,14 +13,14 @@ function TopMovements(){
                     const response = await getTopMovements()
                     console.log("RSP: ",response)
                     setListMovements(response?.data)
+                
+                    setLoading(false)
                 }catch (error){
                     console.log("Error: ", error)
                 }
             }
             
             request()
-                
-            setLoading(false)
         },
         [] //=== componentDidMount, podria poner el nombre del state a monitorear simil al DidUpdate
     )
