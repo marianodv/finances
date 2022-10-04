@@ -12,14 +12,14 @@ function Balance(props){
                 try{
                     const response = await getBalance()
                     setBalance(response?.data || 0) 
+
+                    setLoading(false)
                 }catch (error){
                     console.log("Error: ", error)
                 }
             }
 
             request()
-
-            setLoading(false)
         },
         []
     )
