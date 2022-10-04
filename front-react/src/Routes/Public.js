@@ -1,6 +1,7 @@
 import Home from "../Pages/Home"
 import Movements from "../Pages/Movements"
 import Detail from "../Pages/Detail"
+import NotFound from "../Pages/NotFound"
 import {Routes, Route} from "react-router-dom"
 
 function Public(){
@@ -9,6 +10,7 @@ function Public(){
             <Route path="/" element={<Home />} />
             <Route path="/movements" element={<Movements />} />
             <Route path="/movements/detail/:id" element={<Detail />} />
+            <Route path="*" element={<NotFound />} />
         </Routes>
     )
 }

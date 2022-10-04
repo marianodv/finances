@@ -7,3 +7,7 @@ export async function getTopMovements(){
 export async function getAll(){
     return await axios.get('/movements/')
 }
+
+export async function getById(id){
+    return await axios.get('/movements/movement/' + id)
+}
