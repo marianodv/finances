@@ -10,10 +10,12 @@ function CreateMovement(){
         console.log("FORM ", data)
      }
 
+    
+
     return(
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Input label="Fecha" register={{...register("name",{required:true})}}/>
+                <Input label="Fecha" type="date" register={{...register("name",{required:true})}}/>
                 {errors.name && <span>El campo nombre es obligatorio.</span>}
             
                 <Input label="Concepto" register={{...register("concept",{required:true})}}/>
