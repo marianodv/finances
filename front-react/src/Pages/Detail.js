@@ -22,9 +22,11 @@ function Detail(){
                     console.log("Error: ", error)
                 }
             }
+
+            setLoading(true)
             request()
         },
-        []
+        [id]
     )
 
 
