@@ -5,16 +5,17 @@ import {getAll} from "../Services/movementsServices"
 function Movements(){
 
     const [loading,setLoading] = useState(true)
+    const [movements,setMovements] = useState([])
 
     useEffect(
         ()=>{
             const request = async()=>{ 
                 try{          
                     const response = await getAll()
-                    console.log("RSP: ",response)
-                    //setListMovements(response?.data)
+                    console.log("LST: ",response?.data)
+                    setMovements(response?.data)
 
-                    //setLoading(false)
+                    setLoading(false)
                 }catch (error){
                     console.log("Error: ", error)
                 }
@@ -33,9 +34,8 @@ function Movements(){
     }else{
         return(
             <div>
-                <hr></hr>
-                <h1>(listado de movimientos)</h1>
-                <hr></hr>
+                {movements?.rows.map((movement,ind) => <Movement key={ind} data={movement}>{ind+1}</Movement>)}  
+                <p>{movements?.pageMin} to page {movements?.page} to {movements?.pageMax} | TOTAL: {movements?.rowsCount} | listed: {movements?.rowsPerPage}</p>
             </div>
         )
     }

@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from "react";
-import Movement from "./Movement";
+import TopMovement from "./TopMovement";
 import {getTopMovements} from '../Services/movementsServices'
 
 function TopMovements(){
@@ -13,7 +13,7 @@ function TopMovements(){
                     const response = await getTopMovements()
                     console.log("RSP: ",response)
                     setListMovements(response?.data)
-                
+                    
                     setLoading(false)
                 }catch (error){
                     console.log("Error: ", error)
@@ -49,7 +49,7 @@ function TopMovements(){
     }else{
         return(
             <>
-                {listMovements.map((movement,ind) => <Movement key={Movement._id} data={movement}>{ind+1}</Movement>)}  
+                {listMovements.map((movement,ind) => <TopMovement key={ind} data={movement}>{ind+1}</TopMovement>)}  
                 <button onClick={handleClickActualizar}>actualizar movimientos</button>
             </>
         )
