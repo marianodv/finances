@@ -1,7 +1,7 @@
 import React, {useEffect,useState} from "react";
 import {useForm} from "react-hook-form"
 import Input from "../Components/Input"
-import {getById,deleteById} from "../Services/movementsServices"
+import {getById,deleteById,updateById} from "../Services/movementsServices"
 import { useParams } from "react-router-dom";
 import Moment from 'moment';
 import Categories from "../Components/Categories";

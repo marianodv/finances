@@ -15,3 +15,7 @@ export async function getById(id){
 export async function deleteById(id){
     return await axios.delete('/movements/movement/' + id)
 }
+
+export async function updateById(id,data){
+    return await axios.put('/movements/movement/' + id,data)
+}
