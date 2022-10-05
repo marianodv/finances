@@ -15,7 +15,7 @@ function EditMovement(){
     const { register, handleSubmit, setValue, formState:{errors}} = useForm()
 
      const onSubmit = (data) => {
-        
+        console.log(data)
      }
 
      useEffect(
@@ -24,16 +24,16 @@ function EditMovement(){
                 const request = await getById(id)
                 console.log("init: ", request)
                 if (request.data){
-                    setValue("date",Moment().format('YYYY-MM-DD'))
-                    setValue("concept","")
-                    setValue("amount","")
-                    setValue("categoryId", "0")
+                    setValue("date",Moment(request.data.date).format('YYYY-MM-DD'))
+                    setValue("concept",request.data.concept)
+                    setValue("amount",request.data.amount)
+                    setValue("categoryId", request.data.categoryId)
                     setLoading(false)
                 }
             }
             init()
         },
-        [setValue]
+        [id,setValue]
     )
 
     if(loading){
@@ -45,6 +45,9 @@ function EditMovement(){
     }else{
         return(
             <div>
+                <div>
+                    <h2>Edicion de Id: {id}</h2>
+                </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Input label="Fecha" type="date" register={{...register("date",{required:true})}}/>
                     {errors.name && <span>El campo nombre es obligatorio.</span>}
