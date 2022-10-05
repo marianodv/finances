@@ -10,12 +10,12 @@ function Movement(props){
         <>
             { isEgress &&
                 <div>
-                    <p><Link to={"/movements/detail/" + _id}>{children})_{new Date(date).toLocaleDateString() || ''} | {concept || ''} ({category?.name || "Without Category"}) | $-{amount || ''}</Link></p>
+                    <p>{children})_{new Date(date).toLocaleDateString() || ''} | {concept || ''} ({category?.name || "Without Category"}) | $-{amount || ''}<Link to={"/movements/edit/" + _id}>EDITAR</Link></p>
                 </div>
             }
             { !isEgress &&
                 <div>
-                    <p><Link to={"/movements/detail/" + _id}>{children})_{new Date(date).toLocaleDateString() || ''} | {concept || ''} ({category?.name || "Without Category"}) | ${amount || ''}</Link></p>
+                    <p>{children})_{new Date(date).toLocaleDateString() || ''} | {concept || ''} ({category?.name || "Without Category"}) | ${amount || ''}<Link to={"/movements/edit/" + _id}>EDITAR</Link></p>
                 </div>
             }
         </>
