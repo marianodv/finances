@@ -1,7 +1,7 @@
-import React, {useEffect} from "react";
+import React, {useEffect,useState} from "react";
 import {useForm} from "react-hook-form"
 import Input from "../Components/Input"
-import {getById} from "../Services/MovementsService"
+import {getById} from "../Services/movementsServices"
 import { useParams } from "react-router-dom";
 import Moment from 'moment';
 import Categories from "../Components/Categories";
@@ -58,7 +58,7 @@ function EditMovement(){
 
                     <Categories label="Categoria: " register={{...register("categoryId")}}/>
 
-                    <Input label="Es Egreso:" type="checkbox" register={{...register("isEgress",{value:operation})}}/>
+                    <Input label="Es Egreso:" type="checkbox" register={{...register("isEgress",{value:true})}}/>
                     
                     <button type="submit">GUARDAR</button>
                 </form>
