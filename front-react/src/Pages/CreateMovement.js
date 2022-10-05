@@ -1,21 +1,40 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useForm} from "react-hook-form"
 import Input from "../Components/Input"
+import {postMovement} from "../Services/createMovementService"
+import Moment from 'moment';
 
 function CreateMovement(){
 
-    const { register, handleSubmit, formState:{errors}} = useForm()
+    const { register, handleSubmit, setValue, formState:{errors}} = useForm()
 
      const onSubmit = (data) => {
+        const create = async()=>{
+            const request = await postMovement(data)
+            if (request){
+                console.log("ALTA SATISFACTORIA: ", request)
+                setValue("date","")
+                setValue("concept","")
+                setValue("amount","")
+            }
+        }
         console.log("FORM ", data)
+        create()
      }
 
-    
+     useEffect(
+        ()=>{
+            const ff = Moment().format('YYYY-MM-DD')
+            setValue("date",ff)
+            console.log("DATE: ", ff)
+        },
+        [setValue]
+    )
 
     return(
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Input label="Fecha" type="date" register={{...register("name",{required:true})}}/>
+                <Input label="Fecha" type="date" register={{...register("date",{required:true})}}/>
                 {errors.name && <span>El campo nombre es obligatorio.</span>}
             
                 <Input label="Concepto" register={{...register("concept",{required:true})}}/>
