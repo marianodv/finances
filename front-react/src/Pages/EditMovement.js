@@ -20,10 +20,22 @@ function EditMovement(){
     const { register, handleSubmit, setValue, formState:{errors}} = useForm()
 
     const onSubmit = (data) => {
-        console.log(data)
+        if(data.categoryId === "0"){
+            data.categoryId = null
         }
 
-        useEffect(
+        const update = async()=>{
+            const request = await updateById(id, data)
+            if (request){
+                console.log("MODIFICACION SATISFACTORIA: ", request)
+            }
+        }
+       
+        console.log("FORM ", data)
+        update()
+    }
+
+    useEffect(
         ()=>{
             const init = async()=>{
                 const request = await getById(id)
@@ -37,7 +49,7 @@ function EditMovement(){
                 }
             }
             init()
-    },
+        },
         [id,setValue]
     )
 
