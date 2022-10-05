@@ -4,11 +4,16 @@ import Input from "../Components/Input"
 import {postMovement} from "../Services/createMovementService"
 import Moment from 'moment';
 import Categories from "../Components/Categories";
+import { useParams } from "react-router-dom";
 
 function CreateMovement(props){
 
-    const operation = props.operation || true
-    
+    const {op} = useParams()
+    let operation = true
+    if(op == "false"){
+        operation = false
+    }
+
     const { register, handleSubmit, setValue, formState:{errors}} = useForm()
 
      const onSubmit = (data) => {

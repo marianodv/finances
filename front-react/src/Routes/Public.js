@@ -10,7 +10,8 @@ function Public(){
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/movements" element={<Movements />} />
-            <Route path="/movements/create" element={<CreateMovement />} />
+            <Route path="/movements/create/:op" element={<CreateMovement />} />
+            <Route path="/movements/create/" element={<CreateMovement />} />
             <Route path="/movements/edit/:id" element={<EditMovement />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
