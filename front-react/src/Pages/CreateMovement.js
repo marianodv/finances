@@ -4,8 +4,10 @@ import Input from "../Components/Input"
 import {postMovement} from "../Services/createMovementService"
 import Moment from 'moment';
 
-function CreateMovement(){
+function CreateMovement(props){
 
+    const operation = props.operation || true
+    
     const { register, handleSubmit, setValue, formState:{errors}} = useForm()
 
      const onSubmit = (data) => {
@@ -13,7 +15,7 @@ function CreateMovement(){
             const request = await postMovement(data)
             if (request){
                 console.log("ALTA SATISFACTORIA: ", request)
-                setValue("date","")
+                setValue("date",Moment().format('YYYY-MM-DD'))
                 setValue("concept","")
                 setValue("amount","")
             }
@@ -44,7 +46,7 @@ function CreateMovement(){
                 {errors.amount?.type === 'required' && <span>El campo monto es obligatorio.</span>}
                 {errors.amount?.type === 'min' && <span>El monto no puede ser negativo.</span>}
 
-                <Input label="Es Egreso:" type="checkbox" register={{...register("isEgress",{value:true})}}/>
+                <Input label="Es Egreso:" type="checkbox" register={{...register("isEgress",{value:operation})}}/>
                 
                 <button type="submit">AGREGAR</button>
             </form>
