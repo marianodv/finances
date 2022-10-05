@@ -3,6 +3,7 @@ import {useForm} from "react-hook-form"
 import Input from "../Components/Input"
 import {postMovement} from "../Services/createMovementService"
 import Moment from 'moment';
+import Categories from "../Components/Categories";
 
 function CreateMovement(props){
 
@@ -45,6 +46,8 @@ function CreateMovement(props){
                 <Input label="Monto" type="number" register={{...register("amount",{required:true,min:0})}}/>
                 {errors.amount?.type === 'required' && <span>El campo monto es obligatorio.</span>}
                 {errors.amount?.type === 'min' && <span>El monto no puede ser negativo.</span>}
+
+                <Categories />
 
                 <Input label="Es Egreso:" type="checkbox" register={{...register("isEgress",{value:operation})}}/>
                 

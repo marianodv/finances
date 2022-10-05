@@ -4,7 +4,7 @@ import {getAll} from "../Services/categoriesService"
 function Categories(){
 
     const [loading,setLoading] = useState(true)
-    const [categories, setCategories] = useState[]
+    const [categories, setCategories] = useState([])
 
     useEffect(
         ()=>{
