@@ -45,6 +45,7 @@ function EditMovement(){
                     setValue("concept",request.data.concept)
                     setValue("amount",request.data.amount)
                     setValue("categoryId", request.data.categoryId)
+                    setValue("isEgress", request.data.isEgress)
                     setLoading(false)
                 }
             }
@@ -61,6 +62,7 @@ function EditMovement(){
         setValue("concept","")
         setValue("amount","")
         setValue("categoryId", "")
+        setValue("isEgress", "false")
         
         setDeleted(true)
 
@@ -96,7 +98,7 @@ function EditMovement(){
                         <Categories label="Categoria: " register={{...register("categoryId")}}/>
 
                         <Input label="Es Egreso:" type="checkbox" register={{...register("isEgress",{value:true})}}/>
-                        
+                         
                         <button type="submit">GUARDAR</button>
                         <button type="buttom" onClick={()=>{handleEliminar()}}>ELIMINAR</button>
                     </form>

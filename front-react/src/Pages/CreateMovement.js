@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useForm} from "react-hook-form"
 import Input from "../Components/Input"
 import {postMovement} from "../Services/createMovementService"
@@ -6,64 +6,113 @@ import Moment from 'moment';
 import Categories from "../Components/Categories";
 import { useParams } from "react-router-dom";
 
+const styles = {
+    egress:{
+        backgroundColor:'red'
+    },
+    ingress:{
+        backgroundColor:'green'
+    }
+}
+
+
 function CreateMovement(props){
 
     const {op} = useParams()
-    let operation = true
-    if(op == "false"){
-        operation = false
+    
+    const { register, handleSubmit, setValue,formState:{errors}} = useForm()
+    const [operation,setOperation] = useState(true)
+
+    const onSubmit = (data) => {
+    if(data.categoryId === "0"){
+        data.categoryId = null
     }
 
-    const { register, handleSubmit, setValue, formState:{errors}} = useForm()
-
-     const onSubmit = (data) => {
-        if(data.categoryId === "0"){
-            data.categoryId = null
+    const create = async()=>{
+        const request = await postMovement(data)
+        if (request){
+            console.log("ALTA SATISFACTORIA: ", request)
+            setValue("date",Moment().format('YYYY-MM-DD'))
+            setValue("concept","")
+            setValue("amount","")
         }
+    }
+    
+    console.log("FORM ", data)
+    create()
+    }
 
-        const create = async()=>{
-            const request = await postMovement(data)
-            if (request){
-                console.log("ALTA SATISFACTORIA: ", request)
-                setValue("date",Moment().format('YYYY-MM-DD'))
-                setValue("concept","")
-                setValue("amount","")
-            }
-        }
-       
-        console.log("FORM ", data)
-        create()
-     }
-
-     useEffect(
+    useEffect(
         ()=>{
             const ff = Moment().format('YYYY-MM-DD')
             setValue("date",ff)
             console.log("DATE: ", ff)
+
+            if(op === "false"){
+                setOperation(false)
+            }else if(op === "true"){
+                setOperation(true)
+            }
         },
         [setValue]
     )
 
+    const handleChange = ()=>{
+        setOperation(!operation)
+        console.log(operation)
+    }
+
     return(
-        <div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Input label="Fecha" type="date" register={{...register("date",{required:true})}}/>
-                {errors.name && <span>El campo nombre es obligatorio.</span>}
-            
-                <Input label="Concepto" register={{...register("concept",{required:true})}}/>
-                {errors.concept && <span>El campo concepto es obligatorio.</span>}
+        <>
+            { operation &&
+                <div style={styles.egress}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <Input label="Fecha" type="date" register={{...register("date",{required:true})}}/>
+                        {errors.name && <span>El campo nombre es obligatorio.</span>}
+                    
+                        <Input label="Concepto" register={{...register("concept",{required:true})}}/>
+                        {errors.concept && <span>El campo concepto es obligatorio.</span>}
 
-                <Input label="Monto" type="number" register={{...register("amount",{required:true,min:0})}}/>
-                {errors.amount?.type === 'required' && <span>El campo monto es obligatorio.</span>}
-                {errors.amount?.type === 'min' && <span>El monto no puede ser negativo.</span>}
+                        <Input label="Monto" type="number" register={{...register("amount",{required:true,min:0})}}/>
+                        {errors.amount?.type === 'required' && <span>El campo monto es obligatorio.</span>}
+                        {errors.amount?.type === 'min' && <span>El monto no puede ser negativo.</span>}
 
-                <Categories label="Categoria: " register={{...register("categoryId")}}/>
+                        <Categories label="Categoria: " register={{...register("categoryId")}}/>
 
-                <Input label="Es Egreso:" type="checkbox" register={{...register("isEgress",{value:operation})}}/>
-                
-                <button type="submit">AGREGAR</button>
-            </form>
-        </div>
+                        <div>
+                            <label>Es Egreso: </label>
+                            <input type="checkbox" onChange={handleChange} checked={operation} register={{...register("isEgress")}}/>
+                        </div>
+                        
+                        <button type="submit">AGREGAR</button>
+                    </form>
+                </div>
+            }
+            { !operation &&
+                <div style={styles.ingress}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <Input label="Fecha" type="date" register={{...register("date",{required:true})}}/>
+                        {errors.name && <span>El campo nombre es obligatorio.</span>}
+                    
+                        <Input label="Concepto" register={{...register("concept",{required:true})}}/>
+                        {errors.concept && <span>El campo concepto es obligatorio.</span>}
+
+                        <Input label="Monto" type="number" register={{...register("amount",{required:true,min:0})}}/>
+                        {errors.amount?.type === 'required' && <span>El campo monto es obligatorio.</span>}
+                        {errors.amount?.type === 'min' && <span>El monto no puede ser negativo.</span>}
+
+                        <Categories label="Categoria: " register={{...register("categoryId")}}/>
+
+                        <div>
+                            <label>Es Egreso: </label>
+                            <input type="checkbox" onChange={handleChange} checked={operation} register={{...register("isEgress")}}/>
+                        </div>
+                        
+                        <button type="submit">AGREGAR</button>
+                    </form>
+                </div>
+            }
+        </>
     )
 
     
