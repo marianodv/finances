@@ -12,6 +12,10 @@ function CreateMovement(props){
     const { register, handleSubmit, setValue, formState:{errors}} = useForm()
 
      const onSubmit = (data) => {
+        if(data.categoryId === "0"){
+            data.categoryId = null
+        }
+
         const create = async()=>{
             const request = await postMovement(data)
             if (request){
@@ -21,6 +25,7 @@ function CreateMovement(props){
                 setValue("amount","")
             }
         }
+       
         console.log("FORM ", data)
         create()
      }
@@ -47,7 +52,7 @@ function CreateMovement(props){
                 {errors.amount?.type === 'required' && <span>El campo monto es obligatorio.</span>}
                 {errors.amount?.type === 'min' && <span>El monto no puede ser negativo.</span>}
 
-                <Categories />
+                <Categories label="Categoria: " register={{...register("categoryId")}}/>
 
                 <Input label="Es Egreso:" type="checkbox" register={{...register("isEgress",{value:operation})}}/>
                 

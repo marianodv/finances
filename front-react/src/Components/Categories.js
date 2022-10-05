@@ -1,8 +1,9 @@
 import React,{useEffect,useState} from "react";
 import {getAll} from "../Services/categoriesService"
 
-function Categories(){
+function Categories(props){
 
+    const {label, register} = props
     const [loading,setLoading] = useState(true)
     const [categories, setCategories] = useState([])
 
@@ -33,7 +34,11 @@ function Categories(){
             }
             { !loading &&
                 <div>
-                    <p>listado de categorias....</p>
+                    <label>{label || ""}</label>
+                    <select {...register}>
+                        <option value={0}>-- SELECCIONE --</option>
+                        {categories.map((category, item) => <option key={item} value={category._id}>{category.name}</option>)}
+                    </select>
                 </div>
             }
         </>
