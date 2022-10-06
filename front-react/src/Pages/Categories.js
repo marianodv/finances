@@ -1,12 +1,12 @@
 import React, {useEffect,useState} from "react";
-import {getAll} from "../Services/categoriesService"
+import {getAll, newCategory} from "../Services/categoriesService"
 import {useForm} from "react-hook-form"
 import Input from "../Components/Input"
 
 function Categories(){
 
     const [loading,setLoading] = useState(true)
-    const [newCategory,setNewCategory] = useState(false)
+    const [visible,setVisible] = useState(false)
     const [categories,setCategories] = useState([])
 
     const { register, handleSubmit, formState:{errors}} = useForm()
@@ -14,10 +14,20 @@ function Categories(){
 
     const onSubmit = (data) => {
         const update = async()=>{
-            //const request = await updateById(id, data)
-            //if (request){
-            //    console.log("MODIFICACION SATISFACTORIA: ", request)
-            //}
+            try{
+                const request = await newCategory(data)
+                if (request){
+                    console.log("ALTA SATISFACTORIA: ", request)
+                }
+                const response = await getAll()
+                console.log("LST: ",response?.data)
+                if(response.data){
+                    setCategories(response?.data)
+                    setVisible(false)
+                }
+            }catch (error){
+                console.log("Error: ", error)
+            }
         }
        
         console.log("FORM ", data)
@@ -62,19 +72,19 @@ function Categories(){
         return(
             <div>
                 <div>
-                    <button onClick={()=>{setNewCategory(true)}}>NUEVA CATEGORIA</button>
+                    <button onClick={()=>{setVisible(true)}}>NUEVA CATEGORIA</button>
                 </div>
-                {newCategory &&
+                {visible &&
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Input label="Nombre" register={{...register("name",{required:true})}}/>
                         {errors.name && <span>El campo nombre es obligatorio.</span>}
                         <div>
                             <button type="submit">GUARDAR</button>
-                            <button type="buttom" onClick={()=>{setNewCategory(false)}}>CANCELAR</button>
+                            <button type="buttom" onClick={()=>{setVisible(false)}}>CANCELAR</button>
                         </div>
                     </form>
                 }
-                {!newCategory &&
+                {!visible &&
                     <div>
                         {categories.map((category) => <p key={category._id}>{category._id} | {category.name}<button onClick={()=>{handleEditar(category._id)}}>EDITAR</button><button onClick={()=>{handleEliminar(category._id)}}>ELIMINAR</button></p>)}
                     </div>
