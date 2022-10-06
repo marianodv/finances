@@ -1,5 +1,5 @@
 import React, {useEffect,useState} from "react";
-import {getAll, newCategory} from "../Services/categoriesService"
+import {updateById, deleteById, getAll, newCategory} from "../Services/categoriesService"
 import {useForm} from "react-hook-form"
 import Input from "../Components/Input"
 
@@ -8,22 +8,37 @@ function Categories(){
     const [loading,setLoading] = useState(true)
     const [visible,setVisible] = useState(false)
     const [categories,setCategories] = useState([])
+    const [isEditing,setIsEditing] = useState(0)
 
-    const { register, handleSubmit, formState:{errors}} = useForm()
+    const { register, handleSubmit, setValue, formState:{errors}} = useForm()
 
 
     const onSubmit = (data) => {
-        const update = async()=>{
+        const updateOrNew = async()=>{
             try{
-                const request = await newCategory(data)
-                if (request){
-                    console.log("ALTA SATISFACTORIA: ", request)
-                }
-                const response = await getAll()
-                console.log("LST: ",response?.data)
-                if(response.data){
-                    setCategories(response?.data)
-                    setVisible(false)
+                if (isEditing > 0){
+                    const request = await updateById(isEditing, data)
+                    if (request){
+                        console.log("MODIFICACION SATISFACTORIA: ", request)
+                        const response = await getAll()
+                        console.log("LST: ",response?.data)
+                        if(response.data){
+                            setCategories(response?.data)
+                            setVisible(false)
+                        }
+                    }
+                    setIsEditing(0)
+                }else{
+                    const request = await newCategory(data)
+                    if (request){
+                        console.log("ALTA SATISFACTORIA: ", request)
+                        const response = await getAll()
+                        console.log("LST: ",response?.data)
+                        if(response.data){
+                            setCategories(response?.data)
+                            setVisible(false)
+                        }
+                    }
                 }
             }catch (error){
                 console.log("Error: ", error)
@@ -31,7 +46,7 @@ function Categories(){
         }
        
         console.log("FORM ", data)
-        update()
+        updateOrNew()
     }
 
 
@@ -54,12 +69,29 @@ function Categories(){
         []
     )
 
-    const handleEditar = (id)=>{
-        console.log("EDITAR",id)
+    const handleEditar = (id, name)=>{
+        setVisible(true)
+        setValue("name",name)
+        setIsEditing(id)
     }
 
     const handleEliminar =(id)=>{
-        console.log("ELIMINA", id)
+        const request = async()=>{ 
+            try{          
+                const response = await deleteById(id)
+                console.log("DELETE: ",response?.data)
+                if(response.data){
+                    const response = await getAll()
+                    console.log("LST: ",response?.data)
+                    if(response.data){
+                        setCategories(response?.data)
+                    }
+                }
+            }catch (error){
+                console.log("Error: ", error)
+            }
+        }
+        request()
     }
 
     if(loading){
@@ -72,7 +104,7 @@ function Categories(){
         return(
             <div>
                 <div>
-                    <button onClick={()=>{setVisible(true)}}>NUEVA CATEGORIA</button>
+                    <button onClick={()=>{setVisible(true);setIsEditing(0)}}>NUEVA CATEGORIA</button>
                 </div>
                 {visible &&
                     <form onSubmit={handleSubmit(onSubmit)}>
@@ -80,13 +112,13 @@ function Categories(){
                         {errors.name && <span>El campo nombre es obligatorio.</span>}
                         <div>
                             <button type="submit">GUARDAR</button>
-                            <button type="buttom" onClick={()=>{setVisible(false)}}>CANCELAR</button>
+                            <button type="buttom" onClick={()=>{setVisible(false);setIsEditing(0)}}>CANCELAR</button>
                         </div>
                     </form>
                 }
                 {!visible &&
                     <div>
-                        {categories.map((category) => <p key={category._id}>{category._id} | {category.name}<button onClick={()=>{handleEditar(category._id)}}>EDITAR</button><button onClick={()=>{handleEliminar(category._id)}}>ELIMINAR</button></p>)}
+                        {categories.map((category) => <p key={category._id}>{category._id} | {category.name}<button onClick={()=>{handleEditar(category._id,category.name)}}>EDITAR</button><button onClick={()=>{handleEliminar(category._id)}}>ELIMINAR</button></p>)}
                     </div>
                 }
             </div>
