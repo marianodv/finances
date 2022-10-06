@@ -1,11 +1,29 @@
 import React, {useEffect,useState} from "react";
-import Movement from "../Components/Movement";
-import {getAll} from "../Services/categoriesServices"
+import {getAll} from "../Services/categoriesService"
+import {useForm} from "react-hook-form"
+import Input from "../Components/Input"
 
 function Categories(){
 
     const [loading,setLoading] = useState(true)
     const [newCategory,setNewCategory] = useState(false)
+    const [categories,setCategories] = useState([])
+
+    const { register, handleSubmit, formState:{errors}} = useForm()
+
+
+    const onSubmit = (data) => {
+        const update = async()=>{
+            //const request = await updateById(id, data)
+            //if (request){
+            //    console.log("MODIFICACION SATISFACTORIA: ", request)
+            //}
+        }
+       
+        console.log("FORM ", data)
+        update()
+    }
+
 
     useEffect(
         ()=>{
@@ -13,9 +31,10 @@ function Categories(){
                 try{          
                     const response = await getAll()
                     console.log("LST: ",response?.data)
-                    setMovements(response?.data)
-
-                    setLoading(false)
+                    if(response.data){
+                        setCategories(response?.data)
+                        setLoading(false)
+                    }
                 }catch (error){
                     console.log("Error: ", error)
                 }
@@ -24,6 +43,14 @@ function Categories(){
         },
         []
     )
+
+    const handleEditar = (id)=>{
+        console.log("EDITAR",id)
+    }
+
+    const handleEliminar =(id)=>{
+        console.log("ELIMINA", id)
+    }
 
     if(loading){
         return(
@@ -34,23 +61,22 @@ function Categories(){
     }else{
         return(
             <div>
+                <div>
+                    <button onClick={()=>{setNewCategory(true)}}>NUEVA CATEGORIA</button>
+                </div>
                 {newCategory &&
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Input label="Nombre" register={{...register("name",{required:true})}}/>
-                        {errors.concept && <span>El campo nombre es obligatorio.</span>}
-
+                        {errors.name && <span>El campo nombre es obligatorio.</span>}
                         <div>
-                            <label>Es Egreso: </label>
-                            <input type="checkbox" onChange={handleChange} checked={operation} register={{...register("isEgress")}}/>
+                            <button type="submit">GUARDAR</button>
+                            <button type="buttom" onClick={()=>{setNewCategory(false)}}>CANCELAR</button>
                         </div>
-                         
-                        <button type="submit">GUARDAR</button>
-                        <button type="buttom" onClick={()=>{setNewCategory(false)}}>ELIMINAR</button>
                     </form>
                 }
                 {!newCategory &&
                     <div>
-                        CATEGORIAS....
+                        {categories.map((category) => <p key={category._id}>{category._id} | {category.name}<button onClick={()=>{handleEditar(category._id)}}>EDITAR</button><button onClick={()=>{handleEliminar(category._id)}}>ELIMINAR</button></p>)}
                     </div>
                 }
             </div>
