@@ -3,8 +3,7 @@ const categoriesModel = require('../models/categoriesModel')
 const { Op } = require("sequelize");
 
 const ordenateBy = [
-    ['date', 'DESC'],
-    ['updatedAt','DESC']
+    ['date', 'DESC']
 ]
 
 module.exports = {

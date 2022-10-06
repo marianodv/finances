@@ -6,6 +6,18 @@ import { useParams } from "react-router-dom";
 import Moment from 'moment';
 import Categories from "../Components/Categories";
 import {useNavigate} from 'react-router-dom'
+import moment from "moment";
+
+
+const styles = {
+    egress:{
+        backgroundColor:'red'
+    },
+    ingress:{
+        backgroundColor:'green'
+    }
+}
+
 
 function EditMovement(){
 
@@ -15,11 +27,13 @@ function EditMovement(){
     
     const [loading,setLoading] = useState(true)
 
-    const [deleted,setDeleted] = useState(false)
+    const [viewForm,setViewForm] = useState(false) //para ocultar div antes de redireccion
 
-    const { register, handleSubmit, setValue,getValues, formState:{errors}} = useForm()
+    const [isEgress,setIsEgress] = useState(true) //true = es egreso | false = es ingreso
 
-    const [operation,setOperation] = useState(false)
+    const { register, handleSubmit, setValue, formState:{errors}} = useForm()
+
+    
 
     const onSubmit = (data) => {
         if(data.categoryId === "0"){
@@ -27,9 +41,14 @@ function EditMovement(){
         }
 
         const update = async()=>{
+            data.date = moment(data.date).format('YYYY-MM-DD')
             const request = await updateById(id, data)
             if (request){
                 console.log("MODIFICACION SATISFACTORIA: ", request)
+                setViewForm(true)
+                setTimeout(()=>{
+                    navi("/movements/")
+                },2000)
             }
         }
        
@@ -47,10 +66,10 @@ function EditMovement(){
                     setValue("concept",request.data.concept)
                     setValue("amount",request.data.amount)
                     setValue("categoryId", request.data.categoryId)
-                    if (request.data.isEgress === "true"){
-                        setOperation(true)
+                    if (request.data.isEgress === "true" || request.data.isEgress === true){
+                        setIsEgress(true)
                     }else{
-                        setOperation(false)
+                        setIsEgress(false)
                     }
                     setLoading(false)
                 }
@@ -63,26 +82,17 @@ function EditMovement(){
     const handleEliminar = async () =>{
         const deletedMovement = await deleteById(id)
         console.log("DELETED",id,deletedMovement)
-        
-        setValue("date","")
-        setValue("concept","")
-        setValue("amount","")
-        setValue("categoryId", "")
-        setValue("isEgress", "false")
-        
-        setDeleted(true)
+      
+        if (deletedMovement.data){
+            setViewForm(true)
 
-        setTimeout(()=>{
-            navi("/")
-        },2000)
+            setTimeout(()=>{
+                navi("/movements/")
+            },2000)
+        }
+
+       
     }
-
-    const handleChange = ()=>{
-        setOperation(!operation)
-        console.log(operation)
-        console.log("GET:", getValues())
-    }
-
 
     if(loading){
         return(
@@ -93,7 +103,7 @@ function EditMovement(){
     }else{
         return(
             <>
-                <div hidden = {deleted}>
+                <div hidden = {viewForm} style={(isEgress && styles.egress) || (!isEgress && styles.ingress)}>
                     <div>
                         <h2>Edicion de Id: {id}</h2>
                     </div>
@@ -110,18 +120,18 @@ function EditMovement(){
 
                         <Categories label="Categoria: " register={{...register("categoryId")}}/>
 
-                        <div>
-                            <label>Es Egreso: </label>
-                            <input type="checkbox" onChange={handleChange} checked={operation} register={{...register("isEgress")}}/>
-                        </div>
+                        <label hidden={!isEgress}>Es Egreso</label>
+                        <label hidden={isEgress}>Es Ingreso</label>
                          
-                        <button type="submit">GUARDAR</button>
-                        <button type="buttom" onClick={()=>{handleEliminar()}}>ELIMINAR</button>
-                        <button type="buttom" onClick={()=>{navi("/movements/")}}>CANCELAR</button>
+                        <div>
+                            <button type="submit">GUARDAR</button>
+                            <button type="buttom" onClick={()=>{handleEliminar()}}>ELIMINAR</button>
+                            <button type="buttom" onClick={()=>{navi("/movements/")}}>CANCELAR</button>
+                        </div>
                     </form>
                 </div>
-                <div hidden = {!deleted}>
-                    <h1>Movimiento {id} eliminado. Redirigiendo...</h1>
+                <div hidden = {!viewForm}>
+                    <h1>Movimiento {id} modificado o eliminado. Redirigiendo...</h1>
                 </div>
             </>
         )
