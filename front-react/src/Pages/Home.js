@@ -10,6 +10,7 @@ function Home(){
             <div>
                 <h1>BIENVENIDOS</h1>
                 <Balance />
+                <button onClick={()=>{navi("/movements/")}}>VER TODOS</button>
                 <button onClick={()=>{navi("/movements/create/false")}}>AGREGAR INGRESO</button>
                 <button onClick={()=>{navi("/movements/create/true")}}>AGREGAR EGRESO</button>
                 <h5>Listado Top</h5>
