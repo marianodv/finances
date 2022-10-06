@@ -117,6 +117,7 @@ function EditMovement(){
                          
                         <button type="submit">GUARDAR</button>
                         <button type="buttom" onClick={()=>{handleEliminar()}}>ELIMINAR</button>
+                        <button type="buttom" onClick={()=>{navi("/movements/")}}>CANCELAR</button>
                     </form>
                 </div>
                 <div hidden = {!deleted}>
