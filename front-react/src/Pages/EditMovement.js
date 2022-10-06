@@ -17,7 +17,9 @@ function EditMovement(){
 
     const [deleted,setDeleted] = useState(false)
 
-    const { register, handleSubmit, setValue, formState:{errors}} = useForm()
+    const { register, handleSubmit, setValue,getValues, formState:{errors}} = useForm()
+
+    const [operation,setOperation] = useState(false)
 
     const onSubmit = (data) => {
         if(data.categoryId === "0"){
@@ -45,7 +47,11 @@ function EditMovement(){
                     setValue("concept",request.data.concept)
                     setValue("amount",request.data.amount)
                     setValue("categoryId", request.data.categoryId)
-                    setValue("isEgress", request.data.isEgress)
+                    if (request.data.isEgress === "true"){
+                        setOperation(true)
+                    }else{
+                        setOperation(false)
+                    }
                     setLoading(false)
                 }
             }
@@ -70,6 +76,13 @@ function EditMovement(){
             navi("/")
         },2000)
     }
+
+    const handleChange = ()=>{
+        setOperation(!operation)
+        console.log(operation)
+        console.log("GET:", getValues())
+    }
+
 
     if(loading){
         return(
@@ -97,7 +110,10 @@ function EditMovement(){
 
                         <Categories label="Categoria: " register={{...register("categoryId")}}/>
 
-                        <Input label="Es Egreso:" type="checkbox" register={{...register("isEgress",{value:true})}}/>
+                        <div>
+                            <label>Es Egreso: </label>
+                            <input type="checkbox" onChange={handleChange} checked={operation} register={{...register("isEgress")}}/>
+                        </div>
                          
                         <button type="submit">GUARDAR</button>
                         <button type="buttom" onClick={()=>{handleEliminar()}}>ELIMINAR</button>
