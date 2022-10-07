@@ -4,6 +4,10 @@ export async function getAll(){
     return await axios.get('/categories/')
 }
 
+export async function getById(id){
+    return await axios.get('/categories/category/' + id)
+}
+
 export async function newCategory(data){
     return await axios.post('/categories/',data)
 }
