@@ -3,6 +3,7 @@ import Movement from "../Components/Movement";
 import {getAll,deleteById, getIncomes, getExpenses, getByCategory} from "../Services/movementsServices"
 import CategoriesList from "../Components/CategoriesList"
 import {useForm} from "react-hook-form"
+import ButtonWithLoading from "../Components/ButtonWithLoading"
 
 function Movements(){
 
@@ -84,44 +85,43 @@ function Movements(){
     }
 
   
-    if(loading){
-        return(
-            <>
-                loading....
-            </>
-        )
-    }else{
+   
         return(
             <>
                 <div>
                     <CategoriesList label="Categorias: " register={{...register("category")}}/>
-                    <button onClick={()=>{
+                    <ButtonWithLoading type="button" loading={loading} click={()=>{
                         setLoading(true)
                         listForCategory()
-                    }}>Por Categoria</button>
+                    }}>Por Categoria</ButtonWithLoading>
 
-                    <button onClick={()=>{
-                        setLoading(true)
-                        listAll()
-                    }}>TODO</button>
+                    <ButtonWithLoading type="button" loading={loading} click={()=>{
+                        setLoading(true);setTimeout(()=>{listAll()},2000)
+                    }}>TODO</ButtonWithLoading>
 
-                    <button onClick={()=>{
+                    <ButtonWithLoading type="button" loading={loading} click={()=>{
                         setLoading(true)
                         listIngress()
-                    }}>Solo Ingresos</button>
+                    }}>Solo Ingresos</ButtonWithLoading>
 
-                    <button onClick={()=>{
+                    <ButtonWithLoading type="button" loading={loading} click={()=>{
                         setLoading(true)
                         listEgress()
-                    }}>Solo Egresos</button>
+                    }}>Solo Egresos</ButtonWithLoading>
                 </div>
-                <div>
-                    {movements?.rows.map((movement,ind) => <Movement key={ind} data={movement} onDelete={()=>{handleDelete(movement._id)}}>{ind+1}</Movement>)}  
-                    <p>{movements?.pageMin} to page {movements?.page} to {movements?.pageMax} | TOTAL: {movements?.rowsCount} | listed: {movements?.rowsPerPage}</p>
-                </div>
+                {loading &&
+                    <div>loading...</div>
+                }
+                {!loading &&
+                    <>
+                        <div>
+                            {movements?.rows.map((movement,ind) => <Movement key={ind} data={movement} onDelete={()=>{handleDelete(movement._id)}}>{ind+1}</Movement>)}  
+                            <p>{movements?.pageMin} to page {movements?.page} to {movements?.pageMax} | TOTAL: {movements?.rowsCount} | listed: {movements?.rowsPerPage}</p>
+                        </div>
+                    </>
+                }
             </>
         )
-    }
     
 }
 

@@ -4,31 +4,21 @@ import Spinner from 'react-bootstrap/Spinner';
 
 function ButtonWithLoading(props){
 
-    const isLoading = props.isLoading || true
-    const variant = props.variant || "primary"
-    const click = props.click || null
-    const children = props.children
+    const {loading,variant,type,children,click} = props
 
     return(
-        <>
-            {
-                isLoading &&
-                <Button variant={variant} disabled={true} onClick={null}>
-                    <Spinner
-                        as="span"
-                        animation="border"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                    />
-                    Loading...
-                </Button>
+        <Button type = {type || 'submit'} variant={variant || 'primary'} disabled={loading} onClick={click}>
+            {loading &&
+                <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                />
             }
-            {
-                !isLoading &&
-                <Button variant={variant} disabled={false} onClick={!isLoading && click}>{children}</Button>
-            }
-        </>
+            {children}
+        </Button>
     )
 }
 
