@@ -3,7 +3,8 @@ const categoriesModel = require('../models/categoriesModel')
 const { Op } = require("sequelize");
 
 const ordenateBy = [
-    ['date', 'DESC']
+    ['date', 'DESC'],
+    ['updatedAt','DESC']
 ]
 
 module.exports = {
@@ -295,7 +296,7 @@ module.exports = {
     },
     modifyById: async(req, res, next) => {
         try{
-            
+            //console.log("BODY:",req.body)
             const document = await movementsModel.update({
                 concept:req.body.concept,
                 amount:req.body.amount,

@@ -1,5 +1,6 @@
 import React from "react";
 import {useNavigate} from "react-router-dom"
+import moment from 'moment';
 
 function Movement(props){
 
@@ -13,12 +14,12 @@ function Movement(props){
         <>
             { isEgress &&
                 <div>
-                    <p>{children})_{new Date(date).toLocaleDateString() || ''} | {concept || ''} ({category?.name || "Without Category"}) | $-{amount || ''}<button onClick={()=>{navi("/movements/edit/" + _id)}}>EDITAR</button><button onClick={onDelete || {}}>ELIMINAR</button></p>
+                    <p>{children})_{moment(date).format('DD-MM-YYYY') || ''} | {concept || ''} ({category?.name || "Without Category"}) | $-{amount || ''}<button onClick={()=>{navi("/movements/edit/" + _id)}}>EDITAR</button><button onClick={onDelete || {}}>ELIMINAR</button></p>
                 </div>
             }
             { !isEgress &&
                 <div>
-                    <p>{children})_{new Date(date).toLocaleDateString() || ''} | {concept || ''} ({category?.name || "Without Category"}) | ${amount || ''}<button onClick={()=>{navi("/movements/edit/" + _id)}}>EDITAR</button><button onClick={onDelete || {}}>ELIMINAR</button></p>
+                    <p>{children})_{moment(date).format('DD-MM-YYYY') || ''} | {concept || ''} ({category?.name || "Without Category"}) | ${amount || ''}<button onClick={()=>{navi("/movements/edit/" + _id)}}>EDITAR</button><button onClick={onDelete || {}}>ELIMINAR</button></p>
                 </div>
             }
         </>

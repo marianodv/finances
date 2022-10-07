@@ -29,6 +29,7 @@ function CreateMovement(props){
     }
 
     const create = async()=>{
+        data.isEgress = operation
         const request = await postMovement(data)
         if (request){
             console.log("ALTA SATISFACTORIA: ", request)

@@ -39,7 +39,7 @@ function EditMovement(){
         if(data.categoryId === "0"){
             data.categoryId = null
         }
-
+        console.log("DATA: ", data)
         const update = async()=>{
             data.date = moment(data.date).format('YYYY-MM-DD')
             const request = await updateById(id, data)

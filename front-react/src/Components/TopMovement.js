@@ -1,5 +1,5 @@
 import React from "react";
-
+import moment from 'moment';
 
 function TopMovement(props){
 
@@ -10,12 +10,12 @@ function TopMovement(props){
         <>
             { isEgress &&
                 <div>
-                    <h4>{children})_{new Date(date).toLocaleDateString() || ''} | {concept || ''} ({category?.name || "Without Category"}) | $-{amount || ''}</h4>
+                    <h4>{children})_{moment(date).format('DD-MM-YYYY') || ''} | {concept || ''} ({category?.name || "Without Category"}) | $-{amount || ''}</h4>
                 </div>
             }
             { !isEgress &&
                 <div>
-                    <h3>{children})_{new Date(date).toLocaleDateString() || ''} | {concept || ''} ({category?.name || "Without Category"}) | ${amount || ''}</h3>
+                    <h3>{children})_{moment(date).format('DD-MM-YYYY') || ''} | {concept || ''} ({category?.name || "Without Category"}) | ${amount || ''}</h3>
                 </div>
             }
         </>
