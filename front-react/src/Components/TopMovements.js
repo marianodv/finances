@@ -22,7 +22,7 @@ function TopMovements(){
             
             request()
         },
-        [] //=== componentDidMount, podria poner el nombre del state a monitorear simil al DidUpdate
+        [] 
     )
 
     const handleClickActualizar = ()=>{
