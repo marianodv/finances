@@ -3,7 +3,6 @@ import {useForm} from "react-hook-form"
 import Input from "../Components/Input"
 import {getById,deleteById,updateById} from "../Services/movementsServices"
 import { useParams } from "react-router-dom";
-import Moment from 'moment';
 import Categories from "../Components/Categories";
 import {useNavigate} from 'react-router-dom'
 import moment from "moment";
@@ -62,7 +61,7 @@ function EditMovement(){
                 const request = await getById(id)
                 console.log("init: ", request)
                 if (request.data){
-                    setValue("date",Moment(request.data.date).format('YYYY-MM-DD'))
+                    setValue("date",moment(request.data.date).format('YYYY-MM-DD'))
                     setValue("concept",request.data.concept)
                     setValue("amount",request.data.amount)
                     setValue("categoryId", request.data.categoryId)
