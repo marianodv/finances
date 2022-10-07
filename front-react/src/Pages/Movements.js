@@ -6,6 +6,8 @@ import {useForm} from "react-hook-form"
 import ButtonWithLoading from "../Components/ButtonWithLoading"
 import Loading from "../Components/Loading";
 
+import Table from 'react-bootstrap/Table'
+
 function Movements(){
 
     const [loading,setLoading] = useState(true)
@@ -111,6 +113,24 @@ function Movements(){
                     }}>Solo Egresos</ButtonWithLoading>
                 </div>
                 <Loading loading={loading}>
+
+                    <Table striped>
+                        <thead>
+                            <tr>
+                            <th>#</th>
+                            <th>Fecha</th>
+                            <th>Concepto</th>
+                            <th>Categoria</th>
+                            <th>Monto</th>
+                            <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {movements?.rows?.map((movement,ind) => <Movement key={ind} data={movement} onDelete={()=>{handleDelete(movement._id)}} />)}
+                        </tbody>
+                    </Table>
+                    <p>{movements?.pageMin} to page {movements?.page} to {movements?.pageMax} | TOTAL: {movements?.rowsCount} | listed: {movements?.rowsPerPage}</p>
+
                     <div>
                         {movements?.rows?.map((movement,ind) => <Movement key={ind} data={movement} onDelete={()=>{handleDelete(movement._id)}}>{ind+1}</Movement>)}  
                         <p>{movements?.pageMin} to page {movements?.page} to {movements?.pageMax} | TOTAL: {movements?.rowsCount} | listed: {movements?.rowsPerPage}</p>

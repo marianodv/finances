@@ -7,17 +7,21 @@ function Movement(props){
 
     const {data, onDelete} = props
     const {_id,concept,amount,date,category,isEgress} = data
-    const children = props.children
 
     const navi = useNavigate()
-
+    
     return(
-        <div>
-            <p>{children})_{moment(date).format('DD-MM-YYYY') || ''} | {concept || ''} ({category?.name || "Without Category"}) | ${isEgress && <>-</>}{amount || ''}
+        <tr>
+            <td>{_id}</td>
+            <td>{moment(date).format('DD-MM-YYYY') || ''}</td>
+            <td> {concept || ''}</td>
+            <td>{category?.name || "Without Category"}</td>
+            <td>${isEgress && <>-</>}{amount || ''}</td>
+            <td>
                 <ButtonWithoutLoading variant="edit" onClick={()=>{navi("/movements/edit/" + _id)}}>EDITAR</ButtonWithoutLoading>
                 <ButtonWithoutLoading variant="delete" onClick={onDelete || {}}>ELIMINAR</ButtonWithoutLoading>
-            </p>
-        </div>
+            </td>
+        </tr>
     )
 }
 

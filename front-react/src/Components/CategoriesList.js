@@ -29,7 +29,7 @@ function CategoriesList(props){
 
     return(
         <Loading loading={loading}>
-            <div width="50%">
+            <div>
                 <label>{label || ""}</label>
 
                 <Form.Select aria-label="Default select example" {...register}>
