@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {getById, updateById} from "../Services/categoriesService"
+import React, {useEffect, useState} from "react";
+import {getById, deleteById, updateById} from "../Services/categoriesService"
 import {useForm} from "react-hook-form"
 import Input from "../Components/Input"
 import {useNavigate, useParams} from 'react-router-dom'
@@ -7,7 +7,7 @@ import {useNavigate, useParams} from 'react-router-dom'
 
 function EditCategory(){
 
-    const {id} = useParams
+    const {id} = useParams()
 
     const [loading,setLoading] = useState(true)
 
@@ -53,10 +53,10 @@ function EditCategory(){
             }
             request()
         },
-        []
+        [id, setValue]
     )
 
-    const handleEliminar =(id)=>{
+    const handleEliminar =()=>{
         const request = async()=>{ 
             try{          
                 const response = await deleteById(id)
@@ -93,8 +93,8 @@ function EditCategory(){
                                 {errors.name && <span>El campo nombre es obligatorio.</span>}
                                 <div>
                                     <button type="submit">GUARDAR</button>
-                                    <button type="buttom" onClick={()=>{handleEliminar()}}>ELIMINAR</button>
-                                    <button type="buttom" onClick={()=>{navi('/categories/')}}>CANCELAR</button>
+                                    <button type="button" onClick={handleEliminar}>ELIMINAR</button>
+                                    <button type="button" onClick={()=>{navi('/categories/')}}>CANCELAR</button>
                                 </div>
                             </form>
                         </div>
