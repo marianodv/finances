@@ -4,6 +4,7 @@ import {getAll,deleteById, getIncomes, getExpenses, getByCategory} from "../Serv
 import CategoriesList from "../Components/CategoriesList"
 import {useForm} from "react-hook-form"
 import ButtonWithLoading from "../Components/ButtonWithLoading"
+import Loading from "../Components/Loading";
 
 function Movements(){
 
@@ -109,17 +110,12 @@ function Movements(){
                         listEgress()
                     }}>Solo Egresos</ButtonWithLoading>
                 </div>
-                {loading &&
-                    <div>loading...</div>
-                }
-                {!loading &&
-                    <>
-                        <div>
-                            {movements?.rows.map((movement,ind) => <Movement key={ind} data={movement} onDelete={()=>{handleDelete(movement._id)}}>{ind+1}</Movement>)}  
-                            <p>{movements?.pageMin} to page {movements?.page} to {movements?.pageMax} | TOTAL: {movements?.rowsCount} | listed: {movements?.rowsPerPage}</p>
-                        </div>
-                    </>
-                }
+                <Loading loading={loading}>
+                    <div>
+                        {movements?.rows.map((movement,ind) => <Movement key={ind} data={movement} onDelete={()=>{handleDelete(movement._id)}}>{ind+1}</Movement>)}  
+                        <p>{movements?.pageMin} to page {movements?.page} to {movements?.pageMax} | TOTAL: {movements?.rowsCount} | listed: {movements?.rowsPerPage}</p>
+                    </div>
+                </Loading>
             </>
         )
     

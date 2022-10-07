@@ -14,7 +14,7 @@ function Loading(props){
                 />
             }
             {!loading &&
-                children || 'LOADING...'
+                children
             }
         </>
     )
