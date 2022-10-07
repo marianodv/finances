@@ -17,7 +17,7 @@ function Public(){
             <Route path="/movements/create/" element={<CreateMovement />} />
             <Route path="/movements/edit/:id" element={<EditMovement />} />
             <Route path="/categories/" element={<Categories />} />
-            <Route path="/categories/new" element={<CreateCategory />} />
+            <Route path="/categories/create" element={<CreateCategory />} />
             <Route path="/categories/edit/:id" element={<EditCategory />} />
             <Route path="*" element={<NotFound />} />
         </Routes>

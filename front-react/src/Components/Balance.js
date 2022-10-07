@@ -2,6 +2,7 @@ import React,{useEffect,useState} from "react";
 import {getBalance} from '../Services/balancesService'
 import Loading from './Loading'
 import Card from 'react-bootstrap/Card';
+import Alert from 'react-bootstrap/Alert'
 
 function Balance(props){
 
@@ -28,10 +29,10 @@ function Balance(props){
 
     return(
         <Loading loading={loading}>
-            <Card border="info" /*style={{ width: '18rem'}}*/>
+            <Card border="info" style={{ width: '50%',marginLeft:'25%', marginTop:'1rem'}}>
                 <Card.Header>Tienes en Caja</Card.Header>
                 <Card.Body>
-                    <Card.Title>$ {balance}</Card.Title>
+                    <Alert variant={((balance < 0) && "danger") || ((balance >= 0) && "success")}><Alert.Heading>$ {balance}</Alert.Heading></Alert>
                 </Card.Body>
             </Card>
         </Loading>

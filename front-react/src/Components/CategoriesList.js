@@ -2,6 +2,9 @@ import React,{useEffect,useState} from "react";
 import {getAll} from "../Services/categoriesService"
 import Form from 'react-bootstrap/Form'
 import Loading from '../Components/Loading'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function CategoriesList(props){
 
@@ -29,14 +32,19 @@ function CategoriesList(props){
 
     return(
         <Loading loading={loading}>
-            <div>
-                <label>{label || ""}</label>
-
-                <Form.Select aria-label="Default select example" {...register}>
-                    <option value={0}>-- SELECCIONE --</option>
-                    {categories.map((category, item) => <option key={item} value={category._id}>{category.name}</option>)}
-                </Form.Select>
-            </div>
+            <Container>
+                <Row>
+                    <Col>
+                        <label>{label || ""}</label>
+                    </Col>
+                    <Col>
+                        <Form.Select aria-label="Default select example" {...register}>
+                            <option value={0}>-- SELECCIONE --</option>
+                            {categories.map((category, item) => <option key={item} value={category._id}>{category.name}</option>)}
+                        </Form.Select>
+                    </Col>
+                </Row>
+            </Container>
         </Loading>
     )
 }

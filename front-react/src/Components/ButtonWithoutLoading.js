@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button'
 
 const variants={
     create:"outline-primary",
-    edit:"outline-warning",
+    edit:"outline-secondary",
     delete:"outline-danger",
     view:"outline-success"
 }

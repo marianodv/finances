@@ -5,7 +5,9 @@ import CategoriesList from "../Components/CategoriesList"
 import {useForm} from "react-hook-form"
 import ButtonWithLoading from "../Components/ButtonWithLoading"
 import Loading from "../Components/Loading";
-
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table'
 
 function Movements(){
@@ -91,30 +93,45 @@ function Movements(){
    
         return(
             <>
-                <div>
-                    <CategoriesList label="Categorias: " register={{...register("category")}}/>
-                    <ButtonWithLoading type="button" loading={loading} click={()=>{
-                        setLoading(true)
-                        listForCategory()
-                    }}>Por Categoria</ButtonWithLoading>
+                <Container>
+                    <Row style={{marginTop:'1rem'}}>
+                        <Col>
+                            <CategoriesList label="Categorias: " register={{...register("category")}}/>
+                        </Col>
+                        <Col>
+                            <ButtonWithLoading type="button" loading={loading} click={()=>{
+                                setLoading(true)
+                                listForCategory()
+                            }}>Por Categoria</ButtonWithLoading>
+                        </Col>
+                    </Row>
+                    
+                    <Row style={{marginTop:'1rem'}}>
+                        <Col>
+                            <ButtonWithLoading type="button" loading={loading} click={()=>{
+                                setLoading(true);setTimeout(()=>{listAll()},2000)
+                            }}>TODO</ButtonWithLoading>
+                        </Col>
 
-                    <ButtonWithLoading type="button" loading={loading} click={()=>{
-                        setLoading(true);setTimeout(()=>{listAll()},2000)
-                    }}>TODO</ButtonWithLoading>
+                        <Col>
+                            <ButtonWithLoading type="button" loading={loading} click={()=>{
+                                setLoading(true)
+                                listIngress()
+                            }}>Solo Ingresos</ButtonWithLoading>
+                        </Col>
 
-                    <ButtonWithLoading type="button" loading={loading} click={()=>{
-                        setLoading(true)
-                        listIngress()
-                    }}>Solo Ingresos</ButtonWithLoading>
+                        <Col>
+                            <ButtonWithLoading type="button" loading={loading} click={()=>{
+                                setLoading(true)
+                                listEgress()
+                            }}>Solo Egresos</ButtonWithLoading>
+                        </Col>
+                    </Row>
+                </Container>
 
-                    <ButtonWithLoading type="button" loading={loading} click={()=>{
-                        setLoading(true)
-                        listEgress()
-                    }}>Solo Egresos</ButtonWithLoading>
-                </div>
                 <Loading loading={loading}>
 
-                    <Table striped>
+                    <Table striped style={{marginTop:'1rem'}}>
                         <thead>
                             <tr>
                             <th>#</th>
