@@ -1,10 +1,13 @@
 import React from "react";
 import Input from "../Components/Input"
 import CategoriesList from "../Components/CategoriesList";
+import {useNavigate} from 'react-router-dom'
 
 function FormMovement(props){
 
     const {children, submit, changeCheckBox, checkedCheckBox, dateRegister, conceptRegister, amountRegister, categoryRegister, isEgressRegister, error} = props
+
+    const navi = useNavigate()
 
     return(
         <form onSubmit={submit}>
@@ -19,7 +22,6 @@ function FormMovement(props){
             {error?.amount?.type === 'min' && <span>El monto no puede ser negativo.</span>}
 
             <CategoriesList label="Categoria: " register={categoryRegister}/>
-
             
             {(isEgressRegister || false) &&
                 <div>
@@ -27,9 +29,16 @@ function FormMovement(props){
                     <input type="checkbox" onChange={changeCheckBox || {}} checked={checkedCheckBox || false} register={isEgressRegister}/>
                 </div>
             }
+            {(!isEgressRegister) &&
+                <div>
+                    <label hidden={!checkedCheckBox}>Es Egreso</label>
+                    <label hidden={checkedCheckBox}>Es Ingreso</label>
+                </div>
+            }
             
             <div>
                 <button type="submit">GUARDAR</button>
+                <button type="buttom" onClick={()=>{navi("/movements/")}}>CANCELAR</button>
                 {children}
             </div>
         </form>

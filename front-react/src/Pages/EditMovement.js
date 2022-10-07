@@ -3,7 +3,6 @@ import {useForm} from "react-hook-form"
 import Input from "../Components/Input"
 import {getById,deleteById,updateById} from "../Services/movementsServices"
 import { useParams } from "react-router-dom";
-import CategoriesList from "../Components/CategoriesList";
 import {useNavigate} from 'react-router-dom'
 import moment from "moment";
 import FormMovement from "../Components/FormMovemet"
@@ -140,11 +139,8 @@ function EditMovement(){
                     <div>
                         <h2>Edicion de Id: {id}</h2>
                     </div>
-                    <FormMovement submit={handleSubmit(onSubmit)} error = {errors}  dateRegister={{...register("date",{required:true})}} conceptRegister={{...register("concept",{required:true})}} amountRegister={{...register("amount",{required:true,min:0})}} categoryRegister={{...register("categoryId")}} >
-                        <label hidden={!isEgress}>Es Egreso</label>
-                        <label hidden={isEgress}>Es Ingreso</label>
+                    <FormMovement submit={handleSubmit(onSubmit)} error = {errors} checkedCheckBox={isEgress} dateRegister={{...register("date",{required:true})}} conceptRegister={{...register("concept",{required:true})}} amountRegister={{...register("amount",{required:true,min:0})}} categoryRegister={{...register("categoryId")}} >
                         <button type="buttom" onClick={()=>{handleEliminar()}}>ELIMINAR</button>
-                        <button type="buttom" onClick={()=>{navi("/movements/")}}>CANCELAR</button>
                     </FormMovement>
                         
                 </div>
