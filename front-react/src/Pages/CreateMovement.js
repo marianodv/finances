@@ -5,6 +5,8 @@ import {postMovement} from "../Services/createMovementService"
 import Moment from 'moment';
 import CategoriesList from "../Components/CategoriesList";
 import { useParams } from "react-router-dom";
+import FormMovement from "../Components/FormMovemet"
+import {useNavigate} from 'react-router-dom'
 
 const styles = {
     egress:{
@@ -22,6 +24,8 @@ function CreateMovement(props){
     
     const { register, handleSubmit, setValue,formState:{errors}} = useForm()
     const [operation,setOperation] = useState(true)
+
+    const navi = useNavigate()
 
     const onSubmit = (data) => {
     if(data.categoryId === "0"){
@@ -63,7 +67,7 @@ function CreateMovement(props){
         console.log(operation)
     }
 
-    
+    /*
     return( 
         <div style={(operation && styles.egress) || (!operation && styles.ingress)}>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -86,6 +90,14 @@ function CreateMovement(props){
                 
                 <button type="submit">AGREGAR</button>
             </form>
+        </div>
+    )*/
+
+    return( 
+        <div style={(operation && styles.egress) || (!operation && styles.ingress)}>
+            <FormMovement submit={handleSubmit(onSubmit)} error = {errors} changeCheckBox={handleChange} checkedCheckBox={operation} dateRegister={{...register("date",{required:true})}} conceptRegister={{...register("concept",{required:true})}} amountRegister={{...register("amount",{required:true,min:0})}} categoryRegister={{...register("categoryId")}} isEgressRegister={{...register("isEgress")}} >
+                <button type="buttom" onClick={()=>{navi('/movements/')}}>CANCELAR</button>
+            </FormMovement>
         </div>
     )
 

@@ -1,9 +1,10 @@
 import React from "react";
 import Input from "../Components/Input"
+import CategoriesList from "../Components/CategoriesList";
 
 function FormMovement(props){
 
-    const {children, submit, dateRegister, conceptRegister, amountRegister, categoryRegister, isEgressRegister, error} = props
+    const {children, submit, changeCheckBox, checkedCheckBox, dateRegister, conceptRegister, amountRegister, categoryRegister, isEgressRegister, error} = props
 
     return(
         <form onSubmit={submit}>
@@ -23,7 +24,7 @@ function FormMovement(props){
             {isEgressRegister &&
                 <div>
                     <label>Es Egreso: </label>
-                    <input type="checkbox" onChange={handleChange} checked={operation} register={isEgressRegister}/>
+                    <input type="checkbox" onChange={changeCheckBox} checked={checkedCheckBox} register={isEgressRegister}/>
                 </div>
             }
             
