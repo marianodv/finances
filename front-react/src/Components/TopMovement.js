@@ -1,24 +1,32 @@
 import React from "react";
 import moment from 'moment';
+import ListGroup from 'react-bootstrap/ListGroup';
+
 
 function TopMovement(props){
 
-    const {concept,amount,date,category,isEgress} = props.data
-    const children = props.children
+    const {_id,concept,amount,date,category,isEgress} = props.data
 
     return(
-        <>
-            { isEgress &&
-                <div>
-                    <h4>{children})_{moment(date).format('DD-MM-YYYY') || ''} | {concept || ''} ({category?.name || "Without Category"}) | $-{amount || ''}</h4>
-                </div>
-            }
-            { !isEgress &&
-                <div>
-                    <h3>{children})_{moment(date).format('DD-MM-YYYY') || ''} | {concept || ''} ({category?.name || "Without Category"}) | ${amount || ''}</h3>
-                </div>
-            }
-        </>
+            <tr>
+            
+                <td>
+                <ListGroup.Item variant={(isEgress && "danger") || (!isEgress && "success")}>{_id}</ListGroup.Item>
+                </td>
+                <td>
+                <ListGroup.Item variant={(isEgress && "danger") || (!isEgress && "success")}>{moment(date).format('DD-MM-YYYY') || ''}</ListGroup.Item>
+                    </td>
+                    <td>
+                    <ListGroup.Item variant={(isEgress && "danger") || (!isEgress && "success")}>{concept || ''}</ListGroup.Item>
+                    </td>
+                    <td>
+                    <ListGroup.Item variant={(isEgress && "danger") || (!isEgress && "success")}>{category?.name || "Without Category"}</ListGroup.Item>
+                    </td>
+                    <td>
+                    <ListGroup.Item variant={(isEgress && "danger") || (!isEgress && "success")}>${isEgress && <>-</>}{amount || ''}</ListGroup.Item>
+                    </td>
+              
+            </tr>
     )
 }
 

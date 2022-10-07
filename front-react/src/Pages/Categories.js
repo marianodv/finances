@@ -3,6 +3,7 @@ import {deleteById, getAll} from "../Services/categoriesService"
 import {useNavigate} from 'react-router-dom'
 import Loading from "../Components/Loading";
 import ButtonWithoutLoading from "../Components/ButtonWithoutLoading"
+import Table from 'react-bootstrap/Table'
 
 function Categories(){
 
@@ -63,12 +64,26 @@ function Categories(){
                 <ButtonWithoutLoading variant="create" onClick={()=>{navi('/categories/new')}}>NUEVA CATEGORIA</ButtonWithoutLoading>
             </div>
             <Loading loading={loading}>
-                    <div>
-                        {categories.map((category) => <p key={category._id}>{category._id} | {category.name}
-                            <ButtonWithoutLoading variant="edit" onClick={()=>{handleEditar(category._id)}}>EDITAR</ButtonWithoutLoading>
-                            <ButtonWithoutLoading variant="delete" onClick={()=>{handleEliminar(category._id)}}>ELIMINAR</ButtonWithoutLoading>
-                        </p>)}
-                    </div>
+                <Table striped>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Denominacion</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {categories.map((category) => 
+                            <tr key={category._id}>
+                                <td>{category._id}</td>
+                                <td>{String(category.name).toUpperCase()}</td>
+                                <td>
+                                    <ButtonWithoutLoading variant="edit" onClick={()=>{handleEditar(category._id)}}>EDITAR</ButtonWithoutLoading>
+                                    <ButtonWithoutLoading variant="delete" onClick={()=>{handleEliminar(category._id)}}>ELIMINAR</ButtonWithoutLoading>
+                                </td>
+                            </tr>)}
+                    </tbody>
+                </Table>
             </Loading>
         </div>
     )

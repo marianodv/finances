@@ -1,6 +1,8 @@
 import React,{useEffect, useState} from "react";
 import TopMovement from "./TopMovement";
 import {getTopMovements} from '../Services/movementsServices'
+import Loading from './Loading'
+import Table from 'react-bootstrap/Table';
 
 function TopMovements(){
     const [loading,setLoading]=useState(true)
@@ -24,36 +26,16 @@ function TopMovements(){
         },
         [] 
     )
-
-    const handleClickActualizar = ()=>{
-        setListMovements([{
-                _id:5,
-                concept:"nuevo",
-                amount:9999,
-                date:'2022-29-09',
-                categoryId:34,
-                isEgress:true
-            }]
-        )
-    }
     
-
-    if(loading){
-        return(
-            <>
-                <div>
-                    CARGANDO...
-                </div>
-            </>
-        )
-    }else{
-        return(
-            <>
-                {listMovements.map((movement,ind) => <TopMovement key={ind} data={movement}>{ind+1}</TopMovement>)}  
-                <button onClick={handleClickActualizar}>actualizar movimientos</button>
-            </>
-        )
-    }
+    return(
+        <Loading loading={loading}>
+            <Table striped>
+                <tbody>
+                    {listMovements.map((movement,ind) => (<TopMovement key={ind} data={movement} />))}
+                </tbody>
+            </Table>
+        </Loading>
+    )
 }
 
 export default TopMovements

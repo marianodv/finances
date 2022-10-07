@@ -1,5 +1,7 @@
 import React,{useEffect,useState} from "react";
 import {getBalance} from '../Services/balancesService'
+import Loading from './Loading'
+import Card from 'react-bootstrap/Card';
 
 function Balance(props){
 
@@ -25,18 +27,14 @@ function Balance(props){
     )
 
     return(
-        <>
-            { loading &&
-                <div>
-                    LOADING.....
-                </div>
-            }
-            { !loading &&
-                <div>
-                    <p>Tienes en Caja: $ {balance}</p>
-                </div>
-            }
-        </>
+        <Loading loading={loading}>
+            <Card border="info" /*style={{ width: '18rem'}}*/>
+                <Card.Header>Tienes en Caja</Card.Header>
+                <Card.Body>
+                    <Card.Title>$ {balance}</Card.Title>
+                </Card.Body>
+            </Card>
+        </Loading>
     )
 }
 
