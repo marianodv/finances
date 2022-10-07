@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from "react";
 import {getAll} from "../Services/categoriesService"
 
-function Categories(props){
+function CategoriesList(props){
 
     const {label, register} = props
     const [loading,setLoading] = useState(true)
@@ -45,4 +45,4 @@ function Categories(props){
     )
 }
 
-export default Categories
+export default CategoriesList

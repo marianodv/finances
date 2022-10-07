@@ -3,7 +3,7 @@ import {useForm} from "react-hook-form"
 import Input from "../Components/Input"
 import {getById,deleteById,updateById} from "../Services/movementsServices"
 import { useParams } from "react-router-dom";
-import Categories from "../Components/Categories";
+import CategoriesList from "../Components/CategoriesList";
 import {useNavigate} from 'react-router-dom'
 import moment from "moment";
 
@@ -117,7 +117,7 @@ function EditMovement(){
                         {errors.amount?.type === 'required' && <span>El campo monto es obligatorio.</span>}
                         {errors.amount?.type === 'min' && <span>El monto no puede ser negativo.</span>}
 
-                        <Categories label="Categoria: " register={{...register("categoryId")}}/>
+                        <CategoriesList label="Categoria: " register={{...register("categoryId")}}/>
 
                         <label hidden={!isEgress}>Es Egreso</label>
                         <label hidden={isEgress}>Es Ingreso</label>

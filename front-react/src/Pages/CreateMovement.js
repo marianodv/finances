@@ -3,7 +3,7 @@ import {useForm} from "react-hook-form"
 import Input from "../Components/Input"
 import {postMovement} from "../Services/createMovementService"
 import Moment from 'moment';
-import Categories from "../Components/Categories";
+import CategoriesList from "../Components/CategoriesList";
 import { useParams } from "react-router-dom";
 
 const styles = {
@@ -77,7 +77,7 @@ function CreateMovement(props){
                 {errors.amount?.type === 'required' && <span>El campo monto es obligatorio.</span>}
                 {errors.amount?.type === 'min' && <span>El monto no puede ser negativo.</span>}
 
-                <Categories label="Categoria: " register={{...register("categoryId")}}/>
+                <CategoriesList label="Categoria: " register={{...register("categoryId")}}/>
 
                 <div>
                     <label>Es Egreso: </label>
