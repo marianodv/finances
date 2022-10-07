@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import {newCategory} from "../Services/categoriesService"
 import {useForm} from "react-hook-form"
-import Input from "../Components/Input"
 import {useNavigate} from 'react-router-dom'
+import FormCategory from '../Components/FormCategory'
 
 
 function CreateCategory(){
@@ -34,19 +34,13 @@ function CreateCategory(){
     }
 
 
-   
     return(
         <>
             {!viewMessaje &&
                 <div>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <Input label="Nombre" register={{...register("name",{required:true})}}/>
-                        {errors.name && <span>El campo nombre es obligatorio.</span>}
-                        <div>
-                            <button type="submit">GUARDAR</button>
-                            <button type="buttom" onClick={()=>{navi('/categories/')}}>CANCELAR</button>
-                        </div>
-                    </form>
+                    <FormCategory submit={handleSubmit(onSubmit)} nameRegister={{...register("name",{required:true})}} error={errors} >
+                        <button type="buttom" onClick={()=>{navi('/categories/')}}>CANCELAR</button>
+                    </FormCategory>
                 </div>
             }
             {viewMessaje &&
@@ -56,7 +50,6 @@ function CreateCategory(){
             }
         </>
     )
-    
 }
 
 export default CreateCategory

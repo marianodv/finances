@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {getById, deleteById, updateById} from "../Services/categoriesService"
 import {useForm} from "react-hook-form"
-import Input from "../Components/Input"
 import {useNavigate, useParams} from 'react-router-dom'
+import FormCategory from '../Components/FormCategory'
 
 
 function EditCategory(){
@@ -88,15 +88,10 @@ function EditCategory(){
                     <>
                         <h2>Edicion de Categoria id: {id}</h2>
                         <div>
-                            <form onSubmit={handleSubmit(onSubmit)}>
-                                <Input label="Nombre" register={{...register("name",{required:true})}}/>
-                                {errors.name && <span>El campo nombre es obligatorio.</span>}
-                                <div>
-                                    <button type="submit">GUARDAR</button>
-                                    <button type="button" onClick={handleEliminar}>ELIMINAR</button>
-                                    <button type="button" onClick={()=>{navi('/categories/')}}>CANCELAR</button>
-                                </div>
-                            </form>
+                            <FormCategory submit={handleSubmit(onSubmit)} nameRegister={{...register("name",{required:true})}} error={errors} >
+                                <button type="button" onClick={handleEliminar}>ELIMINAR</button>
+                                <button type="button" onClick={()=>{navi('/categories/')}}>CANCELAR</button>
+                            </FormCategory>
                         </div>
                     </>
                 }
