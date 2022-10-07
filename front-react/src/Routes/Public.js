@@ -5,6 +5,7 @@ import EditMovement from "../Pages/EditMovement"
 import NotFound from "../Pages/NotFound"
 import {Routes, Route} from "react-router-dom"
 import Categories from "../Pages/Categories"
+import CreateCategory from "../Pages/CreateCategory"
 
 function Public(){
     return(
@@ -15,6 +16,7 @@ function Public(){
             <Route path="/movements/create/" element={<CreateMovement />} />
             <Route path="/movements/edit/:id" element={<EditMovement />} />
             <Route path="/categories/" element={<Categories />} />
+            <Route path="/categories/new" element={<CreateCategory />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
     )

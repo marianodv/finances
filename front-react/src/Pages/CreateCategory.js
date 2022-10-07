@@ -5,7 +5,7 @@ import Input from "../Components/Input"
 import {useNavigate} from 'react-router-dom'
 
 
-function Categories(){
+function CreateCategory(){
 
     const [viewMessaje,setViewMessaje] = useState(false)
 
@@ -14,7 +14,7 @@ function Categories(){
     const navi = useNavigate()
 
     const onSubmit = (data) => {
-        const updateOrNew = async()=>{
+        const newCat = async()=>{
             try{
                 const request = await newCategory(data)
                 if (request){
@@ -30,7 +30,7 @@ function Categories(){
         }
        
         console.log("FORM ", data)
-        updateOrNew()
+        newCat()
     }
 
 
@@ -59,6 +59,6 @@ function Categories(){
     
 }
 
-export default Categories
+export default CreateCategory
 
 
