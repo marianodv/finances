@@ -6,7 +6,7 @@ function Menu(){
             <li><Link to="/">Home</Link></li>
             <li><Link to="/categories/">Categorias</Link></li>
             <li><Link to="/movements/create/">Agregar</Link></li>
-            <li><Link to="/movements/">Ver Todos</Link></li>
+            <li><Link to="/movements/">Ver Movimientos</Link></li>
         </ul>
     )
 }

@@ -1,5 +1,7 @@
 import React,{useEffect,useState} from "react";
 import {getAll} from "../Services/categoriesService"
+import Form from 'react-bootstrap/Form'
+import Loading from '../Components/Loading'
 
 function CategoriesList(props){
 
@@ -26,22 +28,16 @@ function CategoriesList(props){
     )
 
     return(
-        <>
-            { loading &&
-                <div>
-                    LOADING.....
-                </div>
-            }
-            { !loading &&
-                <div>
-                    <label>{label || ""}</label>
-                    <select {...register}>
-                        <option value={0}>-- SELECCIONE --</option>
-                        {categories.map((category, item) => <option key={item} value={category._id}>{category.name}</option>)}
-                    </select>
-                </div>
-            }
-        </>
+        <Loading loading={loading}>
+            <div width="50%">
+                <label>{label || ""}</label>
+
+                <Form.Select aria-label="Default select example" {...register}>
+                    <option value={0}>-- SELECCIONE --</option>
+                    {categories.map((category, item) => <option key={item} value={category._id}>{category.name}</option>)}
+                </Form.Select>
+            </div>
+        </Loading>
     )
 }
 
