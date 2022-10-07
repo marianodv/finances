@@ -24,6 +24,10 @@ export async function getById(id){
     return await axios.get('/movements/movement/' + id)
 }
 
+export async function postMovement(data){
+    return await axios.post("/movements/",data)
+}
+
 export async function deleteById(id){
     return await axios.delete('/movements/movement/' + id)
 }

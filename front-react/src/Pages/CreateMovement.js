@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useForm} from "react-hook-form"
-import {postMovement} from "../Services/createMovementService"
+import {postMovement} from "../Services/movementsServices"
 import Moment from 'moment';
 import { useParams } from "react-router-dom";
 import FormMovement from "../Components/FormMovemet"
@@ -64,32 +64,6 @@ function CreateMovement(props){
         setOperation(!operation)
         console.log(operation)
     }
-
-    /*
-    return( 
-        <div style={(operation && styles.egress) || (!operation && styles.ingress)}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Input label="Fecha" type="date" register={{...register("date",{required:true})}}/>
-                {errors.name && <span>El campo nombre es obligatorio.</span>}
-            
-                <Input label="Concepto" register={{...register("concept",{required:true})}}/>
-                {errors.concept && <span>El campo concepto es obligatorio.</span>}
-
-                <Input label="Monto" type="number" register={{...register("amount",{required:true,min:0})}}/>
-                {errors.amount?.type === 'required' && <span>El campo monto es obligatorio.</span>}
-                {errors.amount?.type === 'min' && <span>El monto no puede ser negativo.</span>}
-
-                <CategoriesList label="Categoria: " register={{...register("categoryId")}}/>
-
-                <div>
-                    <label>Es Egreso: </label>
-                    <input type="checkbox" onChange={handleChange} checked={operation} register={{...register("isEgress")}}/>
-                </div>
-                
-                <button type="submit">AGREGAR</button>
-            </form>
-        </div>
-    )*/
 
     return( 
         <div style={(operation && styles.egress) || (!operation && styles.ingress)}>

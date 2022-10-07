@@ -1,6 +1,5 @@
 import React, {useEffect,useState} from "react";
 import {useForm} from "react-hook-form"
-import Input from "../Components/Input"
 import {getById,deleteById,updateById} from "../Services/movementsServices"
 import { useParams } from "react-router-dom";
 import {useNavigate} from 'react-router-dom'
@@ -99,40 +98,6 @@ function EditMovement(){
             </>
         )
     }else{
-        /*return(
-            <>
-                <div hidden = {viewForm} style={(isEgress && styles.egress) || (!isEgress && styles.ingress)}>
-                    <div>
-                        <h2>Edicion de Id: {id}</h2>
-                    </div>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <Input label="Fecha" type="date" register={{...register("date",{required:true})}}/>
-                        {errors.name && <span>El campo nombre es obligatorio.</span>}
-                    
-                        <Input label="Concepto" register={{...register("concept",{required:true})}}/>
-                        {errors.concept && <span>El campo concepto es obligatorio.</span>}
-
-                        <Input label="Monto" type="number" register={{...register("amount",{required:true,min:0})}}/>
-                        {errors.amount?.type === 'required' && <span>El campo monto es obligatorio.</span>}
-                        {errors.amount?.type === 'min' && <span>El monto no puede ser negativo.</span>}
-
-                        <CategoriesList label="Categoria: " register={{...register("categoryId")}}/>
-
-                        <label hidden={!isEgress}>Es Egreso</label>
-                        <label hidden={isEgress}>Es Ingreso</label>
-                         
-                        <div>
-                            <button type="submit">GUARDAR</button>
-                            <button type="buttom" onClick={()=>{handleEliminar()}}>ELIMINAR</button>
-                        <button type="buttom" onClick={()=>{navi("/movements/")}}>CANCELAR</button>
-                        </div>
-                    </form>
-                </div>
-                <div hidden = {!viewForm}>
-                    <h1>Movimiento {id} modificado o eliminado. Redirigiendo...</h1>
-                </div>
-            </>
-        )*/
         return(
             <>
                 <div hidden = {viewForm} style={(isEgress && styles.egress) || (!isEgress && styles.ingress)}>
