@@ -21,10 +21,10 @@ function FormMovement(props){
             <CategoriesList label="Categoria: " register={categoryRegister}/>
 
             
-            {isEgressRegister &&
+            {(isEgressRegister || false) &&
                 <div>
                     <label>Es Egreso: </label>
-                    <input type="checkbox" onChange={changeCheckBox} checked={checkedCheckBox} register={isEgressRegister}/>
+                    <input type="checkbox" onChange={changeCheckBox || {}} checked={checkedCheckBox || false} register={isEgressRegister}/>
                 </div>
             }
             

@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import CategoriesList from "../Components/CategoriesList";
 import {useNavigate} from 'react-router-dom'
 import moment from "moment";
-
+import FormMovement from "../Components/FormMovemet"
 
 const styles = {
     egress:{
@@ -100,7 +100,7 @@ function EditMovement(){
             </>
         )
     }else{
-        return(
+        /*return(
             <>
                 <div hidden = {viewForm} style={(isEgress && styles.egress) || (!isEgress && styles.ingress)}>
                     <div>
@@ -125,9 +125,28 @@ function EditMovement(){
                         <div>
                             <button type="submit">GUARDAR</button>
                             <button type="buttom" onClick={()=>{handleEliminar()}}>ELIMINAR</button>
-                            <button type="buttom" onClick={()=>{navi("/movements/")}}>CANCELAR</button>
+                        <button type="buttom" onClick={()=>{navi("/movements/")}}>CANCELAR</button>
                         </div>
                     </form>
+                </div>
+                <div hidden = {!viewForm}>
+                    <h1>Movimiento {id} modificado o eliminado. Redirigiendo...</h1>
+                </div>
+            </>
+        )*/
+        return(
+            <>
+                <div hidden = {viewForm} style={(isEgress && styles.egress) || (!isEgress && styles.ingress)}>
+                    <div>
+                        <h2>Edicion de Id: {id}</h2>
+                    </div>
+                    <FormMovement submit={handleSubmit(onSubmit)} error = {errors}  dateRegister={{...register("date",{required:true})}} conceptRegister={{...register("concept",{required:true})}} amountRegister={{...register("amount",{required:true,min:0})}} categoryRegister={{...register("categoryId")}} >
+                        <label hidden={!isEgress}>Es Egreso</label>
+                        <label hidden={isEgress}>Es Ingreso</label>
+                        <button type="buttom" onClick={()=>{handleEliminar()}}>ELIMINAR</button>
+                        <button type="buttom" onClick={()=>{navi("/movements/")}}>CANCELAR</button>
+                    </FormMovement>
+                        
                 </div>
                 <div hidden = {!viewForm}>
                     <h1>Movimiento {id} modificado o eliminado. Redirigiendo...</h1>
