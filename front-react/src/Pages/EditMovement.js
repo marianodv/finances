@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import {useNavigate} from 'react-router-dom'
 import moment from "moment";
 import FormMovement from "../Components/FormMovemet"
+import Loading from "../Components/Loading"
 
 const styles = {
     egress:{
@@ -91,30 +92,24 @@ function EditMovement(){
        
     }
 
-    if(loading){
-        return(
-            <>
-                loading....
-            </>
-        )
-    }else{
-        return(
-            <>
-                <div hidden = {viewForm} style={(isEgress && styles.egress) || (!isEgress && styles.ingress)}>
-                    <div>
-                        <h2>Edicion de Id: {id}</h2>
-                    </div>
-                    <FormMovement submit={handleSubmit(onSubmit)} error = {errors} checkedCheckBox={isEgress} dateRegister={{...register("date",{required:true})}} conceptRegister={{...register("concept",{required:true})}} amountRegister={{...register("amount",{required:true,min:0})}} categoryRegister={{...register("categoryId")}} >
-                        <button type="buttom" onClick={()=>{handleEliminar()}}>ELIMINAR</button>
-                    </FormMovement>
-                        
+  
+    return(
+        <Loading loading={loading}>
+            <div hidden = {viewForm} style={(isEgress && styles.egress) || (!isEgress && styles.ingress)}>
+                <div>
+                    <h2>Edicion de Id: {id}</h2>
                 </div>
-                <div hidden = {!viewForm}>
-                    <h1>Movimiento {id} modificado o eliminado. Redirigiendo...</h1>
-                </div>
-            </>
-        )
-    }
+                <FormMovement submit={handleSubmit(onSubmit)} error = {errors} checkedCheckBox={isEgress} dateRegister={{...register("date",{required:true})}} conceptRegister={{...register("concept",{required:true})}} amountRegister={{...register("amount",{required:true,min:0})}} categoryRegister={{...register("categoryId")}} >
+                    <button type="buttom" onClick={()=>{handleEliminar()}}>ELIMINAR</button>
+                </FormMovement>
+                    
+            </div>
+            <div hidden = {!viewForm}>
+                <h1>Movimiento {id} modificado o eliminado. Redirigiendo...</h1>
+            </div>
+        </Loading>
+    )
+    
     
 }
 

@@ -4,7 +4,7 @@ import Menu from './Components/Menu'
 
 const styles = {
   app:{
-    backgroundColor:'#666666',
+    //backgroundColor:'#666666',
     textAlign:'center'
   }
 }

@@ -1,6 +1,7 @@
 import React, {useEffect,useState} from "react";
 import {deleteById, getAll} from "../Services/categoriesService"
 import {useNavigate} from 'react-router-dom'
+import Loading from "../Components/Loading";
 
 function Categories(){
 
@@ -52,24 +53,21 @@ function Categories(){
         request()
     }
 
-    if(loading){
-        return(
-            <>
-                loading....
-            </>
-        )
-    }else{
-        return(
+
+    
+   
+    return(
+        <div>
             <div>
-                <div>
-                    <button onClick={()=>{navi('/categories/new')}}>NUEVA CATEGORIA</button>
-                </div>
-                <div>
-                    {categories.map((category) => <p key={category._id}>{category._id} | {category.name}<button onClick={()=>{handleEditar(category._id)}}>EDITAR</button><button onClick={()=>{handleEliminar(category._id)}}>ELIMINAR</button></p>)}
-                </div>
+                <button onClick={()=>{navi('/categories/new')}}>NUEVA CATEGORIA</button>
             </div>
-        )
-    }
+            <Loading loading={loading}>
+                    <div>
+                        {categories.map((category) => <p key={category._id}>{category._id} | {category.name}<button onClick={()=>{handleEditar(category._id)}}>EDITAR</button><button onClick={()=>{handleEliminar(category._id)}}>ELIMINAR</button></p>)}
+                    </div>
+            </Loading>
+        </div>
+    )
     
 }
 

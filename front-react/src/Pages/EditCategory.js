@@ -3,6 +3,7 @@ import {getById, deleteById, updateById} from "../Services/categoriesService"
 import {useForm} from "react-hook-form"
 import {useNavigate, useParams} from 'react-router-dom'
 import FormCategory from '../Components/FormCategory'
+import Loading from '../Components/Loading'
 
 
 function EditCategory(){
@@ -75,34 +76,28 @@ function EditCategory(){
     }
    
 
-    if(loading){
-        return(
-            <>
-                loading....
-            </>
-        )
-    }else{
-        return(
-            <>
-                {!viewMessaje &&
-                    <>
-                        <h2>Edicion de Categoria id: {id}</h2>
-                        <div>
-                            <FormCategory submit={handleSubmit(onSubmit)} nameRegister={{...register("name",{required:true})}} error={errors} >
-                                <button type="button" onClick={handleEliminar}>ELIMINAR</button>
-                                <button type="button" onClick={()=>{navi('/categories/')}}>CANCELAR</button>
-                            </FormCategory>
-                        </div>
-                    </>
-                }
-                {viewMessaje &&
+    
+    return(
+        <Loading loading={loading}>
+            {!viewMessaje &&
+                <>
+                    <h2>Edicion de Categoria id: {id}</h2>
                     <div>
-                        Edicion o Eliminacion Satisfactoria. Redireccionando...
+                        <FormCategory submit={handleSubmit(onSubmit)} nameRegister={{...register("name",{required:true})}} error={errors} >
+                            <button type="button" onClick={handleEliminar}>ELIMINAR</button>
+                            <button type="button" onClick={()=>{navi('/categories/')}}>CANCELAR</button>
+                        </FormCategory>
                     </div>
-                }
-            </>
-        )
-    }
+                </>
+            }
+            {viewMessaje &&
+                <div>
+                    Edicion o Eliminacion Satisfactoria. Redireccionando...
+                </div>
+            }
+        </Loading>
+    )
+   
     
 }
 

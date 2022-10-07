@@ -112,7 +112,7 @@ function Movements(){
                 </div>
                 <Loading loading={loading}>
                     <div>
-                        {movements?.rows.map((movement,ind) => <Movement key={ind} data={movement} onDelete={()=>{handleDelete(movement._id)}}>{ind+1}</Movement>)}  
+                        {movements?.rows?.map((movement,ind) => <Movement key={ind} data={movement} onDelete={()=>{handleDelete(movement._id)}}>{ind+1}</Movement>)}  
                         <p>{movements?.pageMin} to page {movements?.page} to {movements?.pageMax} | TOTAL: {movements?.rowsCount} | listed: {movements?.rowsPerPage}</p>
                     </div>
                 </Loading>
