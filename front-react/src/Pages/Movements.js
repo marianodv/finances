@@ -45,6 +45,8 @@ function Movements(){
 
     const navi = useNavigate()
 
+    const [withPaginate, setWithPaginate] = useState({})
+
     useEffect(
         ()=>{
             listAll()
@@ -105,10 +107,12 @@ function Movements(){
         }
     }
 
-    
-    
+
+
+
    
     return(
+        
         <>
             <Container>
                 <Row style={{marginTop:'1rem'}}>
@@ -172,7 +176,8 @@ function Movements(){
                         </Table>
                     </div>
                 </div>
-                <Paginate min={movements?.pageMin} max={movements?.pageMax} active={movements?.page} rowsCount={movements?.rowsCount} rowsPerPage={movements?.rowsPerPage} />
+                
+                <Paginate data={withPaginate} />
                 <p>{movements?.pageMin} to page {movements?.page} to {movements?.pageMax} | TOTAL: {movements?.rowsCount} | listed: {movements?.rowsPerPage}</p>
             </Loading>
         </>

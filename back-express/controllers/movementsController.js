@@ -45,10 +45,10 @@ module.exports = {
             }else{
                 pagePrev = 1
             }
-            if (document.page < pageMax){
+            if (document.page < document.pages){
                 pageNext = document.page + 1
             }else{
-                pageNext = pageMax
+                pageNext = document.pages
             }
 
             res.status(200).json({
@@ -152,10 +152,10 @@ module.exports = {
             }else{
                 pagePrev = 1
             }
-            if (document.page < pageMax){
+            if (document.page < document.pages){
                 pageNext = document.page + 1
             }else{
-                pageNext = pageMax
+                pageNext = document.pages
             }
 
             res.status(200).json({
@@ -248,10 +248,10 @@ module.exports = {
             }else{
                 pagePrev = 1
             }
-            if (document.page < pageMax){
+            if (document.page < document.pages){
                 pageNext = document.page + 1
             }else{
-                pageNext = pageMax
+                pageNext = document.pages
             }
 
             res.status(200).json({
@@ -310,10 +310,10 @@ module.exports = {
             }else{
                 pagePrev = 1
             }
-            if (document.page < pageMax){
+            if (document.page < document.pages){
                 pageNext = document.page + 1
             }else{
-                pageNext = pageMax
+                pageNext = document.pages
             }
             
             res.status(200).json({

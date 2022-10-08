@@ -3,7 +3,7 @@ import Pagination from 'react-bootstrap/Pagination';
 
 function Paginate(props){
 
-    const {min, max, active, rowsCount, rowsPerPage} = props
+    const {min, max, active, rowsCount, rowsPerPage} = props.data
 
     const [pagesList, setPagesList] = useState([])
     const [loading, setLoading] = useState(true)
