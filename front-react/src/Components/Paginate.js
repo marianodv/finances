@@ -9,13 +9,16 @@ function Paginate(props){
     const [loading, setLoading] = useState(true)
 
     const createPaginate = () =>{
+        console.log("pag", min,max,active, rowsCount, rowsPerPage)
+        let aux=[]
         for (let number = min; number <= max; number++) {
-            setPagesList(...pagesList,
+            aux.push(
                 <Pagination.Item key={number} active={number === active}>
                     {number}
                 </Pagination.Item>
             )
         }
+        setPagesList(aux)
         setLoading(false)
     }
 
@@ -23,6 +26,7 @@ function Paginate(props){
         ()=>{
             createPaginate()
         },
+        // eslint-disable-next-line
         []
     )
 

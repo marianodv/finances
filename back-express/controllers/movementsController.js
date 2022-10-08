@@ -39,12 +39,26 @@ module.exports = {
 
             document.rowsPerPage = size
 
+            let pagePrev,pageNext
+            if (document.page > 1){
+                pagePrev = document.page - 1
+            }else{
+                pagePrev = 1
+            }
+            if (document.page < pageMax){
+                pageNext = document.page + 1
+            }else{
+                pageNext = pageMax
+            }
+
             res.status(200).json({
                 rowsCount:document.count,
                 pageMin:1,
                 pageMax:document.pages,
                 page:document.page,
                 rowsPerPage:document.rowsPerPage,
+                pagePrev,
+                pageNext,
                 rows:document.rows
             })
 
@@ -132,12 +146,26 @@ module.exports = {
 
             document.rowsPerPage = size
 
+            let pagePrev,pageNext
+            if (document.page > 1){
+                pagePrev = document.page - 1
+            }else{
+                pagePrev = 1
+            }
+            if (document.page < pageMax){
+                pageNext = document.page + 1
+            }else{
+                pageNext = pageMax
+            }
+
             res.status(200).json({
                 rowsCount:document.count,
                 pageMin:1,
                 pageMax:document.pages,
                 page:document.page,
                 rowsPerPage:document.rowsPerPage,
+                pagePrev,
+                pageNext,
                 rows:document.rows
             })
 
@@ -214,12 +242,26 @@ module.exports = {
 
             document.rowsPerPage = size
 
+            let pagePrev,pageNext
+            if (document.page > 1){
+                pagePrev = document.page - 1
+            }else{
+                pagePrev = 1
+            }
+            if (document.page < pageMax){
+                pageNext = document.page + 1
+            }else{
+                pageNext = pageMax
+            }
+
             res.status(200).json({
                 rowsCount:document.count,
                 pageMin:1,
                 pageMax:document.pages,
                 page:document.page,
                 rowsPerPage:document.rowsPerPage,
+                pagePrev,
+                pageNext,
                 rows:document.rows
             })
 
@@ -262,12 +304,26 @@ module.exports = {
 
             document.rowsPerPage = size
 
+            let pagePrev,pageNext
+            if (document.page > 1){
+                pagePrev = document.page - 1
+            }else{
+                pagePrev = 1
+            }
+            if (document.page < pageMax){
+                pageNext = document.page + 1
+            }else{
+                pageNext = pageMax
+            }
+            
             res.status(200).json({
                 rowsCount:document.count,
                 pageMin:1,
                 pageMax:document.pages,
                 page:document.page,
                 rowsPerPage:document.rowsPerPage,
+                pagePrev,
+                pageNext,
                 rows:document.rows
             })
 
