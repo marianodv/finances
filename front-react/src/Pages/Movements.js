@@ -11,7 +11,8 @@ import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table'
 import ButtonWithoutLoading from '../Components/ButtonWithoutLoading';
 import {useNavigate} from 'react-router-dom'
-import Pagination from 'react-bootstrap/Pagination';
+import Paginate from "../Components/Paginate";
+
 
 const styles={
     absCenter:{
@@ -39,8 +40,7 @@ function Movements(){
     const [loading,setLoading] = useState(true)
     const [movements,setMovements] = useState([])
     
-    let pages=[]
-
+    
     const { register,setValue, getValues} = useForm()
 
     const navi = useNavigate()
@@ -59,7 +59,6 @@ function Movements(){
             const response = await getAll()
             console.log("LST: ",response?.data)
 
-            createPaginate(response?.data?.pageMin,response?.data?.pageMax,response?.data?.page)
             setMovements(response?.data)
 
             setLoading(false)
@@ -106,15 +105,7 @@ function Movements(){
         }
     }
 
-    const createPaginate = (min, max, active) =>{
-        for (let number = min; number <= max; number++) {
-            pages.push(
-                <Pagination.Item key={number} active={number === active}>
-                    {number}
-                </Pagination.Item>
-            );
-        }
-    }
+    
     
    
     return(
@@ -181,17 +172,7 @@ function Movements(){
                         </Table>
                     </div>
                 </div>
-                <Pagination size="sm">
-                    <Pagination.Item key={1} active={true}>
-                        1
-                    </Pagination.Item>
-                    <Pagination.Item key={2} active={false}>
-                        2
-                    </Pagination.Item>
-                    <Pagination.Item key={3} active={false}>
-                        3
-                    </Pagination.Item>
-                </Pagination>
+                <Paginate min={movements?.pageMin} max={movements?.pageMax} active={movements?.page} rowsCount={movements?.rowsCount} rowsPerPage={movements?.rowsPerPage} />
                 <p>{movements?.pageMin} to page {movements?.page} to {movements?.pageMax} | TOTAL: {movements?.rowsCount} | listed: {movements?.rowsPerPage}</p>
             </Loading>
         </>

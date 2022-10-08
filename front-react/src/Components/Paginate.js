@@ -1,41 +1,42 @@
-import React,{useEffect,useState} from "react";
-import {getBalance} from '../Services/balancesService'
-import Loading from './Loading'
-import Card from 'react-bootstrap/Card';
-import Alert from 'react-bootstrap/Alert'
+import React, {useEffect,useState} from "react";
+import Pagination from 'react-bootstrap/Pagination';
 
 function Paginate(props){
 
-    const [balance,setBalance] = useState(0)
-    const [loading,setLoading] = useState(true)
+    const {min, max, active, rowsCount, rowsPerPage} = props
+
+    const [pagesList, setPagesList] = useState([])
+    const [loading, setLoading] = useState(true)
+
+    const createPaginate = () =>{
+        for (let number = min; number <= max; number++) {
+            setPagesList(...pagesList,
+                <Pagination.Item key={number} active={number === active}>
+                    {number}
+                </Pagination.Item>
+            )
+        }
+        setLoading(false)
+    }
 
     useEffect(
         ()=>{
-            const request = async () => {
-                try{
-                    const response = await getBalance()
-                    setBalance(response?.data || 0) 
-
-                    setLoading(false)
-                }catch (error){
-                    console.log("Error: ", error)
-                }
-            }
-
-            request()
+            createPaginate()
         },
         []
     )
 
     return(
-        <Loading loading={loading}>
-            <Card border="info" style={{ width: '50%',marginLeft:'25%', marginTop:'1rem'}}>
-                <Card.Header>Tienes en Caja</Card.Header>
-                <Card.Body>
-                    <Alert variant={((balance < 0) && "danger") || ((balance >= 0) && "success")}><Alert.Heading>$ {balance}</Alert.Heading></Alert>
-                </Card.Body>
-            </Card>
-        </Loading>
+        <>
+            {loading &&
+                <p>{min} to page {active} to {max} | TOTAL: {rowsCount} | listed: {rowsPerPage}</p>
+            }
+            {!loading &&
+                <Pagination size="sm">
+                    {pagesList}
+                </Pagination>
+            }
+        </>
     )
 }
 
