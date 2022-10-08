@@ -4,6 +4,8 @@ import {useForm} from "react-hook-form"
 import {useNavigate, useParams} from 'react-router-dom'
 import FormCategory from '../Components/FormCategory'
 import Loading from '../Components/Loading'
+import ButtonWithLoading from '../Components/ButtonWithLoading'
+import Modal from 'react-bootstrap/Modal'
 
 
 function EditCategory(){
@@ -13,6 +15,8 @@ function EditCategory(){
     const [loading,setLoading] = useState(true)
 
     const [viewMessaje,setViewMessaje] = useState(false)
+
+    const [modalShow, setModalShow] = React.useState(false);
 
     const { register, handleSubmit, setValue, formState:{errors}} = useForm()
 
@@ -57,7 +61,40 @@ function EditCategory(){
         [id, setValue]
     )
 
+
+    function MyVerticallyCenteredModal(props) {
+        return (
+        <Modal
+            {...props}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-vcenter">
+                Eliminacion de Categoria id: {id}
+            </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+            <p>
+                ¿Seguro/a que desea eliminar la categoria?
+            </p>
+            </Modal.Body>
+            <Modal.Footer>
+            <ButtonWithLoading variant="secondary" onClick={props.onHide}>Cerrar</ButtonWithLoading>
+            <ButtonWithLoading variant="danger" onClick={clickOnModalDelete}>ELIMINAR</ButtonWithLoading>
+            </Modal.Footer>
+        </Modal>
+        );
+    }
+
+
     const handleEliminar =()=>{
+        setModalShow(true)
+    }
+   
+    const clickOnModalDelete = async ()=>{
+        setModalShow(false)
         const request = async()=>{ 
             try{          
                 const response = await deleteById(id)
@@ -74,20 +111,21 @@ function EditCategory(){
         }
         request()
     }
-   
-
     
     return(
         <Loading loading={loading}>
             {!viewMessaje &&
                 <>
-                    <h2>Edicion de Categoria id: {id}</h2>
                     <div>
-                        <FormCategory submit={handleSubmit(onSubmit)} nameRegister={{...register("name",{required:true})}} error={errors} >
-                            <button type="button" onClick={handleEliminar}>ELIMINAR</button>
-                            <button type="button" onClick={()=>{navi('/categories/')}}>CANCELAR</button>
-                        </FormCategory>
+                        <h2>Edicion de Categoria id: {id}</h2>
                     </div>
+                    <FormCategory submit={handleSubmit(onSubmit)} nameRegister={{...register("name",{required:true})}} error={errors} >
+                        <ButtonWithLoading type="button" variant="danger" onClick={handleEliminar}>ELIMINAR</ButtonWithLoading>
+                    </FormCategory>
+                    <MyVerticallyCenteredModal
+                        show={modalShow}
+                        onHide={() => setModalShow(false)}
+                    /> 
                 </>
             }
             {viewMessaje &&

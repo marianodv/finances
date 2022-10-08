@@ -1,6 +1,6 @@
 import React, {useEffect,useState} from "react";
 import Movement from "../Components/Movement";
-import {getAll,deleteById, getIncomes, getExpenses, getByCategory} from "../Services/movementsServices"
+import {getAll, getIncomes, getExpenses, getByCategory} from "../Services/movementsServices"
 import CategoriesList from "../Components/CategoriesList"
 import {useForm} from "react-hook-form"
 import ButtonWithLoading from "../Components/ButtonWithLoading"
@@ -11,12 +11,35 @@ import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table'
 import ButtonWithoutLoading from '../Components/ButtonWithoutLoading';
 import {useNavigate} from 'react-router-dom'
+import Pagination from 'react-bootstrap/Pagination';
+
+const styles={
+    absCenter:{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    absCenterIntern:{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minWidth:'600px',
+        width:'85%'
+    },
+      
+    table:{
+        marginTop:'1rem'
+    }
+}
 
 
 function Movements(){
 
     const [loading,setLoading] = useState(true)
     const [movements,setMovements] = useState([])
+    
+    let pages=[]
 
     const { register,setValue, getValues} = useForm()
 
@@ -35,6 +58,8 @@ function Movements(){
             setValue("category",0)
             const response = await getAll()
             console.log("LST: ",response?.data)
+
+            createPaginate(response?.data?.pageMin,response?.data?.pageMax,response?.data?.page)
             setMovements(response?.data)
 
             setLoading(false)
@@ -81,18 +106,16 @@ function Movements(){
         }
     }
 
-    const handleDelete = async (id)=>{
-        console.log("EEEEE", id)
-        try{          
-            const response = await deleteById(id)
-            console.log("DELETE: ",response?.data)
-            if (response.data){
-                setLoading(true)
-            }
-        }catch (error){
-            console.log("Error: ", error)
+    const createPaginate = (min, max, active) =>{
+        for (let number = min; number <= max; number++) {
+            pages.push(
+                <Pagination.Item key={number} active={number === active}>
+                    {number}
+                </Pagination.Item>
+            );
         }
     }
+    
    
     return(
         <>
@@ -108,7 +131,7 @@ function Movements(){
                         <CategoriesList label="Categorias: " register={{...register("category")}}/>
                     </Col>
                     <Col>
-                        <ButtonWithLoading type="button" loading={loading} onClick={()=>{
+                        <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
                             setLoading(true)
                             listForCategory()
                         }}>Por Categoria</ButtonWithLoading>
@@ -117,20 +140,20 @@ function Movements(){
                 
                 <Row style={{marginTop:'1rem'}}>
                     <Col>
-                        <ButtonWithLoading type="button" loading={loading} onClick={()=>{
+                        <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
                             setLoading(true);setTimeout(()=>{listAll()},2000)
                         }}>TODO</ButtonWithLoading>
                     </Col>
 
                     <Col>
-                        <ButtonWithLoading type="button" loading={loading} onClick={()=>{
+                        <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
                             setLoading(true)
                             listIngress()
                         }}>Solo Ingresos</ButtonWithLoading>
                     </Col>
 
                     <Col>
-                        <ButtonWithLoading type="button" loading={loading} onClick={()=>{
+                        <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
                             setLoading(true)
                             listEgress()
                         }}>Solo Egresos</ButtonWithLoading>
@@ -139,22 +162,36 @@ function Movements(){
             </Container>
 
             <Loading loading={loading}>
-
-                <Table striped style={{marginTop:'1rem'}}>
-                    <thead>
-                        <tr>
-                        <th>#</th>
-                        <th>Fecha</th>
-                        <th>Concepto</th>
-                        <th>Categoria</th>
-                        <th>Monto</th>
-                        <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {movements?.rows?.map((movement,ind) => <Movement key={ind} data={movement} onDelete={()=>{handleDelete(movement._id)}} />)}
-                    </tbody>
-                </Table>
+                <div style={styles.absCenter}>
+                    <div style={styles.absCenterIntern}>
+                        <Table striped style={styles.table}>
+                            <thead>
+                                <tr>
+                                <th>#</th>
+                                <th>Fecha</th>
+                                <th>Concepto</th>
+                                <th>Categoria</th>
+                                <th>Monto</th>
+                                <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {movements?.rows?.map((movement,ind) => <Movement key={ind} data={movement} />)}
+                            </tbody>
+                        </Table>
+                    </div>
+                </div>
+                <Pagination size="sm">
+                    <Pagination.Item key={1} active={true}>
+                        1
+                    </Pagination.Item>
+                    <Pagination.Item key={2} active={false}>
+                        2
+                    </Pagination.Item>
+                    <Pagination.Item key={3} active={false}>
+                        3
+                    </Pagination.Item>
+                </Pagination>
                 <p>{movements?.pageMin} to page {movements?.page} to {movements?.pageMax} | TOTAL: {movements?.rowsCount} | listed: {movements?.rowsPerPage}</p>
             </Loading>
         </>

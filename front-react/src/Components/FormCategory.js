@@ -47,7 +47,7 @@ function FormCategory(props){
             </Form.Group>
             <Form.Group className="mb-3">
                 <ButtonWithLoading type="submit">GUARDAR</ButtonWithLoading>
-                <ButtonWithLoading type="button" onClick={()=>{navi('/categories/')}}>CANCELAR</ButtonWithLoading>
+                <ButtonWithLoading type="button" variant="secondary" onClick={()=>{navi('/categories/')}}>CANCELAR</ButtonWithLoading>
                 {children}  
             </Form.Group>
         </Form>

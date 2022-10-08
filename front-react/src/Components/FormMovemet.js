@@ -70,20 +70,18 @@ function FormMovement(props){
             <Form.Group className="mb-3">
                 {(isEgressRegister || false) &&
                     <>
-                        <Form.Check label="Es Egreso" type="switch" onChange={changeCheckBox || {}} checked={checkedCheckBox || false} controlId={idIsEgress} register={isEgressRegister}/>
+                        <Form.Check type="switch" onChange={changeCheckBox || {}} checked={checkedCheckBox || false} controlId={idIsEgress} register={isEgressRegister}/>
                     </>
                 }
-                {(!isEgressRegister) &&
                     <>
                         <Form.Label hidden={!checkedCheckBox}>Es Egreso</Form.Label>
                         <Form.Label hidden={checkedCheckBox}>Es Ingreso</Form.Label>
                     </>
-                }
             </Form.Group>
 
             <Form.Group className="mb-3">
                 <ButtonWithLoading type="submit">GUARDAR</ButtonWithLoading>
-                <ButtonWithLoading type="button" onClick={()=>{navi("/movements/")}}>CANCELAR</ButtonWithLoading>
+                <ButtonWithLoading type="button" variant="secondary" onClick={()=>{navi("/movements/")}}>CANCELAR</ButtonWithLoading>
                 {children}
             </Form.Group>
         </Form>

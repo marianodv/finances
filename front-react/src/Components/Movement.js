@@ -5,7 +5,7 @@ import ButtonWithoutLoading from "../Components/ButtonWithoutLoading"
 
 function Movement(props){
 
-    const {data, onDelete} = props
+    const {data} = props
     const {_id,concept,amount,date,category,isEgress} = data
 
     const navi = useNavigate()
@@ -19,7 +19,6 @@ function Movement(props){
             <td>${isEgress && <>-</>}{amount || ''}</td>
             <td>
                 <ButtonWithoutLoading variant="edit" onClick={()=>{navi("/movements/edit/" + _id)}}>EDITAR</ButtonWithoutLoading>
-                <ButtonWithoutLoading variant="delete" onClick={onDelete || {}}>ELIMINAR</ButtonWithoutLoading>
             </td>
         </tr>
     )

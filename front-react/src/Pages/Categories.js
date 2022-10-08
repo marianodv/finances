@@ -1,5 +1,5 @@
 import React, {useEffect,useState} from "react";
-import {deleteById, getAll} from "../Services/categoriesService"
+import {getAll} from "../Services/categoriesService"
 import {useNavigate} from 'react-router-dom'
 import Loading from "../Components/Loading";
 import ButtonWithoutLoading from "../Components/ButtonWithoutLoading"
@@ -36,25 +36,6 @@ function Categories(){
         navi('/categories/edit/' + id)
     }
 
-    const handleEliminar =(id)=>{
-        const request = async()=>{ 
-            try{          
-                const response = await deleteById(id)
-                console.log("DELETE: ",response?.data)
-                if(response.data){
-                    const response = await getAll()
-                    console.log("LST: ",response?.data)
-                    if(response.data){
-                        setCategories(response?.data)
-                    }
-                }
-            }catch (error){
-                console.log("Error: ", error)
-            }
-        }
-        request()
-    }
-
 
     
    
@@ -79,7 +60,6 @@ function Categories(){
                                 <td>{String(category.name).toUpperCase()}</td>
                                 <td>
                                     <ButtonWithoutLoading variant="edit" onClick={()=>{handleEditar(category._id)}}>EDITAR</ButtonWithoutLoading>
-                                    <ButtonWithoutLoading variant="delete" onClick={()=>{handleEliminar(category._id)}}>ELIMINAR</ButtonWithoutLoading>
                                 </td>
                             </tr>)}
                     </tbody>

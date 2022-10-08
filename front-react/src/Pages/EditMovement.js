@@ -6,15 +6,9 @@ import {useNavigate} from 'react-router-dom'
 import moment from "moment";
 import FormMovement from "../Components/FormMovemet"
 import Loading from "../Components/Loading"
+import ButtonWithLoading from '../Components/ButtonWithLoading'
+import Modal from 'react-bootstrap/Modal';
 
-const styles = {
-    egress:{
-        backgroundColor:'red'
-    },
-    ingress:{
-        backgroundColor:'green'
-    }
-}
 
 
 function EditMovement(){
@@ -28,6 +22,8 @@ function EditMovement(){
     const [viewForm,setViewForm] = useState(false) //para ocultar div antes de redireccion
 
     const [isEgress,setIsEgress] = useState(true) //true = es egreso | false = es ingreso
+
+    const [modalShow, setModalShow] = React.useState(false);
 
     const { register, handleSubmit, setValue, formState:{errors}} = useForm()
 
@@ -77,10 +73,42 @@ function EditMovement(){
         [id,setValue]
     )
 
-    const handleEliminar = async () =>{
+    const handleEliminar = () =>{
+        setModalShow(true)
+    }
+
+    function MyVerticallyCenteredModal(props) {
+        return (
+        <Modal
+            {...props}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-vcenter">
+                Eliminacion de Movimiento id: {id}
+            </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+            <p>
+                ¿Seguro/a que desea eliminar el movimiento?
+            </p>
+            </Modal.Body>
+            <Modal.Footer>
+            <ButtonWithLoading variant="secondary" onClick={props.onHide}>Cerrar</ButtonWithLoading>
+            <ButtonWithLoading variant="danger" onClick={clickOnModalDelete}>ELIMINAR</ButtonWithLoading>
+            </Modal.Footer>
+        </Modal>
+        );
+    }
+
+
+    const clickOnModalDelete = async ()=>{
+        setModalShow(false)
         const deletedMovement = await deleteById(id)
         console.log("DELETED",id,deletedMovement)
-      
+        
         if (deletedMovement.data){
             setViewForm(true)
 
@@ -88,21 +116,22 @@ function EditMovement(){
                 navi("/movements/")
             },2000)
         }
-
-       
     }
 
   
     return(
         <Loading loading={loading}>
-            <div hidden = {viewForm} style={(isEgress && styles.egress) || (!isEgress && styles.ingress)}>
+            <div hidden = {viewForm}>
                 <div>
-                    <h2>Edicion de Id: {id}</h2>
+                    <h2>Edicion de Movimiento Id: {id}</h2>
                 </div>
                 <FormMovement submit={handleSubmit(onSubmit)} error = {errors} checkedCheckBox={isEgress} dateRegister={{...register("date",{required:true})}} conceptRegister={{...register("concept",{required:true})}} amountRegister={{...register("amount",{required:true,min:0})}} categoryRegister={{...register("categoryId")}} >
-                    <button type="buttom" onClick={()=>{handleEliminar()}}>ELIMINAR</button>
+                    <ButtonWithLoading type="button" variant="danger" onClick={()=>{handleEliminar()}}>ELIMINAR</ButtonWithLoading>
                 </FormMovement>
-                    
+                <MyVerticallyCenteredModal
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                />
             </div>
             <div hidden = {!viewForm}>
                 <h1>Movimiento {id} modificado o eliminado. Redirigiendo...</h1>
