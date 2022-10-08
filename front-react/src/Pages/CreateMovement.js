@@ -6,16 +6,6 @@ import { useParams } from "react-router-dom";
 import FormMovement from "../Components/FormMovemet"
 
 
-const styles = {
-    egress:{
-        backgroundColor:'red'
-    },
-    ingress:{
-        backgroundColor:'green'
-    }
-}
-
-
 function CreateMovement(props){
 
     const {op} = useParams()
@@ -66,10 +56,8 @@ function CreateMovement(props){
     }
 
     return( 
-        <div style={(operation && styles.egress) || (!operation && styles.ingress)}>
             <FormMovement submit={handleSubmit(onSubmit)} error = {errors} changeCheckBox={handleChange} checkedCheckBox={operation} dateRegister={{...register("date",{required:true})}} conceptRegister={{...register("concept",{required:true})}} amountRegister={{...register("amount",{required:true,min:0})}} categoryRegister={{...register("categoryId")}} isEgressRegister={{...register("isEgress")}} />
-        </div>
-    )
+        )
 
     
 }

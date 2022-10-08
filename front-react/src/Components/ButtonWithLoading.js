@@ -4,10 +4,10 @@ import Spinner from 'react-bootstrap/Spinner';
 
 function ButtonWithLoading(props){
 
-    const {loading,variant,type,children,click} = props
+    const {loading,variant,type,children,onClick} = props
 
     return(
-        <Button type = {type || 'submit'} variant={variant || 'primary'} disabled={loading} onClick={click}>
+        <Button type = {type || 'submit'} variant={variant || 'primary'} disabled={loading} onClick={onClick}>
             {loading &&
                 <Spinner
                     as="span"

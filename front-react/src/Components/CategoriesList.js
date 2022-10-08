@@ -37,7 +37,7 @@ function CategoriesList(props){
                     <Col>
                         <label>{label || ""}</label>
                     </Col>
-                    <Col>
+                    <Col xs={9}>
                         <Form.Select aria-label="Default select example" {...register}>
                             <option value={0}>-- SELECCIONE --</option>
                             {categories.map((category, item) => <option key={item} value={category._id}>{category.name}</option>)}

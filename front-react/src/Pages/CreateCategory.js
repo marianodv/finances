@@ -38,9 +38,7 @@ function CreateCategory(){
         <>
             {!viewMessaje &&
                 <div>
-                    <FormCategory submit={handleSubmit(onSubmit)} nameRegister={{...register("name",{required:true})}} error={errors} >
-                        <button type="buttom" onClick={()=>{navi('/categories/')}}>CANCELAR</button>
-                    </FormCategory>
+                    <FormCategory submit={handleSubmit(onSubmit)} idName="name" nameRegister={{...register("name",{required:true})}} error={errors} />
                 </div>
             }
             {viewMessaje &&

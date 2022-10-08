@@ -9,6 +9,9 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table'
+import ButtonWithoutLoading from '../Components/ButtonWithoutLoading';
+import {useNavigate} from 'react-router-dom'
+
 
 function Movements(){
 
@@ -16,6 +19,8 @@ function Movements(){
     const [movements,setMovements] = useState([])
 
     const { register,setValue, getValues} = useForm()
+
+    const navi = useNavigate()
 
     useEffect(
         ()=>{
@@ -88,73 +93,72 @@ function Movements(){
             console.log("Error: ", error)
         }
     }
-
-  
    
-        return(
-            <>
-                <Container>
-                    <Row style={{marginTop:'1rem'}}>
-                        <Col>
-                            <CategoriesList label="Categorias: " register={{...register("category")}}/>
-                        </Col>
-                        <Col>
-                            <ButtonWithLoading type="button" loading={loading} click={()=>{
-                                setLoading(true)
-                                listForCategory()
-                            }}>Por Categoria</ButtonWithLoading>
-                        </Col>
-                    </Row>
-                    
-                    <Row style={{marginTop:'1rem'}}>
-                        <Col>
-                            <ButtonWithLoading type="button" loading={loading} click={()=>{
-                                setLoading(true);setTimeout(()=>{listAll()},2000)
-                            }}>TODO</ButtonWithLoading>
-                        </Col>
+    return(
+        <>
+            <Container>
+                <Row style={{marginTop:'1rem'}}>
+                    <Col>
+                        <ButtonWithoutLoading variant="create" onClick={()=>{navi('/movements/create')}}>NUEVO MOVIMIENTO</ButtonWithoutLoading>
+                    </Col>
+                </Row>
 
-                        <Col>
-                            <ButtonWithLoading type="button" loading={loading} click={()=>{
-                                setLoading(true)
-                                listIngress()
-                            }}>Solo Ingresos</ButtonWithLoading>
-                        </Col>
+                <Row style={{marginTop:'1rem'}}>
+                    <Col>
+                        <CategoriesList label="Categorias: " register={{...register("category")}}/>
+                    </Col>
+                    <Col>
+                        <ButtonWithLoading type="button" loading={loading} onClick={()=>{
+                            setLoading(true)
+                            listForCategory()
+                        }}>Por Categoria</ButtonWithLoading>
+                    </Col>
+                </Row>
+                
+                <Row style={{marginTop:'1rem'}}>
+                    <Col>
+                        <ButtonWithLoading type="button" loading={loading} onClick={()=>{
+                            setLoading(true);setTimeout(()=>{listAll()},2000)
+                        }}>TODO</ButtonWithLoading>
+                    </Col>
 
-                        <Col>
-                            <ButtonWithLoading type="button" loading={loading} click={()=>{
-                                setLoading(true)
-                                listEgress()
-                            }}>Solo Egresos</ButtonWithLoading>
-                        </Col>
-                    </Row>
-                </Container>
+                    <Col>
+                        <ButtonWithLoading type="button" loading={loading} onClick={()=>{
+                            setLoading(true)
+                            listIngress()
+                        }}>Solo Ingresos</ButtonWithLoading>
+                    </Col>
 
-                <Loading loading={loading}>
+                    <Col>
+                        <ButtonWithLoading type="button" loading={loading} onClick={()=>{
+                            setLoading(true)
+                            listEgress()
+                        }}>Solo Egresos</ButtonWithLoading>
+                    </Col>
+                </Row>
+            </Container>
 
-                    <Table striped style={{marginTop:'1rem'}}>
-                        <thead>
-                            <tr>
-                            <th>#</th>
-                            <th>Fecha</th>
-                            <th>Concepto</th>
-                            <th>Categoria</th>
-                            <th>Monto</th>
-                            <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {movements?.rows?.map((movement,ind) => <Movement key={ind} data={movement} onDelete={()=>{handleDelete(movement._id)}} />)}
-                        </tbody>
-                    </Table>
-                    <p>{movements?.pageMin} to page {movements?.page} to {movements?.pageMax} | TOTAL: {movements?.rowsCount} | listed: {movements?.rowsPerPage}</p>
+            <Loading loading={loading}>
 
-                    <div>
-                        {movements?.rows?.map((movement,ind) => <Movement key={ind} data={movement} onDelete={()=>{handleDelete(movement._id)}}>{ind+1}</Movement>)}  
-                        <p>{movements?.pageMin} to page {movements?.page} to {movements?.pageMax} | TOTAL: {movements?.rowsCount} | listed: {movements?.rowsPerPage}</p>
-                    </div>
-                </Loading>
-            </>
-        )
+                <Table striped style={{marginTop:'1rem'}}>
+                    <thead>
+                        <tr>
+                        <th>#</th>
+                        <th>Fecha</th>
+                        <th>Concepto</th>
+                        <th>Categoria</th>
+                        <th>Monto</th>
+                        <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {movements?.rows?.map((movement,ind) => <Movement key={ind} data={movement} onDelete={()=>{handleDelete(movement._id)}} />)}
+                    </tbody>
+                </Table>
+                <p>{movements?.pageMin} to page {movements?.page} to {movements?.pageMax} | TOTAL: {movements?.rowsCount} | listed: {movements?.rowsPerPage}</p>
+            </Loading>
+        </>
+    )
     
 }
 

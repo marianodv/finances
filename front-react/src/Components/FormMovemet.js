@@ -2,46 +2,93 @@ import React from "react";
 import Input from "../Components/Input"
 import CategoriesList from "../Components/CategoriesList";
 import {useNavigate} from 'react-router-dom'
+import ButtonWithLoading from './ButtonWithLoading'
+import Form from 'react-bootstrap/Form';
+
+const styles={
+    absCenter:{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh'
+    },
+
+    absCenterEgress:{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width:'500px',
+        height:'450px',
+        backgroundColor:'#ff5254'
+    },
+
+    absCenterIngress:{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width:'500px',
+        height:'450px',
+        backgroundColor:'#cee879'
+    },
+      
+    form:{
+        width:'450px'
+    }
+}
 
 function FormMovement(props){
 
-    const {children, submit, changeCheckBox, checkedCheckBox, dateRegister, conceptRegister, amountRegister, categoryRegister, isEgressRegister, error} = props
+    const {children, submit, changeCheckBox, checkedCheckBox, dateRegister, conceptRegister, amountRegister, categoryRegister,
+        idDate, idConcept, idAmount, idCategory, idIsEgress, isEgressRegister, error} = props
 
     const navi = useNavigate()
 
     return(
-        <form onSubmit={submit}>
-            <Input label="Fecha" type="date" register={dateRegister}/>
-            {error?.name && <span>El campo nombre es obligatorio.</span>}
+        <div style={styles.absCenter}>
+        <div style={(checkedCheckBox && styles.absCenterEgress) || (!checkedCheckBox && styles.absCenterIngress)}>
+        <Form onSubmit={submit} style={styles.form}>
+            <Form.Group className="mb-3">
+            <Input label="Fecha" type="date" controlId={idDate} register={dateRegister}/>
+            {error?.name && <Form.Text className="text-muted">El campo nombre es obligatorio.</Form.Text>}
+            </Form.Group>
         
-            <Input label="Concepto" register={conceptRegister}/>
-            {error?.concept && <span>El campo concepto es obligatorio.</span>}
+            <Form.Group className="mb-3">
+            <Input label="Concepto" controlId={idConcept} register={conceptRegister}/>
+            {error?.concept && <Form.Text className="text-muted">El campo concepto es obligatorio.</Form.Text>}
+            </Form.Group>
 
-            <Input label="Monto" type="number" register={amountRegister}/>
-            {error?.amount?.type === 'required' && <span>El campo monto es obligatorio.</span>}
-            {error?.amount?.type === 'min' && <span>El monto no puede ser negativo.</span>}
+            <Form.Group className="mb-3">
+                <Input label="Monto" type="number" controlId={idAmount} register={amountRegister}/>
+                {error?.amount?.type === 'required' && <Form.Text className="text-muted">El campo monto es obligatorio.</Form.Text>}
+                {error?.amount?.type === 'min' && <Form.Text className="text-muted">El monto no puede ser negativo.</Form.Text>}
+            </Form.Group>
 
-            <CategoriesList label="Categoria: " register={categoryRegister}/>
+            <Form.Group className="mb-3">
+                <CategoriesList label="Categoria: " controlId={idCategory} register={categoryRegister}/>
+            </Form.Group>
             
-            {(isEgressRegister || false) &&
-                <div>
-                    <label>Es Egreso: </label>
-                    <input type="checkbox" onChange={changeCheckBox || {}} checked={checkedCheckBox || false} register={isEgressRegister}/>
-                </div>
-            }
-            {(!isEgressRegister) &&
-                <div>
-                    <label hidden={!checkedCheckBox}>Es Egreso</label>
-                    <label hidden={checkedCheckBox}>Es Ingreso</label>
-                </div>
-            }
-            
-            <div>
-                <button type="submit">GUARDAR</button>
-                <button type="buttom" onClick={()=>{navi("/movements/")}}>CANCELAR</button>
+            <Form.Group className="mb-3">
+                {(isEgressRegister || false) &&
+                    <>
+                        <Form.Check label="Es Egreso" type="switch" onChange={changeCheckBox || {}} checked={checkedCheckBox || false} controlId={idIsEgress} register={isEgressRegister}/>
+                    </>
+                }
+                {(!isEgressRegister) &&
+                    <>
+                        <Form.Label hidden={!checkedCheckBox}>Es Egreso</Form.Label>
+                        <Form.Label hidden={checkedCheckBox}>Es Ingreso</Form.Label>
+                    </>
+                }
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+                <ButtonWithLoading type="submit">GUARDAR</ButtonWithLoading>
+                <ButtonWithLoading type="button" onClick={()=>{navi("/movements/")}}>CANCELAR</ButtonWithLoading>
                 {children}
-            </div>
-        </form>
+            </Form.Group>
+        </Form>
+        </div>
+        </div>
     )
 }
 

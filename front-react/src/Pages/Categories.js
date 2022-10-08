@@ -61,7 +61,7 @@ function Categories(){
     return(
         <div>
             <div>
-                <ButtonWithoutLoading variant="create" onClick={()=>{navi('/categories/new')}}>NUEVA CATEGORIA</ButtonWithoutLoading>
+                <ButtonWithoutLoading variant="create" onClick={()=>{navi('/categories/create')}}>NUEVA CATEGORIA</ButtonWithoutLoading>
             </div>
             <Loading loading={loading}>
                 <Table striped>
