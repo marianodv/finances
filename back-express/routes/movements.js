@@ -37,6 +37,6 @@ router.get('/top', movementsController.getTop);
 router.get('/search/', movementsController.getSearch);
 
 /* GET movements by categoryId */
-router.get('/category/:id', movementsController.getByCategoriesPaginate);
+router.get('/category/:id', movementsController.getByCategoryPaginate);
 
 module.exports = router;

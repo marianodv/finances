@@ -109,7 +109,7 @@ module.exports = {
             next(error)
         }
     },
-    getByCategoriesPaginate:async (req, res, next) => {
+    getByCategoryPaginate:async (req, res, next) => {
         try{
             
             let page = parseInt(req.query.page)-1

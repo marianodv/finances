@@ -15,10 +15,12 @@ function Menu(){
                     <Nav.Link as={Link} to="/">Home</Nav.Link>
                     <NavDropdown title="Categorias" id="basic-nav-dropdown">
                         <NavDropdown.Item as={Link} to="/categories/">Ver Todas</NavDropdown.Item>
+                        <NavDropdown.Divider />
                         <NavDropdown.Item as={Link} to="/categories/create">Crear Categoria</NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown title="Movimientos" id="basic-nav-dropdown">
                         <NavDropdown.Item as={Link} to="/movements/">Ver Todos</NavDropdown.Item>
+                        <NavDropdown.Divider />
                         <NavDropdown.Item as={Link} to="/movements/create">Crear Movimiento</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>

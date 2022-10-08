@@ -10,7 +10,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table'
 import ButtonWithoutLoading from '../Components/ButtonWithoutLoading';
-import {useNavigate} from 'react-router-dom'
+import {useNavigate,useLocation} from 'react-router-dom'
 import Paginate from "../Components/Paginate";
 
 
@@ -37,11 +37,17 @@ const styles={
 
 function Movements(){
 
+    const useQuery = () => new URLSearchParams(useLocation().search);
+
+    const query = useQuery()
+
     const [loading,setLoading] = useState(true)
+
     const [movements,setMovements] = useState([])
     
-    
     const { register,setValue, getValues} = useForm()
+
+    const [listFor, setListFor] = useState('') // '' | 'incomes' | 'expenses' | 'all' | 'category'
 
     const navi = useNavigate()
 
@@ -49,19 +55,36 @@ function Movements(){
 
     useEffect(
         ()=>{
-            listAll()
+            setList()
         },
         // eslint-disable-next-line
-        []
+        [listFor]
     )
+
+    const setList = () =>{
+        if (listFor === '' || listFor === 'all'){
+            listAll()
+        }
+        if (listFor === 'incomes'){
+            listIngress()
+        }
+        if (listFor === 'expenses'){
+            listEgress()
+        }
+        if (listFor === 'category'){
+            listForCategory()
+        }
+    }
 
     const listAll = async () =>{
         try{          
             setValue("category",0)
-            const response = await getAll()
+            const response = await getAll(query.get('page'))
             console.log("LST: ",response?.data)
-
+            //console.log("QRY: ",query.get('page'))
             setMovements(response?.data)
+
+            setWithPaginate(response?.data)
 
             setLoading(false)
         }catch (error){
@@ -71,10 +94,10 @@ function Movements(){
 
     const listForCategory = async () =>{
         try{          
-            const response = await getByCategory(getValues("category"))
+            const response = await getByCategory(getValues("category"),query.get('page'))
             console.log("LST: ",response?.data)
             setMovements(response?.data)
-
+            setWithPaginate(response?.data)
             setLoading(false)
         }catch (error){
             console.log("Error: ", error)
@@ -84,10 +107,10 @@ function Movements(){
     const listIngress = async () =>{
         try{    
             setValue("category",0)      
-            const response = await getIncomes()
+            const response = await getIncomes(query.get('page'))
             console.log("LST: ",response?.data)
             setMovements(response?.data)
-
+            setWithPaginate(response?.data)
             setLoading(false)
         }catch (error){
             console.log("Error: ", error)
@@ -97,10 +120,10 @@ function Movements(){
     const listEgress = async () =>{
         try{      
             setValue("category",0)    
-            const response = await getExpenses()
+            const response = await getExpenses(query.get('page'))
             console.log("LST: ",response?.data)
             setMovements(response?.data)
-
+            setWithPaginate(response?.data)
             setLoading(false)
         }catch (error){
             console.log("Error: ", error)
@@ -128,7 +151,7 @@ function Movements(){
                     <Col>
                         <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
                             setLoading(true)
-                            listForCategory()
+                            setListFor('category')
                         }}>Por Categoria</ButtonWithLoading>
                     </Col>
                 </Row>
@@ -136,21 +159,21 @@ function Movements(){
                 <Row style={{marginTop:'1rem'}}>
                     <Col>
                         <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
-                            setLoading(true);setTimeout(()=>{listAll()},2000)
+                            setLoading(true);setTimeout(()=>{setListFor('all')},2000)
                         }}>TODO</ButtonWithLoading>
                     </Col>
 
                     <Col>
                         <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
                             setLoading(true)
-                            listIngress()
+                            setListFor('incomes')
                         }}>Solo Ingresos</ButtonWithLoading>
                     </Col>
 
                     <Col>
                         <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
                             setLoading(true)
-                            listEgress()
+                            setListFor('expenses')
                         }}>Solo Egresos</ButtonWithLoading>
                     </Col>
                 </Row>
@@ -176,13 +199,12 @@ function Movements(){
                         </Table>
                     </div>
                 </div>
-                
                 <Paginate data={withPaginate} />
                 <p>{movements?.pageMin} to page {movements?.page} to {movements?.pageMax} | TOTAL: {movements?.rowsCount} | listed: {movements?.rowsPerPage}</p>
             </Loading>
         </>
     )
-    
+    //<Paginate data={withPaginate} />
 }
 
 export default Movements
