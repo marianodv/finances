@@ -1,56 +1,37 @@
-import React, {useEffect,useState} from "react";
+import React from "react";
 import Pagination from 'react-bootstrap/Pagination';
-import {useNavigate} from "react-router-dom"
+
+const styles={
+    absCenter:{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop:'1rem'
+    },
+
+    center:{
+        maxWidth:'600px'
+    }
+}
 
 function Paginate(props){
 
-    const {pageMin, pageMax, page, rowsCount, rowsPerPage, pagePrev, pageNext} = props.data
-
-    const [pagesList, setPagesList] = useState([])
-    const [loading, setLoading] = useState(true)
-
-    const navi = useNavigate()
-
-    const goTo = (goUrl) =>{  
-        navi(goUrl)
-    }
-
-    const createPaginate = () =>{
-        console.log("pag props", props.data)
-        console.log("pag", pageMin, pageMax, page, rowsCount, rowsPerPage, pagePrev, pageNext)
-        let aux=[]
-        
-        for (let number = pageMin; number <= pageMax; number++) {
-            aux.push(
-                <Pagination.Item key={number} /*active={number === page}*/disabled={number === page} onClick={()=>{goTo('/movements/?page=' + number)}}>
-                    {number}
-                </Pagination.Item>
-            )
-        }
-       
-        setPagesList(aux)
-        setLoading(false)
-    }
-
-    useEffect(
-        ()=>{
-            createPaginate()
-        },
-        // eslint-disable-next-line
-        []
-    )
+    const {handlerPrevPage,handlerNextPage,currentPage,pageMin,pageMax} = props
 
     return(
-        <>
-            {loading &&
-                <p>{pageMin} to page {page} to {pageMax} | TOTAL: {rowsCount} | listed: {rowsPerPage}</p>
-            }
-            {!loading &&
-                <Pagination size="sm">
-                    {pagesList}
-                </Pagination>
-            }
-        </>
+        <div style={styles.absCenter}>
+            <Pagination size="sm" style={styles.center}>
+                <Pagination.Item key={1} disabled={(pageMin || 1) === currentPage} onClick={handlerPrevPage}>
+                    Anterior
+                </Pagination.Item>
+                <Pagination.Item key={2} disabled={true}>
+                    {currentPage} de {pageMax}
+                </Pagination.Item>
+                <Pagination.Item key={3} disabled={pageMax === currentPage} onClick={handlerNextPage}>
+                    Siguiente
+                </Pagination.Item>
+            </Pagination>
+        </div>
     )
 }
 
