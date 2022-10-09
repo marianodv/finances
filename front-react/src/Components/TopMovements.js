@@ -3,7 +3,7 @@ import TopMovement from "./TopMovement";
 import {getTopMovements} from '../Services/movementsServices'
 import Loading from './Loading'
 import Table from 'react-bootstrap/Table';
-
+import WithoutMovements from "../Components/WithoutMovements"
 
 function TopMovements(){
     const [loading,setLoading]=useState(true)
@@ -16,7 +16,6 @@ function TopMovements(){
                     const response = await getTopMovements()
                     //console.log("RSP: ",response)
                     setListMovements(response?.data)
-                    
                     setLoading(false)
                 }catch (error){
                     console.log("Error: ", error)
@@ -30,11 +29,16 @@ function TopMovements(){
     
     return(
         <Loading loading={loading}>
-            <Table striped>
-                <tbody>
-                    {listMovements.map((movement,ind) => (<TopMovement key={ind} data={movement} />))}
-                </tbody>
-            </Table>
+            {(listMovements.length > 0) &&
+                <Table striped>
+                    <tbody>
+                        {listMovements.map((movement,ind) => (<TopMovement key={ind} data={movement} />))}
+                    </tbody>
+                </Table>
+            }
+            {(listMovements.length <= 0) &&
+                <WithoutMovements />
+            }
         </Loading>
     )
 }

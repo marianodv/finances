@@ -114,7 +114,7 @@ function EditMovement(){
 
             setTimeout(()=>{
                 navi("/movements/")
-            },2000)
+            },1300)
         }
     }
 

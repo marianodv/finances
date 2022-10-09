@@ -9,23 +9,21 @@ function TopMovement(props){
 
     return(
             <tr>
-            
                 <td>
-                <ListGroup.Item variant={(isEgress && "danger") || (!isEgress && "success")}>{_id}</ListGroup.Item>
+                    <ListGroup.Item variant={(isEgress && "danger") || (!isEgress && "success")}>{_id}</ListGroup.Item>
                 </td>
                 <td>
-                <ListGroup.Item variant={(isEgress && "danger") || (!isEgress && "success")}>{moment(date).format('DD-MM-YYYY') || ''}</ListGroup.Item>
-                    </td>
-                    <td>
+                    <ListGroup.Item variant={(isEgress && "danger") || (!isEgress && "success")}>{moment(date).format('DD-MM-YYYY') || ''}</ListGroup.Item>
+                </td>
+                <td>
                     <ListGroup.Item variant={(isEgress && "danger") || (!isEgress && "success")}>{concept || ''}</ListGroup.Item>
-                    </td>
-                    <td>
-                    <ListGroup.Item variant={(isEgress && "danger") || (!isEgress && "success")}>{category?.name || "Without Category"}</ListGroup.Item>
-                    </td>
-                    <td>
+                </td>
+                <td>
+                    <ListGroup.Item variant={(isEgress && "danger") || (!isEgress && "success")}>{category?.name || "-"}</ListGroup.Item>
+                </td>
+                <td>
                     <ListGroup.Item variant={(isEgress && "danger") || (!isEgress && "success")}>${isEgress && <>-</>}{amount || ''}</ListGroup.Item>
-                    </td>
-              
+                </td>
             </tr>
     )
 }

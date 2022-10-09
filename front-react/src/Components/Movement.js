@@ -15,7 +15,7 @@ function Movement(props){
             <td>{_id}</td>
             <td>{moment(date).format('DD-MM-YYYY') || ''}</td>
             <td> {concept || ''}</td>
-            <td>{category?.name || "Without Category"}</td>
+            <td>{category?.name || "-"}</td>
             <td>${isEgress && <>-</>}{amount || ''}</td>
             <td>
                 <ButtonWithoutLoading variant="edit" onClick={()=>{navi("/movements/edit/" + _id)}}>EDITAR</ButtonWithoutLoading>

@@ -24,7 +24,7 @@ function Home(){
                 <Balance />
 
                 <div style={styles.buttons}>
-                    <ButtonWithoutLoading variant="create" onClick={()=>{navi("/movements/")}} style={{marginLeft:'20px'}}>VER TODOS</ButtonWithoutLoading>
+                    <ButtonWithoutLoading variant="create" onClick={()=>{navi("/movements/")}} style={{marginLeft:'20px'}}>VER TODOS LOS MOVIMIENTOS</ButtonWithoutLoading>
 
                     <ButtonWithoutLoading variant="view" onClick={()=>{navi("/movements/create/false")}}>AGREGAR INGRESO</ButtonWithoutLoading>
 
@@ -33,7 +33,7 @@ function Home(){
                 
                 <Card style={styles.card}>
                     <Card.Body>
-                        <Card.Title>Listado Top</Card.Title>
+                        <Card.Title>Tus ultimos movimientos...</Card.Title>
                         <TopMovements />
                     </Card.Body>
                 </Card>

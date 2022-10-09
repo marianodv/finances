@@ -12,7 +12,7 @@ import Table from 'react-bootstrap/Table'
 import ButtonWithoutLoading from '../Components/ButtonWithoutLoading';
 import {useNavigate} from 'react-router-dom'
 import Paginate from "../Components/Paginate";
-
+import WithoutMovements from "../Components/WithoutMovements"
 
 const styles={
     absCenter:{
@@ -160,7 +160,7 @@ function Movements(){
                 <Row style={{marginTop:'1rem'}}>
                     <Col>
                         <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
-                            setLoading(true);setTimeout(()=>{setCurrentPage(1);setListFor('all')},2000)
+                            setLoading(true);setCurrentPage(1);setListFor('all');
                         }}>TODO</ButtonWithLoading>
                     </Col>
 
@@ -200,13 +200,10 @@ function Movements(){
                                 {movements?.rows?.map((movement,ind) => <Movement key={ind} data={movement} />)}
                             </tbody>
                         </Table>
-                        {(movements.rowsCount === 0) &&
-                            <div><h3>Sin movimientos...</h3></div>
-                        }
                     </div>
                 </div>
                 {(movements.rowsCount === 0) &&
-                    <div><h3>Sin movimientos...</h3></div>
+                    <WithoutMovements />
                 }
                 <Paginate handlerPrevPage={()=>{handlerPrevPage()}} handlerNextPage={()=>{handlerNextPage()}} currentPage={currentPage} pageMin={movements?.pageMin} pageMax={movements?.pageMax} />
             </Loading>

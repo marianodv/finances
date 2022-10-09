@@ -18,7 +18,7 @@ const styles={
         alignItems: 'center',
         justifyContent: 'center',
         width:'500px',
-        height:'450px',
+        height:'550px',
         backgroundColor:'#ff5254'
     },
 
@@ -27,7 +27,7 @@ const styles={
         alignItems: 'center',
         justifyContent: 'center',
         width:'500px',
-        height:'450px',
+        height:'550px',
         backgroundColor:'#cee879'
     },
       
@@ -74,8 +74,8 @@ function FormMovement(props){
                     </>
                 }
                     <>
-                        <Form.Label hidden={!checkedCheckBox}>Es Egreso</Form.Label>
-                        <Form.Label hidden={checkedCheckBox}>Es Ingreso</Form.Label>
+                        <Form.Label hidden={!checkedCheckBox}>Nuevo Gasto</Form.Label>
+                        <Form.Label hidden={checkedCheckBox}>Nuevo Ingreso</Form.Label>
                     </>
             </Form.Group>
 

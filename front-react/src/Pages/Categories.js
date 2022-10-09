@@ -4,6 +4,29 @@ import {useNavigate} from 'react-router-dom'
 import Loading from "../Components/Loading";
 import ButtonWithoutLoading from "../Components/ButtonWithoutLoading"
 import Table from 'react-bootstrap/Table'
+import WithoutMovements from "../Components/WithoutMovements"
+
+
+const styles={
+    absCenter:{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    absCenterIntern:{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minWidth:'600px',
+        width:'85%'
+    },
+      
+    table:{
+        marginTop:'1rem'
+    }
+}
+
 
 function Categories(){
 
@@ -45,25 +68,32 @@ function Categories(){
                 <ButtonWithoutLoading variant="create" onClick={()=>{navi('/categories/create')}}>NUEVA CATEGORIA</ButtonWithoutLoading>
             </div>
             <Loading loading={loading}>
-                <Table striped>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Denominacion</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {categories.map((category) => 
-                            <tr key={category._id}>
-                                <td>{category._id}</td>
-                                <td>{String(category.name).toUpperCase()}</td>
-                                <td>
-                                    <ButtonWithoutLoading variant="edit" onClick={()=>{handleEditar(category._id)}}>EDITAR</ButtonWithoutLoading>
-                                </td>
-                            </tr>)}
-                    </tbody>
-                </Table>
+                <div style={styles.absCenter}>
+                    <div style={styles.absCenterIntern}>
+                        <Table striped style={styles.table}>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Denominacion</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {categories.map((category) => 
+                                    <tr key={category._id}>
+                                        <td>{category._id}</td>
+                                        <td>{String(category.name).toUpperCase()}</td>
+                                        <td>
+                                            <ButtonWithoutLoading variant="edit" onClick={()=>{handleEditar(category._id)}}>EDITAR</ButtonWithoutLoading>
+                                        </td>
+                                    </tr>)}
+                            </tbody>
+                        </Table>
+                    </div>
+                </div>
+                {(categories.length === 0) &&
+                    <WithoutMovements />
+                }
             </Loading>
         </div>
     )

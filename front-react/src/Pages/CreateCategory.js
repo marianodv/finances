@@ -22,7 +22,7 @@ function CreateCategory(){
                     setViewMessaje(true)
                     setTimeout(()=>{
                         navi('/categories/')
-                    },2000)
+                    },1300)
                 }
             }catch (error){
                 console.log("Error: ", error)

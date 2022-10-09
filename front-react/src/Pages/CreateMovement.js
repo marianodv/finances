@@ -28,6 +28,7 @@ function CreateMovement(props){
             setValue("date",Moment().format('YYYY-MM-DD'))
             setValue("concept","")
             setValue("amount","")
+            setValue("categoryId",0)
         }
     }
     
