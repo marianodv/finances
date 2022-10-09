@@ -18,7 +18,7 @@ function CreateCategory(){
             try{
                 const request = await newCategory(data)
                 if (request){
-                    console.log("ALTA SATISFACTORIA: ", request)
+                    //console.log("ALTA SATISFACTORIA: ", request)
                     setViewMessaje(true)
                     setTimeout(()=>{
                         navi('/categories/')
@@ -29,7 +29,7 @@ function CreateCategory(){
             }
         }
        
-        console.log("FORM ", data)
+        //console.log("FORM ", data)
         newCat()
     }
 

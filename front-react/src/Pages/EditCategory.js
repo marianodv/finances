@@ -27,7 +27,7 @@ function EditCategory(){
             try{
                 const request = await updateById(id, data)
                 if (request){
-                    console.log("MODIFICACION SATISFACTORIA: ", request)
+                    //console.log("MODIFICACION SATISFACTORIA: ", request)
                     setViewMessaje(true)
                     setTimeout(()=>{
                         navi('/categories/')
@@ -38,7 +38,7 @@ function EditCategory(){
             }
         }
        
-        console.log("FORM ", data)
+        //console.log("FORM ", data)
         updateCat()
     }
 
@@ -47,7 +47,7 @@ function EditCategory(){
             const request = async()=>{ 
                 try{          
                     const response = await getById(id)
-                    console.log("LST: ",response?.data)
+                    //console.log("LST: ",response?.data)
                     if(response.data){
                         setValue("name",response.data.name)
                         setLoading(false)
@@ -98,7 +98,7 @@ function EditCategory(){
         const request = async()=>{ 
             try{          
                 const response = await deleteById(id)
-                console.log("DELETE: ",response?.data)
+                //console.log("DELETE: ",response?.data)
                 if(response.data){
                     setViewMessaje(true)
                     setTimeout(()=>{

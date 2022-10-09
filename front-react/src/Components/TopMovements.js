@@ -14,7 +14,7 @@ function TopMovements(){
             const request = async()=>{ 
                 try{          
                     const response = await getTopMovements()
-                    console.log("RSP: ",response)
+                    //console.log("RSP: ",response)
                     setListMovements(response?.data)
                     
                     setLoading(false)

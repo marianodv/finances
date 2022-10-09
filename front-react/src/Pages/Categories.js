@@ -18,7 +18,7 @@ function Categories(){
             const request = async()=>{ 
                 try{          
                     const response = await getAll()
-                    console.log("LST: ",response?.data)
+                    //console.log("LST: ",response?.data)
                     if(response.data){
                         setCategories(response?.data)
                         setLoading(false)

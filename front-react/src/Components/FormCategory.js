@@ -35,23 +35,23 @@ function FormCategory(props){
     
     return(
         <div style={styles.absCenter}>
-        <div style={styles.absCenterIntern}>
-        <Form onSubmit={submit} style={styles.form}>
-            <Form.Group className="mb-3">
-                <Input label="Nombre" placeholder="Ingrese el nombre de la categoria" controlId={idName} register={nameRegister}/>
-                {error?.name  &&
-                    <Form.Text className="text-muted">
-                        El campo nombre es obligatorio.
-                    </Form.Text>
-                }
-            </Form.Group>
-            <Form.Group className="mb-3">
-                <ButtonWithLoading type="submit">GUARDAR</ButtonWithLoading>
-                <ButtonWithLoading type="button" variant="secondary" onClick={()=>{navi('/categories/')}}>CANCELAR</ButtonWithLoading>
-                {children}  
-            </Form.Group>
-        </Form>
-        </div>
+            <div style={styles.absCenterIntern}>
+                <Form onSubmit={submit} style={styles.form}>
+                    <Form.Group className="mb-3">
+                        <Input label="Nombre de la Nueva Categoria" placeholder="Ingrese el nombre de la categoria" controlId={idName} register={nameRegister}/>
+                        {error?.name  &&
+                            <Form.Text className="text-muted">
+                                El campo nombre es obligatorio.
+                            </Form.Text>
+                        }
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <ButtonWithLoading type="submit">GUARDAR</ButtonWithLoading>
+                        <ButtonWithLoading type="button" variant="secondary" onClick={()=>{navi('/categories/')}}>CANCELAR</ButtonWithLoading>
+                        {children}  
+                    </Form.Group>
+                </Form>
+            </div>
         </div>
     )
 }

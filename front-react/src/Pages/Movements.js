@@ -76,7 +76,7 @@ function Movements(){
         try{          
             setValue("category",0)
             const response = await getAll(currentPage)
-            console.log("LST: ",response?.data)
+            //console.log("LST: ",response?.data)
             //console.log("QRY: ",query.get('page'))
             setMovements(response?.data)
             setLoading(false)
@@ -88,7 +88,7 @@ function Movements(){
     const listForCategory = async () =>{
         try{          
             const response = await getByCategory(getValues("category"),currentPage)
-            console.log("LST: ",response?.data)
+            //console.log("LST: ",response?.data)
             setMovements(response?.data)
             setLoading(false)
         }catch (error){
@@ -100,7 +100,7 @@ function Movements(){
         try{    
             setValue("category",0)      
             const response = await getIncomes(currentPage)
-            console.log("LST: ",response?.data)
+            //console.log("LST: ",response?.data)
             setMovements(response?.data)
             setLoading(false)
         }catch (error){
@@ -112,7 +112,7 @@ function Movements(){
         try{      
             setValue("category",0)    
             const response = await getExpenses(currentPage)
-            console.log("LST: ",response?.data)
+            //console.log("LST: ",response?.data)
             setMovements(response?.data)
             setLoading(false)
         }catch (error){
@@ -200,8 +200,14 @@ function Movements(){
                                 {movements?.rows?.map((movement,ind) => <Movement key={ind} data={movement} />)}
                             </tbody>
                         </Table>
+                        {(movements.rowsCount === 0) &&
+                            <div><h3>Sin movimientos...</h3></div>
+                        }
                     </div>
                 </div>
+                {(movements.rowsCount === 0) &&
+                    <div><h3>Sin movimientos...</h3></div>
+                }
                 <Paginate handlerPrevPage={()=>{handlerPrevPage()}} handlerNextPage={()=>{handlerNextPage()}} currentPage={currentPage} pageMin={movements?.pageMin} pageMax={movements?.pageMax} />
             </Loading>
         </>

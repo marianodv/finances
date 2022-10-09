@@ -24,14 +24,14 @@ function CreateMovement(props){
         data.isEgress = operation
         const request = await postMovement(data)
         if (request){
-            console.log("ALTA SATISFACTORIA: ", request)
+            //console.log("ALTA SATISFACTORIA: ", request)
             setValue("date",Moment().format('YYYY-MM-DD'))
             setValue("concept","")
             setValue("amount","")
         }
     }
     
-    console.log("FORM ", data)
+    //console.log("FORM ", data)
     create()
     }
 
@@ -39,7 +39,7 @@ function CreateMovement(props){
         ()=>{
             const ff = Moment().format('YYYY-MM-DD')
             setValue("date",ff)
-            console.log("DATE: ", ff)
+            //console.log("DATE: ", ff)
 
             if(op === "false"){
                 setOperation(false)

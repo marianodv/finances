@@ -17,7 +17,7 @@ function CategoriesList(props){
             const request = async () => {
                 try{
                     const cat = await getAll()
-                    console.log("cat: ", cat.data)
+                    //console.log("cat: ", cat.data)
                     setCategories(cat.data)
                     setLoading(false)
                 }catch (error){

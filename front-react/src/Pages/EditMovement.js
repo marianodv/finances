@@ -33,12 +33,12 @@ function EditMovement(){
         if(data.categoryId === "0"){
             data.categoryId = null
         }
-        console.log("DATA: ", data)
+        //console.log("DATA: ", data)
         const update = async()=>{
             data.date = moment(data.date).format('YYYY-MM-DD')
             const request = await updateById(id, data)
             if (request){
-                console.log("MODIFICACION SATISFACTORIA: ", request)
+                //console.log("MODIFICACION SATISFACTORIA: ", request)
                 setViewForm(true)
                 setTimeout(()=>{
                     navi("/movements/")
@@ -46,7 +46,7 @@ function EditMovement(){
             }
         }
        
-        console.log("FORM ", data)
+        //console.log("FORM ", data)
         update()
     }
 
@@ -54,7 +54,7 @@ function EditMovement(){
         ()=>{
             const init = async()=>{
                 const request = await getById(id)
-                console.log("init: ", request)
+                //console.log("init: ", request)
                 if (request.data){
                     setValue("date",moment(request.data.date).format('YYYY-MM-DD'))
                     setValue("concept",request.data.concept)
@@ -107,7 +107,7 @@ function EditMovement(){
     const clickOnModalDelete = async ()=>{
         setModalShow(false)
         const deletedMovement = await deleteById(id)
-        console.log("DELETED",id,deletedMovement)
+        //console.log("DELETED",id,deletedMovement)
         
         if (deletedMovement.data){
             setViewForm(true)
