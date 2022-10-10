@@ -23,7 +23,7 @@ function FormMovement(props){
     }
 
     return(
-        <Card border={(checkedCheckBox && 'danger') || (!checkedCheckBox && 'success')} style={stylesExt.cardContainer}>
+        <Card text='white' bg={(checkedCheckBox && 'danger') || (!checkedCheckBox && 'success')} style={stylesExt.cardContainer}>
             <Card.Body>
                 <Form onSubmit={submit}>
                     <Form.Group className="mb-3">
