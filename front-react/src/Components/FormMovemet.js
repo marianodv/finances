@@ -41,9 +41,16 @@ function FormMovement(props){
     const {children, submit, changeCheckBox, checkedCheckBox, dateRegister, conceptRegister, amountRegister, categoryRegister,
         idDate, idConcept, idAmount, idCategory, idIsEgress, isEgressRegister, error} = props
 
+    let typeButton = props.typeButton || 'submit'
+     
     const navi = useNavigate()
 
+    if (typeButton !== 'submit' && typeButton !== 'button'){
+        typeButton = 'submit'
+    }
+
     return(
+
         <div style={styles.absCenter}>
         <div style={(checkedCheckBox && styles.absCenterEgress) || (!checkedCheckBox && styles.absCenterIngress)}>
         <Form onSubmit={submit} style={styles.form}>
@@ -80,7 +87,12 @@ function FormMovement(props){
             </Form.Group>
 
             <Form.Group className="mb-3">
-                <ButtonWithLoading type="submit">GUARDAR</ButtonWithLoading>
+                {(typeButton === 'submit') &&
+                    <ButtonWithLoading type="submit">GUARDAR</ButtonWithLoading>
+                }
+                {(typeButton === 'button') &&
+                    <ButtonWithLoading type="button" onClick={submit}>GUARDAR</ButtonWithLoading>
+                }
                 <ButtonWithLoading type="button" variant="secondary" onClick={()=>{navi("/movements/")}}>CANCELAR</ButtonWithLoading>
                 {children}
             </Form.Group>

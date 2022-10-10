@@ -137,52 +137,48 @@ function Movements(){
     return(
         
         <>
-            <Container>
-                <Row style={{marginTop:'1rem'}}>
-                    <Col>
-                        <ButtonWithoutLoading variant="create" onClick={()=>{navi('/movements/create')}}>NUEVO MOVIMIENTO</ButtonWithoutLoading>
-                    </Col>
-                </Row>
+            <ButtonWithoutLoading variant="create" onClick={()=>{navi('/movements/create')}}>NUEVO MOVIMIENTO</ButtonWithoutLoading>
+            <hr/>
+                <Container>
+                    <Row style={{marginTop:'1rem'}}>
+                        <Col>
+                            <CategoriesList label="Categorias: " register={{...register("category")}}/>
+                        </Col>
+                        <Col>
+                            <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
+                                setLoading(true)
+                                setCurrentPage(1)
+                                setListFor('category')
+                            }}>Por Categoria</ButtonWithLoading>
+                        </Col>
+                    </Row>
+                    
+                    <Row style={{marginTop:'1rem'}}>
+                        <Col>
+                            <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
+                                setLoading(true);setCurrentPage(1);setListFor('all');
+                            }}>TODO</ButtonWithLoading>
+                        </Col>
 
-                <Row style={{marginTop:'1rem'}}>
-                    <Col>
-                        <CategoriesList label="Categorias: " register={{...register("category")}}/>
-                    </Col>
-                    <Col>
-                        <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
-                            setLoading(true)
-                            setCurrentPage(1)
-                            setListFor('category')
-                        }}>Por Categoria</ButtonWithLoading>
-                    </Col>
-                </Row>
-                
-                <Row style={{marginTop:'1rem'}}>
-                    <Col>
-                        <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
-                            setLoading(true);setCurrentPage(1);setListFor('all');
-                        }}>TODO</ButtonWithLoading>
-                    </Col>
+                        <Col>
+                            <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
+                                setLoading(true)
+                                setCurrentPage(1)
+                                setListFor('incomes')
+                            }}>Solo Ingresos</ButtonWithLoading>
+                        </Col>
 
-                    <Col>
-                        <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
-                            setLoading(true)
-                            setCurrentPage(1)
-                            setListFor('incomes')
-                        }}>Solo Ingresos</ButtonWithLoading>
-                    </Col>
-
-                    <Col>
-                        <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
-                            setLoading(true)
-                            setCurrentPage(1)
-                            setListFor('expenses')
-                        }}>Solo Egresos</ButtonWithLoading>
-                    </Col>
-                </Row>
-            </Container>
+                        <Col>
+                            <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
+                                setLoading(true)
+                                setCurrentPage(1)
+                                setListFor('expenses')
+                            }}>Solo Egresos</ButtonWithLoading>
+                        </Col>
+                    </Row>
+                </Container>
+            <hr/>
             <Loading loading={loading}>
-                <Paginate handlerPrevPage={()=>{handlerPrevPage()}} handlerNextPage={()=>{handlerNextPage()}} currentPage={currentPage} pageMax={movements?.pageMax} />
                 <div style={styles.absCenter}>
                     <div style={styles.absCenterIntern}>
                         <Table striped style={styles.table}>

@@ -30,7 +30,7 @@ function Balance(props){
     return(
         <Loading loading={loading}>
             <Card border="info" style={{ width: '50%',marginLeft:'25%', marginTop:'1rem'}}>
-                <Card.Header>Tienes en Caja</Card.Header>
+                <Card.Header>Tienes en tu bolsillo...</Card.Header>
                 <Card.Body>
                     <Alert variant={((balance < 0) && "danger") || ((balance >= 0) && "success")}><Alert.Heading>$ {balance}</Alert.Heading></Alert>
                 </Card.Body>

@@ -3,13 +3,16 @@ import {newCategory} from "../Services/categoriesService"
 import {useForm} from "react-hook-form"
 import {useNavigate} from 'react-router-dom'
 import FormCategory from '../Components/FormCategory'
-
+import Modal from 'react-bootstrap/Modal';
+import ButtonWithLoading from '../Components/ButtonWithLoading'
 
 function CreateCategory(){
 
     const [viewMessaje,setViewMessaje] = useState(false)
 
-    const { register, handleSubmit, formState:{errors}} = useForm()
+    const [modalShow, setModalShow] = useState(false);
+
+    const { register, handleSubmit, getValues, formState:{errors}} = useForm()
 
     const navi = useNavigate()
 
@@ -33,12 +36,42 @@ function CreateCategory(){
         newCat()
     }
 
+    function MyVerticallyCenteredModal(props) {
+        return (
+            <Modal
+                {...props}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                    Guardado de Nuevo Movimiento
+                </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                <p>
+                    ¿Seguro/a que desea guardar la categoria "{String(getValues("name")).toUpperCase()}"?
+                </p>
+                </Modal.Body>
+                <Modal.Footer>
+                <ButtonWithLoading variant="secondary" onClick={props.onHide}>Cerrar</ButtonWithLoading>
+                <ButtonWithLoading variant="danger" onClick={handleSubmit(onSubmit)}>GUARDAR</ButtonWithLoading>
+                </Modal.Footer>
+            </Modal>
+        );
+    }
 
     return(
         <>
             {!viewMessaje &&
                 <div>
-                    <FormCategory submit={handleSubmit(onSubmit)} idName="name" nameRegister={{...register("name",{required:true})}} error={errors} />
+                    <FormCategory submit={() => setModalShow(true)} typeButton = 'button' idName="name" nameRegister={{...register("name",{required:true})}} error={errors} />
+
+                    <MyVerticallyCenteredModal
+                        show={modalShow}
+                        onHide={() => setModalShow(false)}
+                    />
                 </div>
             }
             {viewMessaje &&

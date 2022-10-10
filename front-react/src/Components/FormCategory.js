@@ -31,8 +31,14 @@ function FormCategory(props){
 
     const {children, submit, idName, nameRegister, error} = props
 
+    let typeButton = props.typeButton || 'submit'
+
     const navi = useNavigate()
-    
+
+    if (typeButton !== 'submit' && typeButton !== 'button'){
+        typeButton = 'submit'
+    }
+
     return(
         <div style={styles.absCenter}>
             <div style={styles.absCenterIntern}>
@@ -46,7 +52,12 @@ function FormCategory(props){
                         }
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <ButtonWithLoading type="submit">GUARDAR</ButtonWithLoading>
+                        {(typeButton === 'submit') &&
+                            <ButtonWithLoading type="submit">GUARDAR</ButtonWithLoading>
+                        }
+                        {(typeButton === 'button') &&
+                            <ButtonWithLoading type="button" onClick={submit}>GUARDAR</ButtonWithLoading>
+                        }
                         <ButtonWithLoading type="button" variant="secondary" onClick={()=>{navi('/categories/')}}>CANCELAR</ButtonWithLoading>
                         {children}  
                     </Form.Group>

@@ -30,6 +30,12 @@ function Home(){
 
                     <ButtonWithoutLoading variant="delete" onClick={()=>{navi("/movements/create/true")}}>AGREGAR EGRESO</ButtonWithoutLoading>
                 </div>
+
+                <div style={styles.buttons}>
+                    <ButtonWithoutLoading variant="create" onClick={()=>{navi("/categories/")}} style={{marginLeft:'20px'}}>VER TODAS LAS CATEGORIAS</ButtonWithoutLoading>
+
+                    <ButtonWithoutLoading variant="view" onClick={()=>{navi("/categories/create")}}>AGREGAR CATEGORIA</ButtonWithoutLoading>
+                </div>
                 
                 <Card style={styles.card}>
                     <Card.Body>
