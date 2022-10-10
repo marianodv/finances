@@ -4,7 +4,8 @@ const variants={
     create:"outline-primary",
     edit:"outline-secondary",
     delete:"outline-danger",
-    view:"outline-success"
+    view:"outline-success",
+    info:"outline-info"
 }
 
 function ButtonWithoutLoading(props){

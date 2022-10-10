@@ -4,17 +4,7 @@ import Balance from "../Components/Balance";
 import {useNavigate} from 'react-router-dom'
 import ButtonWithoutLoading from "../Components/ButtonWithoutLoading"
 import Card from 'react-bootstrap/Card';
-
-const styles={
-    card:{
-        width: '80%',
-        marginLeft:'10%',
-        marginTop:'1rem'
-    },
-    buttons:{
-        margin:'10px'
-    }
-}
+import stylesExt from '../styles/cards'
 
 function Home(){
     const navi = useNavigate()
@@ -23,21 +13,14 @@ function Home(){
             <div>
                 <Balance />
 
-                <div style={styles.buttons}>
-                    <ButtonWithoutLoading variant="create" onClick={()=>{navi("/movements/")}} style={{marginLeft:'20px'}}>VER TODOS LOS MOVIMIENTOS</ButtonWithoutLoading>
-
-                    <ButtonWithoutLoading variant="view" onClick={()=>{navi("/movements/create/false")}}>AGREGAR INGRESO</ButtonWithoutLoading>
-
-                    <ButtonWithoutLoading variant="delete" onClick={()=>{navi("/movements/create/true")}}>AGREGAR EGRESO</ButtonWithoutLoading>
-                </div>
-
-                <div style={styles.buttons}>
-                    <ButtonWithoutLoading variant="create" onClick={()=>{navi("/categories/")}} style={{marginLeft:'20px'}}>VER TODAS LAS CATEGORIAS</ButtonWithoutLoading>
-
-                    <ButtonWithoutLoading variant="view" onClick={()=>{navi("/categories/create")}}>AGREGAR CATEGORIA</ButtonWithoutLoading>
-                </div>
-                
-                <Card style={styles.card}>
+                <Card border='dark' style={stylesExt.cardContainer}>
+                    <Card.Body>
+                    <ButtonWithoutLoading variant="create" onClick={()=>{navi("/movements/")}} style={{marginTop:'1rem'}}>VER TODOS LOS MOVIMIENTOS</ButtonWithoutLoading>
+                    <ButtonWithoutLoading variant="info" onClick={()=>{navi("/categories/")}} style={{marginTop:'1rem'}}>VER TODAS LAS CATEGORIAS</ButtonWithoutLoading> 
+                    </Card.Body>
+                </Card>
+                               
+                <Card style={stylesExt.cardContainer}>
                     <Card.Body>
                         <Card.Title>Tus ultimos movimientos...</Card.Title>
                         <TopMovements />

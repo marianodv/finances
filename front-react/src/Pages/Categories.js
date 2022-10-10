@@ -6,26 +6,8 @@ import ButtonWithoutLoading from "../Components/ButtonWithoutLoading"
 import Table from 'react-bootstrap/Table'
 import WithoutMovements from "../Components/WithoutMovements"
 import Category from "../Components/Category";
-
-const styles={
-    absCenter:{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-
-    absCenterIntern:{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minWidth:'600px',
-        width:'85%'
-    },
-      
-    table:{
-        marginTop:'1rem'
-    }
-}
+import Card from 'react-bootstrap/Card';
+import stylesExt from '../styles/cards'
 
 
 function Categories(){
@@ -55,10 +37,7 @@ function Categories(){
         []
     )
 
-    const handleEditar = (id)=>{
-        navi('/categories/edit/' + id)
-    }
-
+   
 
     
    
@@ -68,25 +47,25 @@ function Categories(){
                 <ButtonWithoutLoading variant="create" onClick={()=>{navi('/categories/create')}}>NUEVA CATEGORIA</ButtonWithoutLoading>
             </div>
             <Loading loading={loading}>
-                <div style={styles.absCenter}>
-                    <div style={styles.absCenterIntern}>
-                        <Table striped style={styles.table}>
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Denominacion</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {categories.map((category) => 
-                                    <Category key={category._id} _id={category._id} name={category.name} onClick={()=>{handleEditar(category._id)}}/>
-                                )}
-                            </tbody>
-                        </Table>
-                    </div>
-                </div>
-                {(categories.length === 0) &&
+            <Card style={stylesExt.cardContainer}>
+                <Card.Header>Listado de Categorias</Card.Header>
+                <Card.Body>
+                    <Table striped>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Denominacion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {categories.map((category) => 
+                                <Category key={category._id} _id={category._id} name={category.name}/>
+                            )}
+                        </tbody>
+                    </Table>
+                </Card.Body>
+            </Card>
+            {(categories.length === 0) &&
                     <WithoutMovements />
                 }
             </Loading>

@@ -1,16 +1,15 @@
-import ButtonWithoutLoading from "../Components/ButtonWithoutLoading"
+import {useNavigate} from 'react-router-dom'
 
 function Category(props){
 
-    const {_id,name,onClick} = props
+    const {_id,name} = props
+
+    const navi = useNavigate()
     
     return(
-        <tr>
+        <tr onClick={()=>{navi('/categories/edit/' + _id)}}>
             <td>{_id}</td>
             <td>{String(name).toUpperCase()}</td>
-            <td>
-                <ButtonWithoutLoading variant="edit" onClick={onClick}>EDITAR</ButtonWithoutLoading>
-            </td>
         </tr>
     )
 }

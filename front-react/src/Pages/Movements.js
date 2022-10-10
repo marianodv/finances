@@ -5,34 +5,14 @@ import CategoriesList from "../Components/CategoriesList"
 import {useForm} from "react-hook-form"
 import ButtonWithLoading from "../Components/ButtonWithLoading"
 import Loading from "../Components/Loading";
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table'
 import ButtonWithoutLoading from '../Components/ButtonWithoutLoading';
 import {useNavigate} from 'react-router-dom'
 import Paginate from "../Components/Paginate";
 import WithoutMovements from "../Components/WithoutMovements"
-
-const styles={
-    absCenter:{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-
-    absCenterIntern:{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minWidth:'600px',
-        width:'85%'
-    },
-      
-    table:{
-        marginTop:'1rem'
-    }
-}
+import Card from 'react-bootstrap/Card';
+import stylesExt from '../styles/cards'
+import ListGroup from 'react-bootstrap/ListGroup';
 
 
 function Movements(){
@@ -134,74 +114,66 @@ function Movements(){
     }
 
    
+    
     return(
         
         <>
-            <ButtonWithoutLoading variant="create" onClick={()=>{navi('/movements/create')}}>NUEVO MOVIMIENTO</ButtonWithoutLoading>
-            <hr/>
-                <Container>
-                    <Row style={{marginTop:'1rem'}}>
-                        <Col>
-                            <CategoriesList label="Categorias: " register={{...register("category")}}/>
-                        </Col>
-                        <Col>
-                            <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
-                                setLoading(true)
-                                setCurrentPage(1)
-                                setListFor('category')
-                            }}>Por Categoria</ButtonWithLoading>
-                        </Col>
-                    </Row>
+            <ButtonWithoutLoading variant="create" onClick={()=>{navi('/movements/create')}} style={{marginTop:'1rem'}}>NUEVO MOVIMIENTO</ButtonWithoutLoading>
+            <Card style={stylesExt.cardContainer}>
+                <Card.Header>Filtros</Card.Header>
+                <Card.Body>
+                <ListGroup variant="flush">
+                    <ListGroup.Item>
+                        <CategoriesList label="Categorias: " register={{...register("category")}}/>
+                        <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
+                            setLoading(true)
+                            setCurrentPage(1)
+                            setListFor('category')
+                        }}>Por Categoria</ButtonWithLoading>
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                        <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
+                            setLoading(true);setCurrentPage(1);setListFor('all');
+                        }}>TODO</ButtonWithLoading>
+                        <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
+                            setLoading(true)
+                            setCurrentPage(1)
+                            setListFor('incomes')
+                        }}>Solo Ingresos</ButtonWithLoading>
+                        <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
+                            setLoading(true)
+                            setCurrentPage(1)
+                            setListFor('expenses')
+                        }}>Solo Egresos</ButtonWithLoading>
+                    </ListGroup.Item>
+                </ListGroup>
                     
-                    <Row style={{marginTop:'1rem'}}>
-                        <Col>
-                            <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
-                                setLoading(true);setCurrentPage(1);setListFor('all');
-                            }}>TODO</ButtonWithLoading>
-                        </Col>
-
-                        <Col>
-                            <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
-                                setLoading(true)
-                                setCurrentPage(1)
-                                setListFor('incomes')
-                            }}>Solo Ingresos</ButtonWithLoading>
-                        </Col>
-
-                        <Col>
-                            <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
-                                setLoading(true)
-                                setCurrentPage(1)
-                                setListFor('expenses')
-                            }}>Solo Egresos</ButtonWithLoading>
-                        </Col>
-                    </Row>
-                </Container>
-            <hr/>
+                </Card.Body>
+            </Card>
             <Loading loading={loading}>
-                <div style={styles.absCenter}>
-                    <div style={styles.absCenterIntern}>
-                        <Table striped style={styles.table}>
+                <Card style={stylesExt.cardContainer}>
+                    <Card.Header>Listado de Movimientos</Card.Header>
+                    <Card.Body>
+                        <Table>
                             <thead>
                                 <tr>
-                                <th>#</th>
-                                <th>Fecha</th>
-                                <th>Concepto</th>
-                                <th>Categoria</th>
-                                <th>Monto</th>
-                                <th>Acciones</th>
+                                    <th>#</th>
+                                    <th>Fecha</th>
+                                    <th>Concepto</th>
+                                    <th>Categoria</th>
+                                    <th>Monto</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {movements?.rows?.map((movement,ind) => <Movement key={ind} data={movement} />)}
                             </tbody>
                         </Table>
-                    </div>
-                </div>
-                {(movements.rowsCount === 0) &&
-                    <WithoutMovements />
-                }
-                <Paginate handlerPrevPage={()=>{handlerPrevPage()}} handlerNextPage={()=>{handlerNextPage()}} currentPage={currentPage} pageMin={movements?.pageMin} pageMax={movements?.pageMax} />
+                        {(movements.rowsCount === 0) &&
+                            <WithoutMovements />
+                        }
+                        <Paginate handlerPrevPage={()=>{handlerPrevPage()}} handlerNextPage={()=>{handlerNextPage()}} currentPage={currentPage} pageMin={movements?.pageMin} pageMax={movements?.pageMax} />
+                    </Card.Body>
+                </Card>
             </Loading>
         </>
     )

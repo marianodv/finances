@@ -8,7 +8,7 @@ function Menu(){
     return(
         <Navbar bg="light" expand="lg">
             <Container>
-                <Navbar.Brand>Bienvenid@ a MyFinances</Navbar.Brand>
+                <Navbar.Brand as={Link} to="/">MyFinances App</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
@@ -19,7 +19,8 @@ function Menu(){
                         <NavDropdown.Item as={Link} to="/categories/">Ver Todas</NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown title="Movimientos" id="basic-nav-dropdown">
-                    <NavDropdown.Item as={Link} to="/movements/create">Crear Movimiento</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="movements/create/false">Agregar Ingreso</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/movements/create/true">Agregar Egreso</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item as={Link} to="/movements/">Ver Todos</NavDropdown.Item>
                     </NavDropdown>

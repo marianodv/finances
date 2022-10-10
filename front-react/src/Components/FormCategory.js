@@ -3,29 +3,9 @@ import Input from "../Components/Input"
 import Form from 'react-bootstrap/Form'
 import {useNavigate} from 'react-router-dom'
 import ButtonWithLoading from './ButtonWithLoading'
+import Card from 'react-bootstrap/Card';
+import stylesExt from '../styles/cards'
 
-
-const styles={
-    absCenter:{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minHeight: '100vh'
-    },
-
-    absCenterIntern:{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width:'500px',
-        height:'250px',
-        backgroundColor:'#96f1ff'
-    },
-
-    form:{
-        width:'450px'
-    }
-}
 
 function FormCategory(props){
 
@@ -40,11 +20,11 @@ function FormCategory(props){
     }
 
     return(
-        <div style={styles.absCenter}>
-            <div style={styles.absCenterIntern}>
-                <Form onSubmit={submit} style={styles.form}>
+        <Card style={stylesExt.cardContainer}>
+            <Card.Body>
+                <Form onSubmit={submit}>
                     <Form.Group className="mb-3">
-                        <Input label="Nombre de la Nueva Categoria" placeholder="Ingrese el nombre de la categoria" controlId={idName} register={nameRegister}/>
+                        <Input label="Nombre de la Categoria" placeholder="Ingrese el nombre de la categoria" controlId={idName} register={nameRegister}/>
                         {error?.name  &&
                             <Form.Text className="text-muted">
                                 El campo nombre es obligatorio.
@@ -62,8 +42,8 @@ function FormCategory(props){
                         {children}  
                     </Form.Group>
                 </Form>
-            </div>
-        </div>
+            </Card.Body>
+        </Card>
     )
 }
 
