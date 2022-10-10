@@ -2,6 +2,7 @@ import React from "react";
 import {useNavigate} from "react-router-dom"
 import moment from 'moment';
 import ButtonWithoutLoading from "../Components/ButtonWithoutLoading"
+import toCapitalize from "../utils/toCapitalize"
 
 function Movement(props){
 
@@ -14,8 +15,8 @@ function Movement(props){
         <tr>
             <td>{_id}</td>
             <td>{moment(date).format('DD-MM-YYYY') || ''}</td>
-            <td> {concept || ''}</td>
-            <td>{category?.name || "-"}</td>
+            <td> {toCapitalize(concept || '')}</td>
+            <td>{toCapitalize(category?.name || "-")}</td>
             <td>${isEgress && <>-</>}{amount || ''}</td>
             <td>
                 <ButtonWithoutLoading variant="edit" onClick={()=>{navi("/movements/edit/" + _id)}}>EDITAR</ButtonWithoutLoading>

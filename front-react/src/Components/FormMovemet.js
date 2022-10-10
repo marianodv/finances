@@ -93,7 +93,7 @@ function FormMovement(props){
                 {(typeButton === 'button') &&
                     <ButtonWithLoading type="button" onClick={submit}>GUARDAR</ButtonWithLoading>
                 }
-                <ButtonWithLoading type="button" variant="secondary" onClick={()=>{navi("/movements/")}}>CANCELAR</ButtonWithLoading>
+                <ButtonWithLoading type="button" variant="secondary" onClick={()=>{navi("/movements/")}}>VOLVER</ButtonWithLoading>
                 {children}
             </Form.Group>
         </Form>

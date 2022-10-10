@@ -5,7 +5,7 @@ import Loading from "../Components/Loading";
 import ButtonWithoutLoading from "../Components/ButtonWithoutLoading"
 import Table from 'react-bootstrap/Table'
 import WithoutMovements from "../Components/WithoutMovements"
-
+import Category from "../Components/Category";
 
 const styles={
     absCenter:{
@@ -80,13 +80,8 @@ function Categories(){
                             </thead>
                             <tbody>
                                 {categories.map((category) => 
-                                    <tr key={category._id}>
-                                        <td>{category._id}</td>
-                                        <td>{String(category.name).toUpperCase()}</td>
-                                        <td>
-                                            <ButtonWithoutLoading variant="edit" onClick={()=>{handleEditar(category._id)}}>EDITAR</ButtonWithoutLoading>
-                                        </td>
-                                    </tr>)}
+                                    <Category key={category._id} _id={category._id} name={category.name} onClick={()=>{handleEditar(category._id)}}/>
+                                )}
                             </tbody>
                         </Table>
                     </div>

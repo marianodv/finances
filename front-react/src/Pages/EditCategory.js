@@ -6,7 +6,7 @@ import FormCategory from '../Components/FormCategory'
 import Loading from '../Components/Loading'
 import ButtonWithLoading from '../Components/ButtonWithLoading'
 import Modal from 'react-bootstrap/Modal'
-
+import toCapitalize from '../utils/toCapitalize'
 
 function EditCategory(){
 
@@ -49,7 +49,7 @@ function EditCategory(){
                     const response = await getById(id)
                     //console.log("LST: ",response?.data)
                     if(response.data){
-                        setValue("name",response.data.name)
+                        setValue("name",toCapitalize(response.data.name))
                         setLoading(false)
                     }
                 }catch (error){
