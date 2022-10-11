@@ -1,12 +1,11 @@
 import React from "react";
-import Input from "../Components/Input"
-import CategoriesList from "../Components/CategoriesList";
+import Input from "./Input"
+import CategoriesList from "./CategoriesList";
 import {useNavigate} from 'react-router-dom'
 import ButtonWithLoading from './ButtonWithLoading'
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import stylesExt from '../styles/cards'
-
 
 
 function FormMovement(props){
@@ -23,9 +22,25 @@ function FormMovement(props){
     }
 
     return(
-        <Card text='white' bg={(checkedCheckBox && 'danger') || (!checkedCheckBox && 'success')} style={stylesExt.cardContainer}>
+        <Card text='white' bg={(checkedCheckBox && 'danger') || (!checkedCheckBox && 'success')} style={stylesExt.cardContainerForm}>
             <Card.Body>
                 <Form onSubmit={submit}>
+                    <Form.Group className="mb-3">
+                        {(isEgressRegister || false) &&
+                            <>
+                                <Form.Check type="switch" onChange={changeCheckBox || {}} checked={checkedCheckBox || false} controlId={idIsEgress} register={isEgressRegister}/>
+                                <Form.Label hidden={!checkedCheckBox}>Nuevo Gasto</Form.Label>
+                                <Form.Label hidden={checkedCheckBox}>Nuevo Ingreso</Form.Label>
+                            </>
+                        }
+                        {!isEgressRegister &&
+                            <>
+                                <Form.Label hidden={!checkedCheckBox}>Tipo: Gasto</Form.Label>
+                                <Form.Label hidden={checkedCheckBox}>Tipo: Ingreso</Form.Label>
+                            </>
+                        }
+                    </Form.Group>
+                    
                     <Form.Group className="mb-3">
                     <Input label="Fecha" type="date" controlId={idDate} register={dateRegister}/>
                     {error?.name && <Form.Text className="text-muted">El campo nombre es obligatorio.</Form.Text>}
@@ -45,22 +60,6 @@ function FormMovement(props){
                     <Form.Group className="mb-3">
                         <CategoriesList label="Categoria: " controlId={idCategory} register={categoryRegister}/>
                     </Form.Group>
-                    
-                    <Form.Group className="mb-3">
-                        {(isEgressRegister || false) &&
-                            <>
-                                <Form.Check type="switch" onChange={changeCheckBox || {}} checked={checkedCheckBox || false} controlId={idIsEgress} register={isEgressRegister}/>
-                                <Form.Label hidden={!checkedCheckBox}>Nuevo Gasto</Form.Label>
-                                <Form.Label hidden={checkedCheckBox}>Nuevo Ingreso</Form.Label>
-                            </>
-                        }
-                        {!isEgressRegister &&
-                            <>
-                                <Form.Label hidden={!checkedCheckBox}>Tipo: Gasto</Form.Label>
-                                <Form.Label hidden={checkedCheckBox}>Tipo: Ingreso</Form.Label>
-                            </>
-                        }
-                    </Form.Group>
 
                     <Form.Group className="mb-3">
                         {(typeButton === 'submit') &&
@@ -69,7 +68,7 @@ function FormMovement(props){
                         {(typeButton === 'button') &&
                             <ButtonWithLoading type="button" onClick={submit}>GUARDAR</ButtonWithLoading>
                         }
-                        <ButtonWithLoading type="button" variant="secondary" onClick={()=>{navi("/movements/")}}>VOLVER</ButtonWithLoading>
+                        {'  '}<ButtonWithLoading type="button" variant="secondary" onClick={()=>{navi("/movements/")}}>VOLVER</ButtonWithLoading>{'  '}
                         {children}
                     </Form.Group>
                 </Form>

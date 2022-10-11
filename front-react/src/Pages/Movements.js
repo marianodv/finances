@@ -134,12 +134,12 @@ function Movements(){
                     <ListGroup.Item>
                         <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
                             setLoading(true);setCurrentPage(1);setListFor('all');
-                        }}>TODO</ButtonWithLoading>
+                        }}>TODO</ButtonWithLoading>{'  '}
                         <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
                             setLoading(true)
                             setCurrentPage(1)
                             setListFor('incomes')
-                        }}>Solo Ingresos</ButtonWithLoading>
+                        }}>Solo Ingresos</ButtonWithLoading>{'  '}
                         <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
                             setLoading(true)
                             setCurrentPage(1)

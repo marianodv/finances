@@ -51,3 +51,7 @@ export async function deleteById(id){
 export async function updateById(id,data){
     return await axios.put('/movements/movement/' + id,data)
 }
+
+export async function count(){
+    return await axios.get('/movements/count/')
+}

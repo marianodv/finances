@@ -82,6 +82,16 @@ module.exports = {
             next(error)
         }
     },
+    getCount:async (req, res, next) => {
+        try{
+            const document= await movementsModel.count()
+            console.log("CCCCCCCC",document)
+            res.status(200).json(document)
+        }catch (error){
+            console.log("Error: ", error)
+            next(error)
+        }
+    },
     getSearch:async (req, res, next) => {
         try{
             

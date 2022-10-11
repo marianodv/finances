@@ -20,7 +20,7 @@ function FormCategory(props){
     }
 
     return(
-        <Card style={stylesExt.cardContainer}>
+        <Card style={stylesExt.cardContainerForm}>
             <Card.Body>
                 <Form onSubmit={submit}>
                     <Form.Group className="mb-3">
@@ -38,7 +38,7 @@ function FormCategory(props){
                         {(typeButton === 'button') &&
                             <ButtonWithLoading type="button" onClick={submit}>GUARDAR</ButtonWithLoading>
                         }
-                        <ButtonWithLoading type="button" variant="secondary" onClick={()=>{navi('/categories/')}}>VOLVER</ButtonWithLoading>
+                        {'  '}<ButtonWithLoading type="button" variant="secondary" onClick={()=>{navi('/categories/')}}>VOLVER</ButtonWithLoading>{'  '}
                         {children}  
                     </Form.Group>
                 </Form>
