@@ -6,7 +6,7 @@ module.exports = {
     },
     cardContainerForm:{
         width: '90%',
-        marginLeft:'5%',
+        marginLeft:'calc(50% - 300px)',
         marginTop:'1rem',
         maxWidth:'600px'
     }
