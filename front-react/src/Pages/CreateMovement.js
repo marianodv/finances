@@ -12,6 +12,11 @@ function CreateMovement(){
     const {op} = useParams()
     
     const { register, handleSubmit, getValues, setValue, formState:{errors}} = useForm()
+
+    const [viewMessaje,setViewMessaje] = useState(false)
+
+    const [newMov, setNewMov] = useState({})
+
     const [operation,setOperation] = useState(true) //operation od ingress or egress
 
     const [modalShow, setModalShow] = useState(false);
@@ -20,11 +25,16 @@ function CreateMovement(){
         if(data.categoryId === "0"){
             data.categoryId = null
         }
+        data.isEgress = operation
 
-        const create = async()=>{
-            data.isEgress = operation
-            //console.log("data", data)
-            const request = await postMovement(data)
+        setNewMov(data)
+        setModalShow(true)
+    }
+
+    const onCreate = async () =>{
+        try{
+            const request = await postMovement(newMov)
+            //console.log("create", request)
             if (request){
                 //console.log("ALTA SATISFACTORIA: ", request)
                 setValue("date",Moment().format('YYYY-MM-DD'))
@@ -32,10 +42,12 @@ function CreateMovement(){
                 setValue("amount","")
                 setValue("categoryId",0)
                 setModalShow(false)
+                setViewMessaje(true)
+                setTimeout(()=>{setViewMessaje(false)},1300)
             }
+        }catch (error){
+            console.log("Error: ", error)
         }
-        //console.log("FORM ", data)
-        create()
     }
 
     function MyVerticallyCenteredModal(props) {
@@ -53,12 +65,12 @@ function CreateMovement(){
                 </Modal.Header>
                 <Modal.Body>
                 <p>
-                    ¿Seguro/a que desea guardar el movimiento "{String(getValues("concept")).toUpperCase()}" como {operation && <>EGRESO</>}{!operation && <>INGRESO</>} por un monto de {getValues("amount")}?
+                    ¿Seguro/a que desea guardar un nuevo {operation && <>GASTO</>}{!operation && <>INGRESO</>} como "{String(getValues("concept")).toUpperCase()}" por un monto de {getValues("amount")}?
                 </p>
                 </Modal.Body>
                 <Modal.Footer>
                 <ButtonWithLoading variant="secondary" onClick={props.onHide}>Cerrar</ButtonWithLoading>
-                <ButtonWithLoading variant="danger" onClick={handleSubmit(onSubmit)}>GUARDAR</ButtonWithLoading>
+                <ButtonWithLoading variant="danger" onClick={()=>{onCreate()}}>GUARDAR</ButtonWithLoading>
                 </Modal.Footer>
             </Modal>
         );
@@ -87,9 +99,9 @@ function CreateMovement(){
     return( 
             <>
                 <FormMovement 
-                    submit={() => setModalShow(true)}
+                    submit={handleSubmit(onSubmit)}
                     typeButton = 'button'
-                    error = {errors} 
+                    errors = {errors} 
                     changeCheckBox={handleChange} 
                     checkedCheckBox={operation} 
                     dateRegister={{...register("date",{required:true})}} 
@@ -98,7 +110,9 @@ function CreateMovement(){
                     categoryRegister={{...register("categoryId")}} 
                     isEgressRegister={{...register("isEgress")}} 
                 />
-
+                {viewMessaje &&
+                    <p>Alta satisfactoria.</p>
+                }
                 <MyVerticallyCenteredModal
                     show={modalShow}
                     onHide={() => setModalShow(false)}

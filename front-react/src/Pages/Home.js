@@ -65,19 +65,20 @@ function Home(){
             >
                 <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Parece que no tienes movimientos en tus finanzas...
+                    Hola! Bienvenid@!   ¿Tu primera vez aqui?
                 </Modal.Title>
+
                 </Modal.Header>
                 <Modal.Body>
-                <h4>Si quieres, podemos crear un nuevo ingreso llamado "INICIO" con lo que tienes
+                <h2>Parece que no tienes movimientos...</h2>
+                
+                <h5>Si quieres, podemos crear un nuevo ingreso llamado "INICIO" con lo que tienes
                     de dinero actualmente para mantener tus finanzas ordenadas.
-                </h4>
+                </h5>
                 <div> 
-                    
                     <Input type='number' label="Inicio por $" placeholder="Ingrese el monto de inicio" register = {{...register("amount",{required:true,min:0})}}/>
-                    {errors?.amount?.type === 'required' && <p role="alert">First name is required</p>}
-                    {errors?.amount?.type === 'min' && <p role="alert">First name is required</p>}
-                    
+                    {errors?.amount?.type === 'required' && <span>El monto es un valor obligatorio.</span>}
+                    {errors?.amount?.type === 'min' && <span>El monto debe ser mayor a cero.</span>}
                 </div>
                 </Modal.Body>
                 <Modal.Footer>

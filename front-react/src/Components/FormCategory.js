@@ -9,7 +9,7 @@ import stylesExt from '../styles/cards'
 
 function FormCategory(props){
 
-    const {children, submit, idName, nameRegister, error} = props
+    const {children, submit, nameRegister, errors} = props
 
     let typeButton = props.typeButton || 'submit'
 
@@ -20,12 +20,12 @@ function FormCategory(props){
     }
 
     return(
-        <Card style={stylesExt.cardContainerForm}>
+        <Card border="primary" style={stylesExt.cardContainerForm}>
             <Card.Body>
                 <Form onSubmit={submit}>
                     <Form.Group className="mb-3">
-                        <Input label="Nombre de la Categoria" placeholder="Ingrese el nombre de la categoria" controlId={idName} register={nameRegister}/>
-                        {error?.name  &&
+                        <Input label="Nombre de la Categoria" placeholder="Ingrese el nombre de la categoria" register={nameRegister}/>
+                        {errors?.name?.type === 'required' &&
                             <Form.Text className="text-muted">
                                 El campo nombre es obligatorio.
                             </Form.Text>

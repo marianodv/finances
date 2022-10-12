@@ -11,7 +11,7 @@ import stylesExt from '../styles/cards'
 function FormMovement(props){
 
     const {children, submit, changeCheckBox, checkedCheckBox, dateRegister, conceptRegister, amountRegister, categoryRegister,
-        idDate, idConcept, idAmount, idCategory, idIsEgress, isEgressRegister, error} = props
+        isEgressRegister, errors} = props
 
     let typeButton = props.typeButton || 'submit'
      
@@ -28,7 +28,7 @@ function FormMovement(props){
                     <Form.Group className="mb-3">
                         {(isEgressRegister || false) &&
                             <>
-                                <Form.Check type="switch" onChange={changeCheckBox || {}} checked={checkedCheckBox || false} controlId={idIsEgress} register={isEgressRegister}/>
+                                <Form.Check type="switch" onChange={changeCheckBox || {}} checked={checkedCheckBox || false} register={isEgressRegister}/>
                                 <Form.Label hidden={!checkedCheckBox}>Nuevo Gasto</Form.Label>
                                 <Form.Label hidden={checkedCheckBox}>Nuevo Ingreso</Form.Label>
                             </>
@@ -42,23 +42,23 @@ function FormMovement(props){
                     </Form.Group>
                     
                     <Form.Group className="mb-3">
-                    <Input label="Fecha" type="date" controlId={idDate} register={dateRegister}/>
-                    {error?.name && <Form.Text className="text-muted">El campo nombre es obligatorio.</Form.Text>}
+                    <Input label="Fecha" type="date" register={dateRegister}/>
+                    {errors?.date && <Form.Text className="text-muted">La fecha es obligatoria.</Form.Text>}
                     </Form.Group>
                 
                     <Form.Group className="mb-3">
-                    <Input label="Concepto" controlId={idConcept} register={conceptRegister}/>
-                    {error?.concept && <Form.Text className="text-muted">El campo concepto es obligatorio.</Form.Text>}
+                    <Input label="Concepto" register={conceptRegister}/>
+                    {errors?.concept?.type === 'required' && <Form.Text className="text-muted" style={{backgroundColor:'whitesmoke'}}>El campo concepto es obligatorio.</Form.Text>}
                     </Form.Group>
 
                     <Form.Group className="mb-3">
-                        <Input label="Monto" type="number" controlId={idAmount} register={amountRegister}/>
-                        {error?.amount?.type === 'required' && <Form.Text className="text-muted">El campo monto es obligatorio.</Form.Text>}
-                        {error?.amount?.type === 'min' && <Form.Text className="text-muted">El monto no puede ser negativo.</Form.Text>}
+                        <Input label="Monto" type="number" register={amountRegister}/>
+                        {errors?.amount?.type === 'required' && <Form.Text className="text-muted" style={{backgroundColor:'whitesmoke'}}>El campo monto es obligatorio.</Form.Text>}
+                        {errors?.amount?.type === 'min' && <Form.Text className="text-muted" style={{backgroundColor:'whitesmoke'}}>El monto no puede ser negativo.</Form.Text>}
                     </Form.Group>
 
                     <Form.Group className="mb-3">
-                        <CategoriesList label="Categoria: " controlId={idCategory} register={categoryRegister}/>
+                        <CategoriesList label="Categoria: " register={categoryRegister}/>
                     </Form.Group>
 
                     <Form.Group className="mb-3">

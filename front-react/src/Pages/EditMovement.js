@@ -8,7 +8,7 @@ import FormMovement from "../Components/FormMovemet"
 import Loading from "../Components/Loading"
 import ButtonWithLoading from '../Components/ButtonWithLoading'
 import Modal from 'react-bootstrap/Modal';
-
+import toCapitalize from '../utils/toCapitalize'
 
 
 function EditMovement(){
@@ -57,7 +57,7 @@ function EditMovement(){
                 //console.log("init: ", request)
                 if (request.data){
                     setValue("date",moment(request.data.date).format('YYYY-MM-DD'))
-                    setValue("concept",request.data.concept)
+                    setValue("concept",toCapitalize(request.data.concept))
                     setValue("amount",request.data.amount)
                     setValue("categoryId", request.data.categoryId)
                     if (request.data.isEgress === "true" || request.data.isEgress === true){
