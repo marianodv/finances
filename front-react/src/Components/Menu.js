@@ -19,8 +19,8 @@ function Menu(){
                         <NavDropdown.Item as={Link} to="/categories/">Ver Todas</NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown title="Movimientos" id="basic-nav-dropdown">
-                        <NavDropdown.Item as={Link} to="movements/create/false">Agregar Nuevo Ingreso</NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="/movements/create/true">Agregar Nuevo Gasto</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="movements/create/?egress=false">Agregar Nuevo Ingreso</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/movements/create/?egress=true">Agregar Nuevo Gasto</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item as={Link} to="/movements/">Ver Todos</NavDropdown.Item>
                     </NavDropdown>

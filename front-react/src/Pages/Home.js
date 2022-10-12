@@ -93,10 +93,10 @@ function Home(){
         <div>
             <Balance />
 
-            <Card border='dark' style={stylesExt.cardContainer}>
+            <Card border='light'>
                 <Card.Body>
-                <ButtonWithoutLoading variant="create" onClick={()=>{navi("/movements/")}}>VER TODOS LOS MOVIMIENTOS</ButtonWithoutLoading>{'  '}
-                <ButtonWithoutLoading variant="info" onClick={()=>{navi("/categories/")}}>VER TODAS LAS CATEGORIAS</ButtonWithoutLoading> 
+                <ButtonWithoutLoading variant="create" image="movements" onClick={()=>{navi("/movements/")}}>VER TODOS LOS MOVIMIENTOS</ButtonWithoutLoading>{'  '}
+                <ButtonWithoutLoading variant="info" image="categories" onClick={()=>{navi("/categories/")}}>VER TODAS LAS CATEGORIAS</ButtonWithoutLoading> 
                 </Card.Body>
             </Card>
             

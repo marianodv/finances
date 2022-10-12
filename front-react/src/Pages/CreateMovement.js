@@ -2,14 +2,16 @@ import React, {useEffect, useState} from "react";
 import {useForm} from "react-hook-form"
 import {postMovement} from "../Services/movementsServices"
 import Moment from 'moment';
-import { useParams } from "react-router-dom";
 import FormMovement from "../Components/FormMovemet"
 import Modal from 'react-bootstrap/Modal';
 import ButtonWithLoading from '../Components/ButtonWithLoading'
+import {useLocation} from 'react-router-dom'
 
-function CreateMovement(){
+function CreateMovement(props){
 
-    const {op} = useParams()
+    const query = new URLSearchParams(useLocation().search)
+
+    const op = query.get('egress') || 'true'
     
     const { register, handleSubmit, getValues, setValue, formState:{errors}} = useForm()
 
