@@ -13,8 +13,6 @@ function ButtonWithoutLoading(props){
 
     const {loading,variant,type,children,onClick,image} = props
 
-    console.log(image)
-
     return(
         <Button type = {type || 'button'} variant={variants[variant]} disabled={loading || false} onClick={onClick || null}>
             {(image === 'movements') &&
