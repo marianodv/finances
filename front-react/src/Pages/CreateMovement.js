@@ -45,6 +45,7 @@ function CreateMovement(props){
                 setValue("categoryId",0)
                 setModalShow(false)
                 setViewMessaje(true)
+                setNewMov({})
                 setTimeout(()=>{setViewMessaje(false)},1300)
             }
         }catch (error){
@@ -80,10 +81,8 @@ function CreateMovement(props){
 
     useEffect(
         ()=>{
-            const ff = Moment().format('YYYY-MM-DD')
-            setValue("date",ff)
-            //console.log("DATE: ", ff)
-
+            setValue("date",Moment().format('YYYY-MM-DD'))
+            
             if(op === "false"){
                 setOperation(false)
             }else if(op === "true"){
@@ -107,7 +106,7 @@ function CreateMovement(props){
                     changeCheckBox={handleChange} 
                     checkedCheckBox={operation} 
                     dateRegister={{...register("date",{required:true})}} 
-                    conceptRegister={{...register("concept",{required:true})}} 
+                    conceptRegister={{...register("concept",{required:true,minLength:5,maxLength:70})}} 
                     amountRegister={{...register("amount",{required:true,min:0})}} 
                     categoryRegister={{...register("categoryId")}} 
                     isEgressRegister={{...register("isEgress")}} 

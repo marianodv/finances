@@ -6,8 +6,12 @@ module.exports = {
     },
     cardContainerForm:{
         width: '90%',
-        marginLeft:'calc(50% - 300px)',
-        marginTop:'1rem',
         maxWidth:'600px'
-    }
+    },
+    absCenter:{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '60vh'
+      }
 }

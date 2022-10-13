@@ -6,7 +6,6 @@ import ButtonWithLoading from './ButtonWithLoading'
 import Card from 'react-bootstrap/Card';
 import stylesExt from '../styles/cards'
 
-
 function FormCategory(props){
 
     const {children, submit, nameRegister, errors} = props
@@ -20,6 +19,8 @@ function FormCategory(props){
     }
 
     return(
+        
+        <div style={stylesExt.absCenter}>
         <Card border="primary" style={stylesExt.cardContainerForm}>
             <Card.Body>
                 <Form onSubmit={submit}>
@@ -28,6 +29,11 @@ function FormCategory(props){
                         {errors?.name?.type === 'required' &&
                             <Form.Text className="text-muted">
                                 El campo nombre es obligatorio.
+                            </Form.Text>
+                        }
+                        {(errors?.name?.type === 'minLength' || errors?.name?.type === 'maxLength') &&
+                            <Form.Text className="text-muted">
+                                El campo nombre debe tener entre 3 y 25 caracteres.
                             </Form.Text>
                         }
                     </Form.Group>
@@ -44,6 +50,7 @@ function FormCategory(props){
                 </Form>
             </Card.Body>
         </Card>
+        </div>
     )
 }
 

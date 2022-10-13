@@ -72,7 +72,7 @@ function CreateCategory(){
     return(
         <>
                
-            <FormCategory submit={handleSubmit(onSubmit)} nameRegister={{...register("name",{required:true})}} errors={errors} />         
+            <FormCategory submit={handleSubmit(onSubmit)} nameRegister={{...register("name",{required:true,minLength:3,maxLength:25})}} errors={errors} />         
             
             <MyVerticallyCenteredModal
                 show={modalShow}

@@ -22,6 +22,7 @@ function FormMovement(props){
     }
 
     return(
+        <div style={stylesExt.absCenter}>
         <Card text='white' bg={(checkedCheckBox && 'danger') || (!checkedCheckBox && 'success')} style={stylesExt.cardContainerForm}>
             <Card.Body>
                 <Form onSubmit={submit}>
@@ -49,6 +50,11 @@ function FormMovement(props){
                     <Form.Group className="mb-3">
                     <Input label="Concepto" register={conceptRegister}/>
                     {errors?.concept?.type === 'required' && <Form.Text className="text-muted" style={{backgroundColor:'whitesmoke'}}>El campo concepto es obligatorio.</Form.Text>}
+                    {(errors?.concept?.type === 'minLength' || errors?.concept?.type === 'maxLength') && 
+                        <Form.Text className="text-muted" style={{backgroundColor:'whitesmoke'}}>
+                            El campo concepto debe tener entre 5 y 70 caracteres.
+                        </Form.Text>
+                    }
                     </Form.Group>
 
                     <Form.Group className="mb-3">
@@ -74,6 +80,7 @@ function FormMovement(props){
                 </Form>
             </Card.Body>
         </Card>
+        </div>
     )
 }
 
