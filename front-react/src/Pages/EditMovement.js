@@ -136,7 +136,7 @@ function EditMovement(){
             </div>
             <div hidden = {!viewForm}>
                 <Alert variant="info">
-                    Movimiento {id} modificado o eliminado. Redirigiendo...
+                    Movimiento #{id} modificado o eliminado. Redirigiendo...
                 </Alert>
             </div>
         </Loading>
