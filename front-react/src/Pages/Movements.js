@@ -27,28 +27,15 @@ function Movements(){
 
     const [currentPage, setCurrentPage] = useState(1) //for paginate, to view current page
 
+    
     useEffect(
         ()=>{
-            setList('all')
+            listAll()
         },
         // eslint-disable-next-line
         [currentPage]
     )
-
-    const setList = async (listFor) =>{
-        if (listFor === 'all'){
-            await listAll()
-        }
-        if (listFor === 'incomes'){
-            await listIngress()
-        }
-        if (listFor === 'expenses'){
-            await listEgress()
-        }
-        if (listFor === 'category'){
-            await listForCategory()
-        }
-    }
+    
 
     const listAll = async () =>{
         try{          
@@ -66,7 +53,7 @@ function Movements(){
     }
 
     const listForCategory = async () =>{
-        console.log("click",getValues("category"));
+        //console.log("click",getValues("category"));
         try{          
             setLoading(true)
             setCurrentPage(1)
@@ -135,18 +122,18 @@ function Movements(){
                     <ListGroup.Item>
                         <CategoriesList label="Categorias: " register={{...register("category")}}/>
                         <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
-                            setList('category');
+                            listForCategory()
                         }}>Por Categoria</ButtonWithLoading>
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
-                            setList('all')
+                            listAll()
                         }}>TODO</ButtonWithLoading>{'  '}
                         <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
-                            setList('incomes')
+                            listIngress()
                         }}>Solo Ingresos</ButtonWithLoading>{'  '}
                         <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
-                            setList('expenses')
+                            listEgress()
                         }}>Solo Egresos</ButtonWithLoading>
                     </ListGroup.Item>
                 </ListGroup>
