@@ -27,17 +27,35 @@ function Movements(){
 
     const [currentPage, setCurrentPage] = useState(1) //for paginate, to view current page
 
+    let typeList = 'all' //all - category - ingress - egress
     
     useEffect(
         ()=>{
+            switch (typeList) {
+                case 'all':
+                    listAll()
+                    break;
+                case 'category':
+                    listForCategory()
+                    break;
+                case 'ingress':
+                    listIngress()
+                    break;
+                case 'egress':
+                    listEgress()
+                    break;
+                default:
+                    break;
+            }
             listAll()
         },
         // eslint-disable-next-line
         [currentPage]
     )
-    
+
 
     const listAll = async () =>{
+        typeList = 'all'
         try{          
             setLoading(true)
             setValue("category",0)
@@ -54,6 +72,7 @@ function Movements(){
 
     const listForCategory = async () =>{
         //console.log("click",getValues("category"));
+        typeList = 'category'
         try{          
             setLoading(true)
             setCurrentPage(1)
@@ -69,6 +88,7 @@ function Movements(){
     }
 
     const listIngress = async () =>{
+        typeList = 'ingress'
         try{    
             setLoading(true)
             setValue("category",0)     
@@ -83,6 +103,7 @@ function Movements(){
     }
 
     const listEgress = async () =>{
+        typeList = 'egress'
         try{      
             setLoading(true)
             setValue("category",0)  
@@ -161,7 +182,13 @@ function Movements(){
                         {(movements.rowsCount === 0) &&
                             <WithoutMovements />
                         }
-                        <Paginate handlerPrevPage={()=>{handlerPrevPage()}} handlerNextPage={()=>{handlerNextPage()}} currentPage={currentPage} pageMin={movements?.pageMin} pageMax={movements?.pageMax} />
+                        <Paginate 
+                            handlerPrevPage={()=>{handlerPrevPage()}} 
+                            handlerNextPage={()=>{handlerNextPage()}} 
+                            currentPage={currentPage} 
+                            pageMin={movements?.pageMin} 
+                            pageMax={movements?.pageMax}
+                        />
                     </Card.Body>
                 </Card>
             </Loading>
