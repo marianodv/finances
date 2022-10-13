@@ -23,22 +23,20 @@ function Movements(){
     
     const { register,setValue, getValues} = useForm() //for capture value of CategoriesList
 
-    const [listFor, setListFor] = useState('') // '' | 'incomes' | 'expenses' | 'all' | 'category'
-
     const navi = useNavigate() //for button NUEVO INGRESO
 
     const [currentPage, setCurrentPage] = useState(1) //for paginate, to view current page
 
     useEffect(
         ()=>{
-            setList()
+            setList('all')
         },
         // eslint-disable-next-line
-        [listFor,currentPage]
+        [currentPage]
     )
 
-    const setList = async () =>{
-        if (listFor === '' || listFor === 'all'){
+    const setList = async (listFor) =>{
+        if (listFor === 'all'){
             await listAll()
         }
         if (listFor === 'incomes'){
@@ -54,7 +52,9 @@ function Movements(){
 
     const listAll = async () =>{
         try{          
+            setLoading(true)
             setValue("category",0)
+            setCurrentPage(1)
             const response = await getAll(currentPage)
             //console.log("LST: ",response?.data)
             //console.log("QRY: ",query.get('page'))
@@ -66,9 +66,14 @@ function Movements(){
     }
 
     const listForCategory = async () =>{
+        console.log("click",getValues("category"));
         try{          
+            setLoading(true)
+            setCurrentPage(1)
+            setMovements({})
             const response = await getByCategory(getValues("category"),currentPage)
-            //console.log("LST: ",response?.data)
+            //setValue("category",response?.data?.rows[0]?.category?._id)
+            //console.log("LST: ",getValues("category"),response?.data)
             setMovements(response?.data)
             setLoading(false)
         }catch (error){
@@ -78,7 +83,9 @@ function Movements(){
 
     const listIngress = async () =>{
         try{    
-            setValue("category",0)      
+            setLoading(true)
+            setValue("category",0)     
+            setCurrentPage(1) 
             const response = await getIncomes(currentPage)
             //console.log("LST: ",response?.data)
             setMovements(response?.data)
@@ -90,7 +97,9 @@ function Movements(){
 
     const listEgress = async () =>{
         try{      
-            setValue("category",0)    
+            setLoading(true)
+            setValue("category",0)  
+            setCurrentPage(1)  
             const response = await getExpenses(currentPage)
             //console.log("LST: ",response?.data)
             setMovements(response?.data)
@@ -126,24 +135,18 @@ function Movements(){
                     <ListGroup.Item>
                         <CategoriesList label="Categorias: " register={{...register("category")}}/>
                         <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
-                            setLoading(true)
-                            setCurrentPage(1)
-                            setListFor('category')
+                            setList('category');
                         }}>Por Categoria</ButtonWithLoading>
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
-                            setLoading(true);setCurrentPage(1);setListFor('all');
+                            setList('all')
                         }}>TODO</ButtonWithLoading>{'  '}
                         <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
-                            setLoading(true)
-                            setCurrentPage(1)
-                            setListFor('incomes')
+                            setList('incomes')
                         }}>Solo Ingresos</ButtonWithLoading>{'  '}
                         <ButtonWithLoading type="button" variant="info" loading={loading} onClick={()=>{
-                            setLoading(true)
-                            setCurrentPage(1)
-                            setListFor('expenses')
+                            setList('expenses')
                         }}>Solo Egresos</ButtonWithLoading>
                     </ListGroup.Item>
                 </ListGroup>
