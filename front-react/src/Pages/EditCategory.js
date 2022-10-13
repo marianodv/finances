@@ -7,6 +7,7 @@ import Loading from '../Components/Loading'
 import ButtonWithLoading from '../Components/ButtonWithLoading'
 import Modal from 'react-bootstrap/Modal'
 import toCapitalize from '../utils/toCapitalize'
+import Alert from 'react-bootstrap/Alert'
 
 function EditCategory(){
 
@@ -129,9 +130,9 @@ function EditCategory(){
                 </>
             }
             {viewMessaje &&
-                <div>
+                <Alert variant="info">
                     Edicion o Eliminacion Satisfactoria. Redireccionando...
-                </div>
+                </Alert>
             }
         </Loading>
     )

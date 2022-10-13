@@ -4,6 +4,7 @@ import {useForm} from "react-hook-form"
 import FormCategory from '../Components/FormCategory'
 import Modal from 'react-bootstrap/Modal';
 import ButtonWithLoading from '../Components/ButtonWithLoading'
+import Alert from 'react-bootstrap/Alert'
 
 function CreateCategory(){
 
@@ -79,7 +80,9 @@ function CreateCategory(){
                 onHide={() => setModalShow(false)}
             />  
             {viewMessaje &&
-                <p>Alta satisfactoria.</p>
+                <Alert variant="success">
+                    Alta satisfactoria.
+                </Alert>
             }
         </>
     )

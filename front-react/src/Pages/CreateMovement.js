@@ -6,6 +6,7 @@ import FormMovement from "../Components/FormMovemet"
 import Modal from 'react-bootstrap/Modal';
 import ButtonWithLoading from '../Components/ButtonWithLoading'
 import {useLocation} from 'react-router-dom'
+import Alert from 'react-bootstrap/Alert'
 
 function CreateMovement(props){
 
@@ -112,7 +113,9 @@ function CreateMovement(props){
                     isEgressRegister={{...register("isEgress")}} 
                 />
                 {viewMessaje &&
-                    <p>Alta satisfactoria.</p>
+                    <Alert variant="success">
+                        Alta satisfactoria.
+                    </Alert>
                 }
                 <MyVerticallyCenteredModal
                     show={modalShow}

@@ -9,6 +9,7 @@ import Loading from "../Components/Loading"
 import ButtonWithLoading from '../Components/ButtonWithLoading'
 import Modal from 'react-bootstrap/Modal';
 import toCapitalize from '../utils/toCapitalize'
+import Alert from 'react-bootstrap/Alert'
 
 
 function EditMovement(){
@@ -134,7 +135,9 @@ function EditMovement(){
                 />
             </div>
             <div hidden = {!viewForm}>
-                <h1>Movimiento {id} modificado o eliminado. Redirigiendo...</h1>
+                <Alert variant="info">
+                    Movimiento {id} modificado o eliminado. Redirigiendo...
+                </Alert>
             </div>
         </Loading>
     )
