@@ -126,7 +126,14 @@ function EditMovement(){
                 <div>
                     <h2>Edicion de Movimiento Id: {id}</h2>
                 </div>
-                <FormMovement submit={handleSubmit(onSubmit)} error = {errors} checkedCheckBox={isEgress} dateRegister={{...register("date",{required:true})}} conceptRegister={{...register("concept",{required:true})}} amountRegister={{...register("amount",{required:true,min:0})}} categoryRegister={{...register("categoryId")}} >
+                <FormMovement 
+                    submit={handleSubmit(onSubmit)}
+                    error = {errors}
+                    checkedCheckBox={isEgress}
+                    dateRegister={{...register("date",{required:true})}}
+                    conceptRegister={{...register("concept",{required:true,minLength:5,maxLength:70})}} 
+                    amountRegister={{...register("amount",{required:true,min:0})}}
+                    categoryRegister={{...register("categoryId")}} >
                     <ButtonWithLoading type="button" variant="danger" onClick={()=>{handleEliminar()}}>ELIMINAR</ButtonWithLoading>
                 </FormMovement>
                 <MyVerticallyCenteredModal

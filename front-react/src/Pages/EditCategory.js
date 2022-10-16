@@ -120,7 +120,7 @@ function EditCategory(){
                     <div>
                         <h2>Edicion de Categoria id: {id}</h2>
                     </div>
-                    <FormCategory submit={handleSubmit(onSubmit)} nameRegister={{...register("name",{required:true})}} error={errors} >
+                    <FormCategory submit={handleSubmit(onSubmit)} nameRegister={{...register("name",{required:true,minLength:3,maxLength:25})}} error={errors} >
                         <ButtonWithLoading type="button" variant="danger" onClick={handleEliminar}>ELIMINAR</ButtonWithLoading>
                     </FormCategory>
                     <MyVerticallyCenteredModal
